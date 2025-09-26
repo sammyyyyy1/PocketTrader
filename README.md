@@ -1,4 +1,4 @@
-# 🎮 Pokemon Trading (Milestone 0)
+# 🎮 PocketTrader (Milestone 0)
 
 A full-stack web application for Pokemon trading built with Flask, MySQL, and Next.js.
 
