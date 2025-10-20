@@ -1,0 +1,65 @@
+# Next.js Frontend
+app/frontend/.next/
+app/frontend/out/
+app/frontend/build/
+app/frontend/node_modules/
+app/frontend/.DS_Store
+app/frontend/*.log
+app/frontend/npm-debug.log*
+app/frontend/yarn-debug.log*
+app/frontend/yarn-error.log*
+app/frontend/.pnpm-debug.log*
+app/frontend/.env*.local
+
+# Python Backend
+app/backend/__pycache__/
+app/backend/*.py[cod]
+app/backend/*$py.class
+app/backend/*.so
+app/backend/.Python
+app/backend/venv/
+app/backend/.venv/
+app/backend/env/
+app/backend/ENV/
+app/backend/.env
+app/backend/instance/
+app/backend/.pytest_cache/
+app/backend/.coverage
+app/backend/htmlcov/
+app/backend/*.egg-info/
+app/backend/dist/
+app/backend/build/
+
+# Docker
+app/frontend/.dockerignore
+app/backend/.dockerignore
+
+# Database
+app/database/*.sql.bak
+app/database/backups/
+
+# IDE / Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Misc
+*.bak
+*.tmp
+.cache/
