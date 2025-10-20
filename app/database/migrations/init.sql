@@ -1,10 +1,45 @@
--- Initialize Pokemon Trading App Database with Sample Users
 USE app_db;
 
--- Insert sample users for Pokemon trading
-INSERT INTO users (username) VALUES 
-('ash_ketchum'),
-('misty_waterflower'),
-('brock_harrison'),
-('pikachu_lover'),
-('team_rocket_jessie');
+-- Create a sample user (username: trainer, password: password123 - placeholder)
+INSERT INTO User (username, passwordHash, dateJoined) VALUES
+('trainer', 'password123', NOW());
+
+
+INSERT INTO Card (cardID, name, packName, rarity, type, imageURL) VALUES
+('A1-285', 'Pikachu ex', 'Shared', 'C', 'Lightning', 'https://assets.tcgdex.net/en/tcgp/A1/285/high.webp'),
+('A1-286', 'Mewtwo ex', 'Shared', 'C', 'Psychic', 'https://assets.tcgdex.net/en/tcgp/A1/286/high.webp'),
+('A1-282', 'Mewtwo ex', 'Mewtwo', '3S', 'Psychic', 'https://assets.tcgdex.net/en/tcgp/A1/282/high.webp'),
+('A1-283', 'Charizard ex', 'Charizard', '3S', 'Fire', 'https://assets.tcgdex.net/en/tcgp/A1/283/high.webp'),
+('A1-284', 'Pikachu ex', 'Pikachu', '3S', 'Lightning', 'https://assets.tcgdex.net/en/tcgdex/A1/284/high.webp'),
+('A1-004', 'Venusaur ex', 'Mewtwo', '4D', 'Grass', 'https://assets.tcgdex.net/en/tcgdex/A1/004/high.webp'),
+('A1-036', 'Charizard ex', 'Charizard', '4D', 'Fire', 'https://assets.tcgdex.net/en/tcgdex/A1/036/high.webp'),
+('A1-056', 'Blastoise ex', 'Pikachu', '4D', 'Water', 'https://assets.tcgdex.net/en/tcgdex/A1/056/high.webp'),
+('A1-096', 'Pikachu ex', 'Pikachu', '4D', 'Lightning', 'https://assets.tcgdex.net/en/tcgdex/A1/096/high.webp'),
+('A1-129', 'Mewtwo ex', 'Mewtwo', '4D', 'Psychic', 'https://assets.tcgdex.net/en/tcgdex/A1/129/high.webp'),
+('A1-003', 'Venusaur', 'Mewtwo', '3D', 'Grass', 'https://assets.tcgdex.net/en/tcgdex/A1/003/high.webp'),
+('A1-035', 'Charizard', 'Charizard', '3D', 'Fire', 'https://assets.tcgdex.net/en/tcgdex/A1/035/high.webp'),
+('A1-055', 'Blastoise', 'Pikachu', '3D', 'Water', 'https://assets.tcgdex.net/en/tcgdex/A1/055/high.webp'),
+('A1-268', 'Blaine', 'Charizard', '2S', 'Trainer', 'https://assets.tcgdex.net/en/tcgdex/A1/268/high.webp'),
+('A1-269', 'Brock', 'Pikachu', '2S', 'Trainer', 'https://assets.tcgdex.net/en/tcgdex/A1/269/high.webp'),
+('A1-270', 'Erika', 'Mewtwo', '2S', 'Trainer', 'https://assets.tcgdex.net/en/tcgdex/A1/270/high.webp'),
+('A1-002', 'Ivysaur', 'Mewtwo', '2D', 'Grass', 'https://assets.tcgdex.net/en/tcgdex/A1/002/high.webp'),
+('A1-034', 'Charmeleon', 'Charizard', '2D', 'Fire', 'https://assets.tcgdex.net/en/tcgdex/A1/034/high.webp'),
+('A1-054', 'Wartortle', 'Pikachu', '2D', 'Water', 'https://assets.tcgdex.net/en/tcgdex/A1/054/high.webp'),
+('A1-227', 'Bulbasaur', 'Mewtwo', '1S', 'Grass', 'https://assets.tcgdex.net/en/tcgdex/A1/227/high.webp'),
+('A1-228', 'Charmander', 'Charizard', '1S', 'Fire', 'https://assets.tcgdex.net/en/tcgdex/A1/228/high.webp'),
+('A1-229', 'Squirtle', 'Pikachu', '1S', 'Water', 'https://assets.tcgdex.net/en/tcgdex/A1/229/high.webp'),
+('A1-001', 'Bulbasaur', 'Mewtwo', '1D', 'Grass', 'https://assets.tcgdex.net/en/tcgdex/A1/001/high.webp'),
+('A1-033', 'Charmander', 'Charizard', '1D', 'Fire', 'https://assets.tcgdex.net/en/tcgdex/A1/033/high.webp'),
+('A1-053', 'Squirtle', 'Pikachu', '1D', 'Water', 'https://assets.tcgdex.net/en/tcgdex/A1/053/high.webp'),
+('A1-094', 'Pikachu', 'Pikachu', '1D', 'Lightning', 'https://assets.tcgdex.net/en/tcgdex/A1/094/high.webp');
+
+-- Seed a sample collection for the sample user (userID = 1)
+INSERT INTO Collection (userID, cardID, quantity) VALUES
+(1, 'A1-001', 2),
+(1, 'A1-033', 1),
+(1, 'A1-053', 1),
+(1, 'A1-003', 1),
+(1, 'A1-035', 1),
+(1, 'A1-055', 1),
+(1, 'A1-096', 1),
+(1, 'A1-094', 3);
