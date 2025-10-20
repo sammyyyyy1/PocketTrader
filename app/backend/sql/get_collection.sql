@@ -1,9 +1,10 @@
-SELECT k.cardID, k.name, k.packName, k.rarity, k.type, c.quantity, k.imageURL
-FROM Collection c
-JOIN Card k ON k.cardID = c.cardID
-WHERE c.userID = %s
-  AND (%s IS NULL OR k.rarity = %s)
-  AND (%s IS NULL OR k.type   = %s)
-  AND (%s IS NULL OR k.packName = %s)
-  AND (%s IS NULL OR k.name LIKE CONCAT('%%', %s, '%%'))
-ORDER BY k.rarity, k.name;
+-- :userId, :rarityOpt, :typeOpt, :packOpt, :nameSearchOpt are parameters
+SELECT c.cardID, c.name, c.rarity, c.type, col.quantity
+FROM Collection col
+JOIN Card c ON c.cardID = col.cardID
+WHERE col.userID = :userId
+  AND (:rarityOpt IS NULL OR c.rarity = :rarityOpt)
+  AND (:typeOpt   IS NULL OR c.type   = :typeOpt)
+  AND (:packOpt   IS NULL OR c.packName = :packOpt)
+  AND (:nameSearchOpt IS NULL OR c.name LIKE CONCAT('%%', :nameSearchOpt, '%%'))
+ORDER BY c.rarity, c.name;
