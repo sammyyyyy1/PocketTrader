@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_mysqldb import MySQL
 from flask_cors import CORS
 import os
+from pathlib import Path
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
@@ -14,6 +15,27 @@ app.config['MYSQL_DB'] = os.environ.get('MYSQL_DATABASE', 'app_db')
 
 # Initialize MySQL connection
 mysql = MySQL(app)
+
+SQL_QUERIES = {}
+def _load_queries():
+    """Load individual .sql files into SQL_QUERIES dict (no parsing of monolithic file)."""
+    sql_dir = Path(__file__).parent / 'sql'
+    name_to_file = {
+        'get_cards': 'get_cards.sql',
+        'login_get_user_by_username': 'login_get_user_by_username.sql',
+        'get_collection': 'get_collection.sql',
+        'add_to_collection': 'add_to_collection.sql',
+        'get_users': 'get_users.sql',
+    }
+    for name, filename in name_to_file.items():
+        path = sql_dir / filename
+        if path.exists():
+            SQL_QUERIES[name] = path.read_text(encoding='utf-8').strip().rstrip(';')
+        else:
+            # Leave missing entries absent; handlers will raise KeyError if used
+            pass
+
+_load_queries()
 
 @app.route('/')
 def hello_world():
@@ -28,23 +50,7 @@ def get_cards():
     """Get all Pokemon cards from the database"""
     try:
         cur = mysql.connection.cursor()
-        cur.execute("""
-            SELECT cardID, name, packName, rarity, type, imageURL
-            FROM Card
-            ORDER BY 
-                CASE rarity
-                    WHEN 'C'  THEN 1
-                    WHEN '3S' THEN 2
-                    WHEN '4D' THEN 3
-                    WHEN '3D' THEN 4
-                    WHEN '2S' THEN 5
-                    WHEN '1S' THEN 6
-                    WHEN '2D' THEN 7
-                    WHEN '1D' THEN 8
-                    ELSE 99
-                END,
-                name
-        """)
+        cur.execute(SQL_QUERIES['get_cards'])
         cards = cur.fetchall()
         cur.close()
 
@@ -83,7 +89,7 @@ def login():
 
     try:
         cur = mysql.connection.cursor()
-        cur.execute("SELECT userID, username, passwordHash, dateJoined FROM User WHERE username = %s", (username,))
+        cur.execute(SQL_QUERIES['login_get_user_by_username'], (username,))
         row = cur.fetchone()
         cur.close()
 
@@ -132,35 +138,22 @@ def get_collection():
                 return jsonify({'status': 'error', 'message': 'user not found'}), 404
             user_id = row[0]
 
-        # Build query with optional filters
-        base_sql = (
-            "SELECT c.cardID, c.quantity, k.name, k.packName, k.rarity, k.type, k.imageURL "
-            "FROM Collection c JOIN Card k ON c.cardID = k.cardID WHERE c.userID = %s"
+        # Use centralized query with NULL-able parameters per R6-b
+        # Parameter order matches queries.sql get_collection section
+        params = (
+            user_id,
+            rarity, rarity,
+            ctype, ctype,
+            pack, pack,
+            name_like, name_like
         )
-        params = [user_id]
-
-        if rarity:
-            base_sql += " AND k.rarity = %s"
-            params.append(rarity)
-        if ctype:
-            base_sql += " AND k.type = %s"
-            params.append(ctype)
-        if pack:
-            base_sql += " AND k.packName = %s"
-            params.append(pack)
-        if name_like:
-            base_sql += " AND k.name LIKE %s"
-            params.append(f"%{name_like}%")
-
-        base_sql += " ORDER BY k.name"
-
-        cur.execute(base_sql, tuple(params))
+        cur.execute(SQL_QUERIES['get_collection'], params)
         rows = cur.fetchall()
         cur.close()
 
         items = [{
-            'cardID': r[0], 'quantity': r[1], 'name': r[2], 'packName': r[3],
-            'rarity': r[4], 'type': r[5], 'imageURL': r[6]
+            'cardID': r[0], 'name': r[1], 'packName': r[2], 'rarity': r[3], 'type': r[4],
+            'quantity': r[5], 'imageURL': r[6]
         } for r in rows]
 
         return jsonify({'status': 'success', 'items': items, 'count': len(items)})
@@ -183,17 +176,8 @@ def add_to_collection():
 
     try:
         cur = mysql.connection.cursor()
-        # Try to update existing
-        cur.execute(
-            "UPDATE Collection SET quantity = quantity + %s WHERE userID = %s AND cardID = %s",
-            (qty, user_id, card_id)
-        )
-        if cur.rowcount == 0:
-            # Insert new row
-            cur.execute(
-                "INSERT INTO Collection (userID, cardID, quantity) VALUES (%s, %s, %s)",
-                (user_id, card_id, qty)
-            )
+        # Use INSERT ... ON DUPLICATE KEY UPDATE as per R7-b
+        cur.execute(SQL_QUERIES['add_to_collection'], (user_id, card_id, qty))
         mysql.connection.commit()
         cur.close()
 
@@ -207,7 +191,7 @@ def get_users():
     """Get all users from the database"""
     try:
         cur = mysql.connection.cursor()
-        cur.execute("SELECT userID, username, dateJoined FROM User")
+        cur.execute(SQL_QUERIES['get_users'])
         users = cur.fetchall()
         cur.close()
 

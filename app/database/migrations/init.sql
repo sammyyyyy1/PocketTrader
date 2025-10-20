@@ -2,7 +2,7 @@ USE app_db;
 
 -- Create a sample user (username: trainer, password: password123 - placeholder)
 INSERT INTO User (username, passwordHash, dateJoined) VALUES
-('trainer', 'password123', NOW());
+('trainer', 'password123', '2025-10-20 13:30:00');
 
 
 INSERT INTO Card (cardID, name, packName, rarity, type, imageURL) VALUES
