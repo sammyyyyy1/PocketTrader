@@ -36,11 +36,11 @@ const Home = () => {
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
                 <h1>🎮 PocketTrader</h1>
                 <p>Hello World - Database Connected Application!</p>
-                
+
                 {/* Backend Health Status */}
                 {health && (
-                    <div style={{ 
-                        padding: '15px', 
+                    <div style={{
+                        padding: '15px',
                         marginBottom: '20px',
                         backgroundColor: health.status === 'healthy' ? '#d4edda' : '#f8d7da',
                         border: `1px solid ${health.status === 'healthy' ? '#c3e6cb' : '#f5c6cb'}`,
@@ -58,9 +58,9 @@ const Home = () => {
                 )}
 
                 {/* Users Display */}
-                <div style={{ 
-                    backgroundColor: '#f8f9fa', 
-                    padding: '20px', 
+                <div style={{
+                    backgroundColor: '#f8f9fa',
+                    padding: '20px',
                     borderRadius: '8px',
                     boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
                 }}>
@@ -74,14 +74,14 @@ const Home = () => {
                             <p>Found {users.length} Pokemon trainers:</p>
                             <ul style={{ listStyle: 'none', padding: 0 }}>
                                 {users.map(user => (
-                                    <li key={user.id} style={{ 
-                                        margin: '10px 0', 
-                                        padding: '10px', 
+                                    <li key={user.id} style={{
+                                        margin: '10px 0',
+                                        padding: '10px',
                                         backgroundColor: '#ffffff',
                                         borderRadius: '5px',
                                         border: '1px solid #dee2e6'
                                     }}>
-                                        <strong>🎯 {user.username}</strong> 
+                                        <strong>🎯 {user.username}</strong>
                                         <br />
                                         <small>ID: {user.id} | Joined: {new Date(user.created_at).toLocaleDateString()}</small>
                                     </li>

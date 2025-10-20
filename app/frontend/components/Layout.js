@@ -2,33 +2,32 @@ import React from 'react';
 
 const Layout = ({ children }) => {
     return (
-        <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
-            <header style={{ 
-                backgroundColor: '#2c3e50', 
-                color: 'white', 
-                padding: '1rem',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-            }}>
-                <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-                    <h1 style={{ margin: 0, fontSize: '1.8rem' }}>
-                        🎮 PocketTrader - Pokemon Trading App
-                    </h1>
-                    <p style={{ margin: '0.5rem 0 0 0', opacity: 0.8, fontSize: '0.9rem' }}>
-                        Full-Stack Database Demo with Flask & Next.js
-                    </p>
+        <div className="min-h-screen bg-gray-100 flex flex-col">
+            <header className="bg-[#2c3e50] text-white p-4 shadow-md">
+                <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                        <h1 className="m-0 text-2xl font-bold text-white">
+                            🎮 PocketTrader - Pokemon Trading App
+                        </h1>
+                        <p className="mt-2 opacity-80 text-sm text-white">
+                            Full-Stack Database Demo with Flask &amp; Next.js
+                        </p>
+                    </div>
+                    <nav className="mt-4 sm:mt-0 flex gap-4">
+                        <a
+                            href="/cards"
+                            className="bg-[#16a085] hover:bg-[#1abc9c] text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
+                        >
+                            Cards
+                        </a>
+                    </nav>
                 </div>
             </header>
-            <main style={{ maxWidth: '1200px', margin: '0 auto', minHeight: 'calc(100vh - 140px)' }}>
+            <main className="flex-1 max-w-[1200px] mx-auto w-full min-h-[calc(100vh-140px)]">
                 {children}
             </main>
-            <footer style={{ 
-                backgroundColor: '#34495e', 
-                color: 'white', 
-                textAlign: 'center', 
-                padding: '1rem',
-                marginTop: 'auto'
-            }}>
-                <p style={{ margin: 0, fontSize: '0.9rem' }}>
+            <footer className="bg-[#34495e] text-white text-center p-4 mt-auto">
+                <p className="m-0 text-sm text-white">
                     © 2025 PocketTrader - Pokemon Trading Platform
                 </p>
             </footer>
