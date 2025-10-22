@@ -91,15 +91,6 @@ const Home = () => {
                     )}
                 </div>
 
-                <div style={{ marginTop: '20px', fontSize: '14px', color: '#666' }}>
-                    <p>This demonstrates a full-stack application with:</p>
-                    <ul>
-                        <li>✅ Next.js Frontend (React)</li>
-                        <li>✅ Flask Backend API</li>
-                        <li>✅ MySQL Database</li>
-                        <li>✅ Docker Containerization</li>
-                    </ul>
-                </div>
             </div>
         </Layout>
     );

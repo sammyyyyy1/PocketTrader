@@ -1,8 +1,6 @@
-
 import Layout from "../../components/Layout";
 import { useEffect, useState } from "react";
-
-
+import Card from "../../components/Card";
 
 export default function Home() {
   const [cards, setCards] = useState(undefined);
@@ -19,6 +17,14 @@ export default function Home() {
     fetchCards();
   }, []);
 
+  // toast state
+  const [toast, setToast] = useState(null);
+  useEffect(() => {
+    if (!toast) return;
+    const id = setTimeout(() => setToast(null), 3000);
+    return () => clearTimeout(id);
+  }, [toast]);
+
   if (!cards) {
     return <Layout>Loading...</Layout>;
   }
@@ -27,17 +33,48 @@ export default function Home() {
 
   let filteredCards = cards.cards;
   if (rarityFilter) {
-    filteredCards = filteredCards.filter((card) => card.rarity === rarityFilter);
+    filteredCards = filteredCards.filter(
+      (card) => card.rarity === rarityFilter
+    );
   }
   if (typeFilter) {
     filteredCards = filteredCards.filter((card) => card.type === typeFilter);
   }
 
+  const user =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("pt_user") || "null")
+      : null;
+  const handleAdd = async (cardID, cardName) => {
+    if (!user) {
+      alert("Please sign in first");
+      return;
+    }
+    try {
+      const res = await fetch("http://localhost:5000/api/collection", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userID: user.userID, cardID, quantity: 1 }),
+      });
+      const data = await res.json();
+      if (data.status === "success") {
+        // show a small toast saying we added one
+        setToast(`Added one ${cardName}`);
+      } else {
+        console.error("Failed to add", data.message || data);
+      }
+    } catch (e) {
+      console.error("Error adding to collection", e);
+    }
+  };
+
   return (
     <Layout>
       <div className="mb-4 mt-4 flex flex-wrap gap-6 items-center">
         <div>
-          <label htmlFor="rarity-filter" className="mr-2 font-semibold">Rarity:</label>
+          <label htmlFor="rarity-filter" className="mr-2 font-semibold">
+            Rarity:
+          </label>
           <select
             id="rarity-filter"
             value={rarityFilter}
@@ -56,7 +93,9 @@ export default function Home() {
           </select>
         </div>
         <div>
-          <label htmlFor="type-filter" className="mr-2 font-semibold">Type:</label>
+          <label htmlFor="type-filter" className="mr-2 font-semibold">
+            Type:
+          </label>
           <select
             id="type-filter"
             value={typeFilter}
@@ -80,16 +119,23 @@ export default function Home() {
         </div>
       </div>
       {filteredCards.length === 0 ? (
-        <div className="text-center text-gray-500">No cards found for this rarity.</div>
+        <div className="text-center text-gray-500">
+          No cards found for this rarity.
+        </div>
       ) : (
-        filteredCards.map((card) => (
-          <div key={card.id} className="inline-block m-2">
-            <img src={card.imageURL.replace("/tcgdex/", "/tcgp/")} alt={card.name} className="w-32 object-cover" />
-            <div>
-              <h2 className="text-black text-center">{card.name}</h2>
+        <div className="grid grid-cols-6 gap-4">
+          {filteredCards.map((card) => (
+            <div key={card.cardID}>
+              <Card card={card} onAdd={handleAdd} canAdd={!!user} />
             </div>
-          </div>
-        ))
+          ))}
+        </div>
+      )}
+      {/* toast */}
+      {toast && (
+        <div className="fixed bottom-6 right-6 bg-gray-900 text-white px-4 py-2 rounded shadow-lg">
+          {toast}
+        </div>
       )}
     </Layout>
   );

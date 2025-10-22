@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, request
+import traceback
+import re
 from flask_mysqldb import MySQL
 from flask_cors import CORS
 import os
@@ -110,6 +112,9 @@ def login():
             }
         })
     except Exception as e:
+        # Print full traceback to container logs to aid debugging during development
+        print('Error in get_collection:')
+        traceback.print_exc()
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 
@@ -138,16 +143,36 @@ def get_collection():
                 return jsonify({'status': 'error', 'message': 'user not found'}), 404
             user_id = row[0]
 
-        # Use centralized query with NULL-able parameters per R6-b
-        # Parameter order matches queries.sql get_collection section
-        params = (
-            user_id,
-            rarity, rarity,
-            ctype, ctype,
-            pack, pack,
-            name_like, name_like
-        )
-        cur.execute(SQL_QUERIES['get_collection'], params)
+        # Handle named-parameter SQL template (e.g. :userId, :rarityOpt, :typeOpt, :packOpt, :nameSearchOpt)
+        sql = SQL_QUERIES['get_collection']
+        # If the SQL uses named params, replace them with positional %s and build params tuple
+        if ':' in sql:
+            # Remove SQL line comments (starting with --) so we don't accidentally replace tokens inside comments
+            sql_no_comments = re.sub(r"--.*?\n", "\n", sql)
+
+            # Replace named tokens with %s in the cleaned SQL
+            for k in ['userId', 'rarityOpt', 'typeOpt', 'packOpt', 'nameSearchOpt']:
+                sql_no_comments = sql_no_comments.replace(f":{k}", "%s")
+
+            # Build params tuple matching the expanded occurrences in the SQL
+            params = (
+                user_id,
+                rarity, rarity,
+                ctype, ctype,
+                pack, pack,
+                name_like, name_like,
+            )
+            cur.execute(sql_no_comments, params)
+        else:
+            # Fallback: existing positional template
+            params = (
+                user_id,
+                rarity, rarity,
+                ctype, ctype,
+                pack, pack,
+                name_like, name_like
+            )
+            cur.execute(sql, params)
         rows = cur.fetchall()
         cur.close()
 
@@ -158,6 +183,8 @@ def get_collection():
 
         return jsonify({'status': 'success', 'items': items, 'count': len(items)})
     except Exception as e:
+        print('Exception in get_collection:')
+        traceback.print_exc()
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
 

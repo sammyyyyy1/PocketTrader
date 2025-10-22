@@ -1,5 +1,5 @@
 -- :userId, :rarityOpt, :typeOpt, :packOpt, :nameSearchOpt are parameters
-SELECT c.cardID, c.name, c.rarity, c.type, col.quantity
+SELECT c.cardID, c.name, c.packName, c.rarity, c.type, col.quantity, c.imageURL
 FROM Collection col
 JOIN Card c ON c.cardID = col.cardID
 WHERE col.userID = :userId
