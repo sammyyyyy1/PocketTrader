@@ -1,0 +1,26 @@
+-- test-sample.out
+-- This file shows sample output after running test-sample.sql on the seeded sample DB.
+-- Note: Timestamps will vary; this is a representative snapshot.
+
+-- Users
+userID | username | dateJoined
+1 | trainer | 2025-10-20 13:30:00
+
+-- Total cards
+total_cards
+26
+
+-- R6 (rarity = '1D' for userID=1)
+cardID | name | rarity | type | quantity
+A1-001 | Bulbasaur | 1D | Grass | 3
+A1-033 | Charmander | 1D | Fire | 1
+A1-053 | Squirtle | 1D | Water | 1
+A1-094 | Pikachu | 1D | Lightning | 3
+
+-- R6 (type='Water', name like '%saur%')
+cardID | name | rarity | type | quantity
+-- (likely empty on current sample seed)
+
+-- R7 verify upsert on A1-001
+userID | cardID | quantity
+1 | A1-001 | 3
