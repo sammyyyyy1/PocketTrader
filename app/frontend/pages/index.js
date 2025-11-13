@@ -31,6 +31,13 @@ const Home = () => {
             });
     }, []);
 
+    const formatDate = (dateString) => {
+        if (!dateString) return null;
+        const isoReady = dateString.includes('T') ? dateString : dateString.replace(' ', 'T');
+        const parsed = new Date(isoReady);
+        return Number.isNaN(parsed.getTime()) ? null : parsed.toLocaleDateString();
+    };
+
     return (
         <Layout>
             <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
@@ -73,19 +80,22 @@ const Home = () => {
                         <div>
                             <p>Found {users.length} Pokemon trainers:</p>
                             <ul style={{ listStyle: 'none', padding: 0 }}>
-                                {users.map(user => (
-                                    <li key={user.id} style={{
-                                        margin: '10px 0',
-                                        padding: '10px',
-                                        backgroundColor: '#ffffff',
-                                        borderRadius: '5px',
-                                        border: '1px solid #dee2e6'
-                                    }}>
-                                        <strong>🎯 {user.username}</strong>
-                                        <br />
-                                        <small>ID: {user.id} | Joined: {new Date(user.created_at).toLocaleDateString()}</small>
-                                    </li>
-                                ))}
+                                {users.map(user => {
+                                    const joinedDate = formatDate(user.dateJoined);
+                                    return (
+                                        <li key={user.userID} style={{
+                                            margin: '10px 0',
+                                            padding: '10px',
+                                            backgroundColor: '#ffffff',
+                                            borderRadius: '5px',
+                                            border: '1px solid #dee2e6'
+                                        }}>
+                                            <strong>🎯 {user.username}</strong>
+                                            <br />
+                                            <small>ID: {user.userID} | Joined: {joinedDate || 'Unknown'}</small>
+                                        </li>
+                                    );
+                                })}
                             </ul>
                         </div>
                     )}
