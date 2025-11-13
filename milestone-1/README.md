@@ -29,11 +29,11 @@ docker compose logs backend --tail 50
 Confirm backend health:
 
 ```powershell
-curl http://localhost:5000/api/health
+curl http://localhost:5001/api/health
 ```
 
 Open the UI: http://localhost:3000
-Backend API base: http://localhost:5000
+Backend API base: http://localhost:5001
 
 ---
 

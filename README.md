@@ -23,13 +23,13 @@ cd PocketTrader/app
 docker compose up -d
 
 # Check backend health
-curl http://localhost:5000/api/health
+curl http://localhost:5001/api/health
 ```
 
 ### Access the App
 - Frontend: http://localhost:3000
-- Backend API: http://localhost:5000
-- Health: http://localhost:5000/api/health
+- Backend API: http://localhost:5001
+- Health: http://localhost:5001/api/health
 
 ### Reset the Database
 ```powershell
@@ -116,7 +116,7 @@ mysql -h 127.0.0.1 -P 3307 -u user -ppassword app_db < PocketTrader/milestone-1/
 - **DB connection failed?**
   - Try `docker compose down -v` then `docker compose up -d` to reset
 - **Port already in use?**
-  - Stop other apps using ports 3000, 5000, or 3307
+  - Stop other apps using ports 3000, 5001, or 3307
 - **Frontend not loading?**
   - Check `docker compose logs frontend` and ensure Node.js is installed
 

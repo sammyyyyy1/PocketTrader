@@ -9,7 +9,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchCards = async () => {
-      const response = await fetch("http://localhost:5000/api/cards");
+      const response = await fetch("http://localhost:5001/api/cards");
       const data = await response.json();
       setCards(data);
     };
@@ -51,7 +51,7 @@ export default function Home() {
       return;
     }
     try {
-      const res = await fetch("http://localhost:5000/api/collection", {
+      const res = await fetch("http://localhost:5001/api/collection", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userID: user.userID, cardID, quantity: 1 }),

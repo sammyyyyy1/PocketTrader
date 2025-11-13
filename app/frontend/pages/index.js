@@ -9,13 +9,13 @@ const Home = () => {
 
     useEffect(() => {
         // Fetch health status
-        fetch('http://localhost:5000/api/health')
+        fetch('http://localhost:5001/api/health')
             .then(res => res.json())
             .then(data => setHealth(data))
             .catch(err => console.error('Health check failed:', err));
 
         // Fetch users
-        fetch('http://localhost:5000/api/users')
+        fetch('http://localhost:5001/api/users')
             .then(res => res.json())
             .then(data => {
                 if (data.status === 'success') {

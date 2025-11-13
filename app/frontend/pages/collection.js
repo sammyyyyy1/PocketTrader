@@ -27,7 +27,7 @@ export default function CollectionPage() {
       if (typeFilter) params.set("type", typeFilter);
 
       const res = await fetch(
-        `http://localhost:5000/api/collection?${params.toString()}`
+        `http://localhost:5001/api/collection?${params.toString()}`
       );
       const data = await res.json();
       if (data.status === "success") setItems(data.items);
@@ -41,7 +41,7 @@ export default function CollectionPage() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/api/collection?userID=${user.userID}`
+        `http://localhost:5001/api/collection?userID=${user.userID}`
       );
       const data = await res.json();
       if (data.status === "success") setItems(data.items);

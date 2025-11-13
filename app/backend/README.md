@@ -33,7 +33,7 @@ This is the backend of the application built using Flask. It serves as the API f
 
 ## Usage
 
-Once the application is running, you can access the API at `http://localhost:5000`. 
+Once the application is running, you can access the API at `http://localhost:5001`. 
 
 ## Directory Structure
 
