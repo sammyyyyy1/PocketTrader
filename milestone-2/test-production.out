@@ -1,27 +1,34 @@
 userID	username	dateJoined
-1	Brasen	2025-11-14 23:00:00
-2	Sam	2025-11-17 12:00:00
-3	Steven	2025-11-17 00:00:00
-4	Jonathan	2025-11-15 22:00:00
-5	Alice	2025-11-17 14:00:00
-6	Bob	2025-11-17 02:00:00
-7	Charlie	2025-11-17 18:00:00
-8	Diana	2025-11-16 12:00:00
-9	Ethan	2025-11-15 23:00:00
-10	Fiona	2025-11-16 21:00:00
+1	Brasen	2025-11-16 22:00:00
+2	Sam	2025-11-15 02:00:00
+3	Steven	2025-11-15 20:00:00
+4	Jonathan	2025-11-16 11:00:00
+5	Alice	2025-11-16 00:00:00
+6	Bob	2025-11-17 13:00:00
+7	Charlie	2025-11-15 23:00:00
+8	Diana	2025-11-16 02:00:00
+9	Ethan	2025-11-17 17:00:00
+10	Fiona	2025-11-16 01:00:00
 total_cards
 732
 cardID	name	rarity	type	quantity
-A1-001	Bulbasaur	1D	Grass	3
-A1-212	Minccino	1D	Colorless	3
-A3-092	Solrock	1D	Fighting	2
+A3-232	Blastoise ex	1D	Water	1
+A1-033	Charmander	1D	Fire	1
+A3-013	Grubbin	1D	Grass	1
+A1-024	Tangela	1D	Grass	2
+A1-279	Wigglytuff ex	1D	Colorless	1
 affected_rows_after_R7_upsert
-2
+1
 userID	cardID	quantity
-1	A1-001	4
+1	A1-001	1
+ownerID	username	quantity
+21	Riley	3
+37	Trainer37	4
+55	Trainer55	2
+96	Trainer96	4
 1
 1
 affected_rows_after_R10_insert
-0
+1
 passwordHash
-pbkdf2:sha256:260000$4bdf1933ecaba53b432da6b159608418$0cbb136c7e87852bc4dc295cff2b35231f2b02e327260a7b99d50dad71b4f0a3
+pbkdf2:sha256:260000$d6f4515298568fefe4666fbf5670c857$173c21740e3668529c2b330c8f07b3757c642c7759fb59b6e3019985f5ef1200
