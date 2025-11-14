@@ -56,6 +56,28 @@ export default function CollectionPage() {
     setLoading(false);
   };
 
+  const onDelete = async (cardID) => {
+    if (!user) return;
+    setLoading(true);
+    try {
+      const res = await fetch(
+        `http://localhost:5001/api/collection?userID=${user.userID}&cardID=${cardID}`,
+        {
+          method: "DELETE",
+        }
+      );
+      const data = await res.json();
+      if (data.status === "success") {
+        setItems(items.filter((item) => item.cardID !== cardID));
+      } else {
+        console.error("Failed to delete card", data);
+      }
+    } catch (e) {
+      console.error("Failed to delete card", e);
+    }
+    setLoading(false);
+  };
+
   if (!user)
     return (
       <Layout>
@@ -121,6 +143,7 @@ export default function CollectionPage() {
                     quantity: i.quantity,
                   }}
                   canAdd={false}
+                  onDelete={onDelete}
                 />
               </div>
             ))}

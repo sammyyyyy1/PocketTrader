@@ -24,9 +24,25 @@ const Layout = ({ children }) => {
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <header className="bg-sky-900 text-white p-4 shadow-md">
         <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <a href="/" className="text-white no-underline">
-            <h1 className="m-0 text-2xl font-bold text-white">PocketTrader</h1>
-          </a>
+          <div className="flex items-center gap-4">
+            <a href="/" className="text-white no-underline">
+              <h1 className="m-0 text-2xl font-bold text-white">PocketTrader</h1>
+            </a>
+            <div className="flex gap-2">
+              <a
+                href="/cards"
+                className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-1 px-4 rounded transition-colors duration-200"
+              >
+                Cards
+              </a>
+              <a
+                href="/collection"
+                className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-1 px-4 rounded transition-colors duration-200"
+              >
+                Collection
+              </a>
+            </div>
+          </div>
 
           <nav className="mt-4 sm:mt-0 flex gap-4 items-center">
             <div className="ml-4 text-sm text-white">
