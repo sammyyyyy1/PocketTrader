@@ -56,6 +56,8 @@ TRADECARD (tradeCardID, tradeID, cardID, fromUserID, toUserID)
 
 All cards are from the **Genetic Apex** pack. We took a sample of 26 cards of varying rarities.
 
+User passwords referenced in `migrations/init_accounts.sql` are hashed with Werkzeug's PBKDF2-SHA256 helper. When adding new accounts, run `python - <<'PY'; from werkzeug.security import generate_password_hash; print(generate_password_hash("YourPassword")); PY` and paste the output into the SQL file.
+
 ### Empty Tables
 
 - USER, COLLECTION, WISHLIST, TRADE, TRADECARD start empty

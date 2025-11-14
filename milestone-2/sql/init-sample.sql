@@ -1,11 +1,11 @@
 USE app_db;
 
--- Create sample users for testing
+-- Create sample users for testing (passwords are hashed - see README)
 INSERT INTO User (username, passwordHash, dateJoined) VALUES
-('trainer', 'password123', '2025-10-20 13:30:00'),
-('Bob', 'password123', '2025-10-21 14:00:00'),
-('Chloe', 'password123', '2025-10-22 09:00:00'),
-('a', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb', '2025-10-23 10:00:00');
+('trainer', 'pbkdf2:sha256:260000$hgMWRZpNI0vIInaw$841aec15869e08b2e1cbbf769f5251a47e31608f3694595aa3da749475658b88', '2025-10-20 13:30:00'),
+('Bob', 'pbkdf2:sha256:260000$hgMWRZpNI0vIInaw$841aec15869e08b2e1cbbf769f5251a47e31608f3694595aa3da749475658b88', '2025-10-21 14:00:00'),
+('Chloe', 'pbkdf2:sha256:260000$hgMWRZpNI0vIInaw$841aec15869e08b2e1cbbf769f5251a47e31608f3694595aa3da749475658b88', '2025-10-22 09:00:00'),
+('a', 'pbkdf2:sha256:260000$xcvnkLcfwfqDEjsw$4bbca778f61885d3c8212203920104c58c760ffe59b67d46cc7cd01f28edf81f', '2025-10-23 10:00:00');
 
 
 INSERT INTO Card (cardID, name, packName, rarity, type, imageURL) VALUES
@@ -54,4 +54,3 @@ INSERT INTO Wishlist (userID, cardID, dateAdded) VALUES
 (1, 'A1-001', '2025-10-24 10:05:00'),
 (2, 'A1-033', '2025-10-24 11:00:00'),
 (3, 'A1-033', '2025-10-24 12:00:00');
-

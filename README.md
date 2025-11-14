@@ -104,6 +104,20 @@ npm run dev
 
 ---
 
+## Seed Accounts & Password Hashing
+
+- Default trainers live in `app/database/migrations/init_accounts.sql` (mirrored in `milestone-2/sql/init_accounts.sql`) and can be used to sign in via `/api/login`. Example: username `Alice` with password `IAmAlice`.
+- Passwords are stored using Werkzeug's `generate_password_hash` helper. To add new users, hash the password first:
+  ```bash
+  python - <<'PY'
+  from werkzeug.security import generate_password_hash
+  print(generate_password_hash("MySecurePassword"))
+  PY
+  ```
+- When Docker initializes MySQL it now loads the hashed credentials, and the backend verifies input with `check_password_hash` while still accepting any legacy plaintext rows you may have in older databases.
+
+---
+
 ## Production Data Guide
 
 ### What lives in `milestone-2/sql/init-prod.sql`?
@@ -160,6 +174,6 @@ mysql -h 127.0.0.1 -P 3307 -u user -ppassword app_db < PocketTrader/milestone-1/
 
 ## Notes
 
-- Passwords are plain-text for demo only. Use hashing for production.
+- Seed passwords are hashed with PBKDF2-SHA256 using Werkzeug. Use the helper snippet above when adding new accounts.
 - All SQL is visible and versioned in the repo.
 - Rarity ordering: C → 3S → 4D → 3D → 2S → 1S → 2D → 1D

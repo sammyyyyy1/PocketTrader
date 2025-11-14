@@ -5,6 +5,7 @@ from flask_mysqldb import MySQL
 from flask_cors import CORS
 import os
 from pathlib import Path
+from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
@@ -82,7 +83,7 @@ def get_cards():
 
 @app.route('/api/login', methods=['POST'])
 def login():
-    """Basic login for the sample user (no hashing for milestone demo)."""
+    """Basic login for the sample user."""
     data = request.get_json(silent=True) or {}
     username = data.get('username')
     password = data.get('password')
@@ -99,8 +100,18 @@ def login():
             return jsonify({'status': 'error', 'message': 'invalid credentials'}), 401
 
         user_id, uname, password_hash, date_joined = row
-        # For demo purposes, compare plain-text password to stored passwordHash
-        if password != password_hash:
+
+        # Support both hashed and legacy plain-text seeds to avoid lockout
+        password_valid = False
+        if password_hash:
+            try:
+                password_valid = check_password_hash(password_hash, password)
+            except ValueError:
+                password_valid = False
+        if not password_valid and password_hash == password:
+            password_valid = True
+
+        if not password_valid:
             return jsonify({'status': 'error', 'message': 'invalid credentials'}), 401
 
         return jsonify({

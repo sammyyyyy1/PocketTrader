@@ -1,12 +1,14 @@
 USE app_db;
 -- init_cards.sql should be run first
 -- Seed primary trainer accounts
+
+-- passwords are IAm{username}
 INSERT INTO User (username, passwordHash, dateJoined) VALUES
-('Alice', 'IAmAlice', '2025-10-20 13:30:00'),
-('Bob', 'IAmBob', '2025-10-21 13:30:00'),
-('Charlie', 'IAmCharlie', '2025-10-22 09:10:00'),
-('Diana', 'IAmDiana', '2025-10-22 11:45:00'),
-('Ethan', 'IAmEthan', '2025-10-23 08:05:00');
+('Alice', 'pbkdf2:sha256:260000$hEA1K1n8f2ZGPUKu$47947a693aa5b690ff4c21981b6a7ece50a7f9d0ee1a8e0e4ce00ffe4e512680', '2025-10-20 13:30:00'),
+('Bob', 'pbkdf2:sha256:260000$Bit1Y7fUyvWhoiP8$fc31a970c590452a72ac5896795648394556ea62a91309a97dc6120943620a2d', '2025-10-21 13:30:00'),
+('Charlie', 'pbkdf2:sha256:260000$TBJNd12NZyfbvopr$597a8951c1416ad59f1d3dee6fde37061d03b347dd239ae05d7eece0dd297943', '2025-10-22 09:10:00'),
+('Diana', 'pbkdf2:sha256:260000$vJsqe6ncGQJfdQLL$a4eeb9fe34f22b66376d8c9b26c7a5004cc88160b10c625876dc441e683d764a', '2025-10-22 11:45:00'),
+('Ethan', 'pbkdf2:sha256:260000$sqQCSudk3sQlWQxo$da081933eedf8a7b88fe8ec3bd0f8f6e4e317997f63c219f9fd8f9b990b308df', '2025-10-23 08:05:00');
 
 -- Seed a sample collection for the sample user (userID = 1)
 INSERT INTO Collection (userID, cardID, quantity) VALUES

@@ -81,8 +81,7 @@ SELECT 1 FROM User WHERE username = 'a';
 
 -- R10: Signup insert - create a new user 'newuser'
 INSERT INTO User (username, passwordHash, dateJoined)
-VALUES ('newuser', 'hashedpassword456', '2025-10-25 15:00:00');
+VALUES ('newuser', 'pbkdf2:sha256:260000$p2rtzuZtsacRMMRh$17de9a4065b1854876dd243f0dc0f2fdc15140f63dade14c0de99aaf0a07e925', '2025-10-25 15:00:00');
 
 -- R10: Login query - retrieve passwordHash for username 'a'
 SELECT passwordHash FROM User WHERE username = 'a';
-

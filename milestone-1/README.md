@@ -156,7 +156,7 @@ Note: If you run the frontend locally and you previously used `docker compose do
 
 - `GET /api/health` — health + DB counts
 - `GET /api/cards` — list all cards
-- `POST /api/login` — body: `{ "username": "trainer", "password": "password123" }`
+- `POST /api/login` — body: `{ "username": "trainer", "password": "password123" }` (password stored hashed via Werkzeug)
 - `GET /api/collection?userID=1` — list user's collection (supports `rarity`, `type`, `packName`, `name` filters)
 - `POST /api/collection` — body: `{ "userID": 1, "cardID": "A1-001", "quantity": 1 }`
 
@@ -172,6 +172,5 @@ Note: If you run the frontend locally and you previously used `docker compose do
 
 ## Notes and safety
 
-- This demo uses plain-text passwords in the seed for convenience only — never do that in production.
+- Seed passwords are hashed with PBKDF2-SHA256 via `werkzeug.security.generate_password_hash`.
 - SQL files are intentionally visible in `app/backend/sql/` to keep the project DB-first and easy to inspect.
-
