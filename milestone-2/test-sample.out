@@ -24,3 +24,23 @@ cardID | name | rarity | type | quantity
 -- R7 verify upsert on A1-001
 userID | cardID | quantity
 1 | A1-001 | 3
+
+-- R8 (Wishlist availability for userID=1)
+cardID | name | owners | total_copies
+A1-053 | Squirtle | 1 | 2
+A1-001 | Bulbasaur | 1 | 1
+
+-- R9 (Find mutual trade matches for userID=1)
+partnerID | partnerName | iWant_cardID | iWant_name | rarity_required | theyWant_cardID | theyWant_name
+2 | Bob | A1-053 | Squirtle | 1D | A1-033 | Charmander
+3 | Chloe | A1-001 | Bulbasaur | 1D | A1-033 | Charmander
+
+-- R10 (Signup uniqueness check for username 'a')
+1
+1
+
+-- R10 (Signup insert for 'newuser') (No output for successful INSERT)
+
+-- R10 (Login query expected output for username 'a')
+passwordHash
+ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb
