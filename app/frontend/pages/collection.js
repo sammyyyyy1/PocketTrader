@@ -61,6 +61,10 @@ export default function CollectionPage() {
             <a href="/login" className="text-blue-600">
               sign in
             </a>{" "}
+            or{" "}
+            <a href="/signup" className="text-blue-600">
+              create an account
+            </a>{" "}
             to view your collection.
           </p>
         </div>

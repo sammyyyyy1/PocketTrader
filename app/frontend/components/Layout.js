@@ -24,9 +24,9 @@ const Layout = ({ children }) => {
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <header className="bg-[#2c3e50] text-white p-4 shadow-md">
         <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <div>
+          <a href="/" className="text-white no-underline">
             <h1 className="m-0 text-2xl font-bold text-white">PocketTrader</h1>
-          </div>
+          </a>
 
           <nav className="mt-4 sm:mt-0 flex gap-4 items-center">
             <a
@@ -54,12 +54,20 @@ const Layout = ({ children }) => {
                   </button>
                 </div>
               ) : (
-                <a
-                  href="/login"
-                  className="ml-2 bg-[#27ae60] hover:bg-[#2ecc71] text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
-                >
-                  Sign In
-                </a>
+                <div className="flex gap-2">
+                  <a
+                    href="/login"
+                    className="bg-[#27ae60] hover:bg-[#2ecc71] text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
+                  >
+                    Sign In
+                  </a>
+                  <a
+                    href="/signup"
+                    className="bg-[#8e44ad] hover:bg-[#9b59b6] text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
+                  >
+                    Sign Up
+                  </a>
+                </div>
               )}
             </div>
           </nav>
