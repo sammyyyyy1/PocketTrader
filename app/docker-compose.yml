@@ -27,8 +27,7 @@ services:
     volumes:
       - db_data:/var/lib/mysql
       - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
-      - ./database/migrations/init_cards.sql:/docker-entrypoint-initdb.d/02-init_cards.sql
-      - ./database/migrations/init_accounts.sql:/docker-entrypoint-initdb.d/03-init_accounts.sql
+      - ./database/migrations/init-prod.sql:/docker-entrypoint-initdb.d/02-init-prod.sql
     environment:
       MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: app_db

@@ -15,8 +15,7 @@ docker compose up --build
 MySQL automatically executes all `.sql` files in `/docker-entrypoint-initdb.d/` in alphabetical order:
 
 1. **`01-schema.sql`** - Creates all tables (USER, CARD, COLLECTION, WISHLIST, TRADE, TRADECARD)
-2. **`02-init_cards.sql`** - Inserts card seed data (20 Pokemon cards)
-2. **`03-init_accounts.sql`** - Inserts user seed data (5 users)
+2. **`02-init-prod.sql`** - Inserts card and user seed data
 
 ### Persistent Data
 
@@ -67,7 +66,7 @@ User passwords referenced in `migrations/init_accounts.sql` are hashed with Werk
 
 To add more cards:
 
-1. Edit `migrations/init_cards.sql`
+1. Edit `migrations/init-prod.sql`
 2. Add `INSERT INTO CARD` statements
 3. Reset database: `docker compose down -v && docker compose up --build`
 
