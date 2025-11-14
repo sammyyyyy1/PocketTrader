@@ -1,13 +1,12 @@
 -- test-sample.sql
 -- Purpose: Demonstrate key SQL used by the app on the sample dataset
 -- Covers R6 (browse/filter collection) and R7 (add to collection upsert), plus basic selects.
-
 USE app_db;
 
 -- List users
 SELECT userID, username, dateJoined FROM User ORDER BY userID;
 
--- List total cards
+-- Count total cards
 SELECT COUNT(*) AS total_cards FROM Card;
 
 -- R6: Browse & Filter my collection (by rarity = '1D') for userID = 1
@@ -33,21 +32,21 @@ ORDER BY k.rarity, k.name;
 INSERT INTO Collection(userID, cardID, quantity, dateAcquired)
 VALUES (1, 'A1-001', 1, '2025-10-20 13:30:00')
 ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity);
+SELECT ROW_COUNT() AS affected_rows_after_R7_upsert;
 
 -- Verify the upsert result
 SELECT userID, cardID, quantity FROM Collection WHERE userID = 1 AND cardID = 'A1-001';
 
--- R8: Wishlist availability - see who owns cards user 1 wants
-SELECT w.cardID, c.name,
-       COUNT(DISTINCT col.userID)     AS owners,
-       COALESCE(SUM(col.quantity), 0) AS total_copies
-FROM Wishlist w
-JOIN Card c ON c.cardID = w.cardID
-LEFT JOIN Collection col
-  ON col.cardID = w.cardID AND col.userID <> 1
-WHERE w.userID = 1
-GROUP BY w.cardID, c.name
-ORDER BY owners DESC, c.name;
+-- R8: Wishlist availability (per-card owner listing) for viewer=1, card='A1-053'
+SELECT col.userID AS ownerID,
+       u.username,
+       col.quantity
+FROM Collection col
+JOIN User u ON u.userID = col.userID
+WHERE col.cardID = 'A1-053'
+  AND col.userID <> 1
+  AND col.quantity > 1
+ORDER BY u.username;
 
 -- R9: Find mutual trade matches for user 1
 SELECT
@@ -77,11 +76,13 @@ WHERE me.userID = 1
 ORDER BY other.username, c1.name, c2.name;
 
 -- R10: Signup uniqueness check - verify if username 'a' already exists
-SELECT 1 FROM User WHERE username = 'a';
+SELECT 1 FROM User WHERE username = 'Alice';
 
--- R10: Signup insert - create a new user 'newuser'
+-- R10: Signup insert - create a new user 'newuser' (idempotent)
 INSERT INTO User (username, passwordHash, dateJoined)
-VALUES ('newuser', 'pbkdf2:sha256:260000$p2rtzuZtsacRMMRh$17de9a4065b1854876dd243f0dc0f2fdc15140f63dade14c0de99aaf0a07e925', '2025-10-25 15:00:00');
+VALUES ('newuser', 'pbkdf2:sha256:260000$p2rtzuZtsacRMMRh$17de9a4065b1854876dd243f0dc0f2fdc15140f63dade14c0de99aaf0a07e925', '2025-10-25 15:00:00')
+ON DUPLICATE KEY UPDATE passwordHash = VALUES(passwordHash), dateJoined = VALUES(dateJoined);
+SELECT ROW_COUNT() AS affected_rows_after_R10_insert;
 
--- R10: Login query - retrieve passwordHash for username 'a'
-SELECT passwordHash FROM User WHERE username = 'a';
+-- R10: Login query - retrieve passwordHash for username 'Alice'
+SELECT passwordHash FROM User WHERE username = 'Alice';

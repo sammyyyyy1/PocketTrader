@@ -20,6 +20,7 @@ INSERT INTO Collection (userID, cardID, quantity) VALUES
 (1, 'A1-055', 1),
 (1, 'A1-096', 1),
 (1, 'A1-094', 3),
+(2, 'A1-053', 2),
 (2, 'A1-285', 4);
 
 -- Give trainers wishlists so they can track desired cards

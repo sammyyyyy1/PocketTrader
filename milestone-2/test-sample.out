@@ -1,46 +1,71 @@
--- test-sample.out
--- This file shows sample output after running test-sample.sql on the seeded sample DB.
--- Note: Timestamps will vary; this is a representative snapshot.
+---- STATEMENT 1 ----
+-- test-sample.sql -- Purpose: Demonstrate key SQL used by the app on the sample dataset -- Covers R6 (browse/filter collection) and R7 (add to collection upsert), plus basic selects. USE app_db;
 
--- Users
-userID | username | dateJoined
-1 | trainer | 2025-10-20 13:30:00
+---- STATEMENT 2 ----
+-- List users SELECT userID, username, dateJoined FROM User ORDER BY userID;
+userID	username	dateJoined
+1	Alice	2025-10-20 13:30:00
+2	Bob	2025-10-21 13:30:00
+3	Charlie	2025-10-22 09:10:00
+4	Diana	2025-10-22 11:45:00
+5	Ethan	2025-10-23 08:05:00
 
--- Total cards
+---- STATEMENT 3 ----
+-- Count total cards SELECT COUNT(*) AS total_cards FROM Card;
 total_cards
-26
+285
 
--- R6 (rarity = '1D' for userID=1)
-cardID | name | rarity | type | quantity
-A1-001 | Bulbasaur | 1D | Grass | 3
-A1-033 | Charmander | 1D | Fire | 1
-A1-053 | Squirtle | 1D | Water | 1
-A1-094 | Pikachu | 1D | Lightning | 3
+---- STATEMENT 4 ----
+-- R6: Browse & Filter my collection (by rarity = '1D') for userID = 1 SELECT c.cardID, c.name, c.rarity, k.type, col.quantity FROM Collection col JOIN Card c ON c.cardID = col.cardID JOIN Card k ON k...
+cardID	name	rarity	type	quantity
+A1-001	Bulbasaur	1D	Grass	2
+A1-033	Charmander	1D	Fire	1
+A1-094	Pikachu	1D	Lightning	3
+A1-053	Squirtle	1D	Water	1
 
--- R6 (type='Water', name like '%saur%')
-cardID | name | rarity | type | quantity
--- (likely empty on current sample seed)
+---- STATEMENT 5 ----
+-- R6: Browse & Filter with optional filters (rarity/type/name) -- Example: rarity=NULL, type='Water', name LIKE '%saur%' for userID = 1 SELECT k.cardID, k.name, k.rarity, k.type, col.quantity FROM Co...
 
--- R7 verify upsert on A1-001
-userID | cardID | quantity
-1 | A1-001 | 3
+---- STATEMENT 6 ----
+-- R7: Add to collection (simulate insert/upsert) INSERT INTO Collection(userID, cardID, quantity, dateAcquired) VALUES (1, 'A1-001', 1, '2025-10-20 13:30:00') ON DUPLICATE KEY UPDATE quantity = quant...
 
--- R8 (Wishlist availability for userID=1)
-cardID | name | owners | total_copies
-A1-053 | Squirtle | 1 | 2
-A1-001 | Bulbasaur | 1 | 1
+---- STATEMENT 7 ----
+SELECT ROW_COUNT() AS affected_rows_after_R7_upsert;
+affected_rows_after_R7_upsert
+-1
 
--- R9 (Find mutual trade matches for userID=1)
-partnerID | partnerName | iWant_cardID | iWant_name | rarity_required | theyWant_cardID | theyWant_name
-2 | Bob | A1-053 | Squirtle | 1D | A1-033 | Charmander
-3 | Chloe | A1-001 | Bulbasaur | 1D | A1-033 | Charmander
+---- STATEMENT 8 ----
+-- Verify the upsert result SELECT userID, cardID, quantity FROM Collection WHERE userID = 1 AND cardID = 'A1-001';
+userID	cardID	quantity
+1	A1-001	3
 
--- R10 (Signup uniqueness check for username 'a')
+---- STATEMENT 9 ----
+-- R8: Wishlist availability (per-card owner listing) for viewer=1, card='A1-053' SELECT col.userID AS ownerID,        u.username,        col.quantity FROM Collection col JOIN User u ON u.userID = col...
+ownerID	username	quantity
+2	Bob	2
+
+---- STATEMENT 10 ----
+-- R9: Find mutual trade matches for user 1 SELECT   other.userID           AS partnerID,   other.username         AS partnerName,   wantMine.cardID        AS iWant_cardID,   c1.name                AS...
+partnerID	partnerName	iWant_cardID	iWant_name	rarity_required	theyWant_cardID	theyWant_name
+2	Bob	A1-053	Squirtle	1D	A1-001	Bulbasaur
+
+---- STATEMENT 11 ----
+-- R10: Signup uniqueness check - verify if username 'a' already exists SELECT 1 FROM User WHERE username = 'Alice';
 1
-1
 
--- R10 (Signup insert for 'newuser') (No output for successful INSERT)
+---- STATEMENT 12 ----
+-- R10: Signup insert - create a new user 'newuser' (idempotent) INSERT INTO User (username, passwordHash, dateJoined) VALUES ('newuser', 'pbkdf2:sha256:260000$p2rtzuZtsacRMMRh$17de9a4065b1854876dd243f0dc0f2fdc15140f63dade14c0de99aaf0a07e925', '2025-10-25 15:00:00')
+ON DUPLICATE KEY UPDATE passwordHash = VALUES(passwordHash), dateJoined = VALUES(dateJoined);
 
--- R10 (Login query expected output for username 'a')
+---- STATEMENT 13 ----
+SELECT ROW_COUNT() AS affected_rows_after_R10_insert;
+affected_rows_after_R10_insert
+-1
+
+---- STATEMENT 14 ----
+-- R10: Login query - retrieve passwordHash for username 'Alice' SELECT passwordHash FROM User WHERE username = 'Alice';
 passwordHash
-ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb
+pbkdf2:sha256:260000$hEA1K1n8f2ZGPUKu$47947a693aa5b690ff4c21981b6a7ece50a7f9d0ee1a8e0e4ce00ffe4e512680
+
+```
+
