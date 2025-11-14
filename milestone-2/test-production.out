@@ -12,13 +12,13 @@ userID	username	dateJoined
 total_cards
 732
 cardID	name	rarity	type	quantity
-A1-001	Bulbasaur	1D	Grass	2
+A1-001	Bulbasaur	1D	Grass	3
 A1-212	Minccino	1D	Colorless	3
 A3-092	Solrock	1D	Fighting	2
 affected_rows_after_R7_upsert
 2
 userID	cardID	quantity
-1	A1-001	3
+1	A1-001	4
 1
 1
 affected_rows_after_R10_insert
