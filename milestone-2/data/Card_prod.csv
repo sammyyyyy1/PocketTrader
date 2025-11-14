@@ -1,0 +1,733 @@
+cardID,name,packName,rarity,type,imageURL
+A1-004,Venusaur ex,Mewtwo,4D,Grass,https://assets.tcgdex.net/en/tcgp/A1/004/high.webp
+A1-023,Exeggutor ex,Charizard,4D,Grass,https://assets.tcgdex.net/en/tcgp/A1/023/high.webp
+A1-036,Charizard ex,Charizard,4D,Fire,https://assets.tcgdex.net/en/tcgp/A1/036/high.webp
+A1-041,Arcanine ex,Pikachu,4D,Fire,https://assets.tcgdex.net/en/tcgp/A1/041/high.webp
+A1-047,Moltres ex,Charizard,4D,Fire,https://assets.tcgdex.net/en/tcgp/A1/047/high.webp
+A1-056,Blastoise ex,Pikachu,4D,Water,https://assets.tcgdex.net/en/tcgp/A1/056/high.webp
+A1-076,Starmie ex,Charizard,4D,Water,https://assets.tcgdex.net/en/tcgp/A1/076/high.webp
+A1-084,Articuno ex,Mewtwo,4D,Water,https://assets.tcgdex.net/en/tcgp/A1/084/high.webp
+A1-096,Pikachu ex,Pikachu,4D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/096/high.webp
+A1-104,Zapdos ex,Pikachu,4D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/104/high.webp
+A1-123,Gengar ex,Mewtwo,4D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/123/high.webp
+A1-129,Mewtwo ex,Mewtwo,4D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/129/high.webp
+A1-146,Machamp ex,Charizard,4D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/146/high.webp
+A1-153,Marowak ex,Mewtwo,4D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/153/high.webp
+A1-195,Wigglytuff ex,Pikachu,4D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/195/high.webp
+A2-007,Yanmega ex,Shared,4D,Grass,https://assets.tcgdex.net/en/tcgp/A2/007/high.webp
+A2-029,Infernape ex,Shared,4D,Fire,https://assets.tcgdex.net/en/tcgp/A2/029/high.webp
+A2-049,Palkia ex,Shared,4D,Water,https://assets.tcgdex.net/en/tcgp/A2/049/high.webp
+A2-061,Pachirisu ex,Shared,4D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/061/high.webp
+A2-067,Mismagius ex,Shared,4D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/067/high.webp
+A2-095,Gallade ex,Shared,4D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/095/high.webp
+A2-099,Weavile ex,Shared,4D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/099/high.webp
+A2-110,Darkrai ex,Shared,4D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/110/high.webp
+A2-119,Dialga ex,Shared,4D,Metal,https://assets.tcgdex.net/en/tcgp/A2/119/high.webp
+A2-125,Lickilicky ex,Shared,4D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/125/high.webp
+A3-012,Decidueye ex,Shared,4D,Grass,https://assets.tcgdex.net/en/tcgp/A3/012/high.webp
+A3-023,Dhelmise ex,Shared,4D,Grass,https://assets.tcgdex.net/en/tcgp/A3/023/high.webp
+A3-033,Incineroar ex,Shared,4D,Fire,https://assets.tcgdex.net/en/tcgp/A3/033/high.webp
+A3-049,Crabominable ex,Shared,4D,Water,https://assets.tcgdex.net/en/tcgp/A3/049/high.webp
+A3-051,Wishiwashi ex,Shared,4D,Water,https://assets.tcgdex.net/en/tcgp/A3/051/high.webp
+A3-058,Alolan Raichu ex,Shared,4D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/058/high.webp
+A3-087,Lunala ex,Shared,4D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/087/high.webp
+A3-104,Passimian ex,Shared,4D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/104/high.webp
+A3-111,Alolan Muk ex,Shared,4D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/111/high.webp
+A3-122,Solgaleo ex,Shared,4D,Metal,https://assets.tcgdex.net/en/tcgp/A3/122/high.webp
+A1-003,Venusaur,Mewtwo,3D,Grass,https://assets.tcgdex.net/en/tcgp/A1/003/high.webp
+A1-007,Butterfree,Pikachu,3D,Grass,https://assets.tcgdex.net/en/tcgp/A1/007/high.webp
+A1-010,Beedrill,Mewtwo,3D,Grass,https://assets.tcgdex.net/en/tcgp/A1/010/high.webp
+A1-013,Vileplume,Charizard,3D,Grass,https://assets.tcgdex.net/en/tcgp/A1/013/high.webp
+A1-020,Victreebel,Charizard,3D,Grass,https://assets.tcgdex.net/en/tcgp/A1/020/high.webp
+A1-022,Exeggutor,Charizard,3D,Grass,https://assets.tcgdex.net/en/tcgp/A1/022/high.webp
+A1-035,Charizard,Charizard,3D,Fire,https://assets.tcgdex.net/en/tcgp/A1/035/high.webp
+A1-040,Arcanine,Pikachu,3D,Fire,https://assets.tcgdex.net/en/tcgp/A1/040/high.webp
+A1-045,Flareon,Charizard,3D,Fire,https://assets.tcgdex.net/en/tcgp/A1/045/high.webp
+A1-046,Moltres,Charizard,3D,Fire,https://assets.tcgdex.net/en/tcgp/A1/046/high.webp
+A1-055,Blastoise,Pikachu,3D,Water,https://assets.tcgdex.net/en/tcgp/A1/055/high.webp
+A1-061,Poliwrath,Charizard,3D,Water,https://assets.tcgdex.net/en/tcgp/A1/061/high.webp
+A1-078,Gyarados,Pikachu,3D,Water,https://assets.tcgdex.net/en/tcgp/A1/078/high.webp
+A1-079,Lapras,Charizard,3D,Water,https://assets.tcgdex.net/en/tcgp/A1/079/high.webp
+A1-080,Vaporeon,Mewtwo,3D,Water,https://assets.tcgdex.net/en/tcgp/A1/080/high.webp
+A1-082,Omastar,Pikachu,3D,Water,https://assets.tcgdex.net/en/tcgp/A1/082/high.webp
+A1-083,Articuno,Mewtwo,3D,Water,https://assets.tcgdex.net/en/tcgp/A1/083/high.webp
+A1-089,Greninja,Charizard,3D,Water,https://assets.tcgdex.net/en/tcgp/A1/089/high.webp
+A1-095,Raichu,Pikachu,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/095/high.webp
+A1-098,Magneton,Pikachu,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/098/high.webp
+A1-102,Jolteon,Pikachu,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/102/high.webp
+A1-103,Zapdos,Pikachu,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/103/high.webp
+A1-109,Eelektross,Mewtwo,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/109/high.webp
+A1-117,Alakazam,Charizard,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/117/high.webp
+A1-122,Gengar,Mewtwo,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/122/high.webp
+A1-125,Hypno,Pikachu,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/125/high.webp
+A1-128,Mewtwo,Mewtwo,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/128/high.webp
+A1-132,Gardevoir,Mewtwo,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/132/high.webp
+A1-145,Machamp,Charizard,3D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/145/high.webp
+A1-149,Golem,Pikachu,3D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/149/high.webp
+A1-159,Kabutops,Charizard,3D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/159/high.webp
+A1-168,Nidoqueen,Pikachu,3D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/168/high.webp
+A1-171,Nidoking,Pikachu,3D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/171/high.webp
+A1-175,Muk,Mewtwo,3D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/175/high.webp
+A1-177,Weezing,Mewtwo,3D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/177/high.webp
+A1-182,Melmetal,Charizard,3D,Metal,https://assets.tcgdex.net/en/tcgp/A1/182/high.webp
+A1-185,Dragonite,Mewtwo,3D,Dragon,https://assets.tcgdex.net/en/tcgp/A1/185/high.webp
+A1-188,Pidgeot,Mewtwo,3D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/188/high.webp
+A1-203,Kangaskhan,Charizard,3D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/203/high.webp
+A1-205,Ditto,Mewtwo,3D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/205/high.webp
+A1-210,Aerodactyl,Mewtwo,3D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/210/high.webp
+A1-211,Snorlax,Pikachu,3D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/211/high.webp
+A2-012,Torterra,Shared,3D,Grass,https://assets.tcgdex.net/en/tcgp/A2/012/high.webp
+A2-020,Leafeon,Shared,3D,Grass,https://assets.tcgdex.net/en/tcgp/A2/020/high.webp
+A2-022,Shaymin,Shared,3D,Grass,https://assets.tcgdex.net/en/tcgp/A2/022/high.webp
+A2-024,Magmortar,Shared,3D,Fire,https://assets.tcgdex.net/en/tcgp/A2/024/high.webp
+A2-033,Mamoswine,Shared,3D,Water,https://assets.tcgdex.net/en/tcgp/A2/033/high.webp
+A2-037,Empoleon,Shared,3D,Water,https://assets.tcgdex.net/en/tcgp/A2/037/high.webp
+A2-046,Glaceon,Shared,3D,Water,https://assets.tcgdex.net/en/tcgp/A2/046/high.webp
+A2-053,Magnezone,Shared,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/053/high.webp
+A2-057,Electivire,Shared,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/057/high.webp
+A2-060,Luxray,Shared,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/060/high.webp
+A2-065,Togekiss,Shared,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/065/high.webp
+A2-072,Dusknoir,Shared,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/072/high.webp
+A2-076,Mesprit,Shared,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/076/high.webp
+A2-078,Giratina,Shared,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/078/high.webp
+A2-079,Cresselia,Shared,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/079/high.webp
+A2-082,Rhyperior,Shared,3D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/082/high.webp
+A2-089,Rampardos,Shared,3D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/089/high.webp
+A2-092,Lucario,Shared,3D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/092/high.webp
+A2-109,Darkrai,Shared,3D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/109/high.webp
+A2-114,Bastiodon,Shared,3D,Metal,https://assets.tcgdex.net/en/tcgp/A2/114/high.webp
+A2-120,Heatran,Shared,3D,Metal,https://assets.tcgdex.net/en/tcgp/A2/120/high.webp
+A2-123,Garchomp,Shared,3D,Dragon,https://assets.tcgdex.net/en/tcgp/A2/123/high.webp
+A2-129,Porygon-Z,Shared,3D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/129/high.webp
+A2-143,Regigigas,Shared,3D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/143/high.webp
+A3-002,Alolan Exeggutor,Shared,3D,Grass,https://assets.tcgdex.net/en/tcgp/A3/002/high.webp
+A3-020,Tsareena,Shared,3D,Grass,https://assets.tcgdex.net/en/tcgp/A3/020/high.webp
+A3-022,Golisopod,Shared,3D,Grass,https://assets.tcgdex.net/en/tcgp/A3/022/high.webp
+A3-024,Tapu Bulu,Shared,3D,Grass,https://assets.tcgdex.net/en/tcgp/A3/024/high.webp
+A3-029,Talonflame,Shared,3D,Fire,https://assets.tcgdex.net/en/tcgp/A3/029/high.webp
+A3-037,Turtonator,Shared,3D,Fire,https://assets.tcgdex.net/en/tcgp/A3/037/high.webp
+A3-041,Alolan Ninetales,Shared,3D,Water,https://assets.tcgdex.net/en/tcgp/A3/041/high.webp
+A3-048,Primarina,Shared,3D,Water,https://assets.tcgdex.net/en/tcgp/A3/048/high.webp
+A3-056,Tapu Fini,Shared,3D,Water,https://assets.tcgdex.net/en/tcgp/A3/056/high.webp
+A3-061,Alolan Golem,Shared,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/061/high.webp
+A3-065,Vikavolt,Shared,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/065/high.webp
+A3-066,Oricorio,Shared,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/066/high.webp
+A3-068,Tapu Koko,Shared,3D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/068/high.webp
+A3-080,Comfey,Shared,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/080/high.webp
+A3-082,Palossand,Shared,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/082/high.webp
+A3-084,Tapu Lele,Shared,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/084/high.webp
+A3-088,Necrozma,Shared,3D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/088/high.webp
+A3-096,Conkeldurr,Shared,3D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/096/high.webp
+A3-100,Lycanroc,Shared,3D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/100/high.webp
+A3-101,Lycanroc,Shared,3D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/101/high.webp
+A3-109,Alolan Persian,Shared,3D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/109/high.webp
+A3-112,Absol,Shared,3D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/112/high.webp
+A3-121,Klefki,Shared,3D,Metal,https://assets.tcgdex.net/en/tcgp/A3/121/high.webp
+A3-123,Magearna,Shared,3D,Metal,https://assets.tcgdex.net/en/tcgp/A3/123/high.webp
+A3-124,Drampa,Shared,3D,Dragon,https://assets.tcgdex.net/en/tcgp/A3/124/high.webp
+A3-127,Kommo-o,Shared,3D,Dragon,https://assets.tcgdex.net/en/tcgp/A3/127/high.webp
+A3-139,Bewear,Shared,3D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/139/high.webp
+A3-140,Oranguru,Shared,3D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/140/high.webp
+A1-002,Ivysaur,Mewtwo,2D,Grass,https://assets.tcgdex.net/en/tcgp/A1/002/high.webp
+A1-012,Gloom,Charizard,2D,Grass,https://assets.tcgdex.net/en/tcgp/A1/012/high.webp
+A1-015,Parasect,Pikachu,2D,Grass,https://assets.tcgdex.net/en/tcgp/A1/015/high.webp
+A1-017,Venomoth,Mewtwo,2D,Grass,https://assets.tcgdex.net/en/tcgp/A1/017/high.webp
+A1-019,Weepinbell,Charizard,2D,Grass,https://assets.tcgdex.net/en/tcgp/A1/019/high.webp
+A1-026,Pinsir,Mewtwo,2D,Grass,https://assets.tcgdex.net/en/tcgp/A1/026/high.webp
+A1-028,Whimsicott,Mewtwo,2D,Grass,https://assets.tcgdex.net/en/tcgp/A1/028/high.webp
+A1-030,Lilligant,Mewtwo,2D,Grass,https://assets.tcgdex.net/en/tcgp/A1/030/high.webp
+A1-034,Charmeleon,Charizard,2D,Fire,https://assets.tcgdex.net/en/tcgp/A1/034/high.webp
+A1-038,Ninetales,Charizard,2D,Fire,https://assets.tcgdex.net/en/tcgp/A1/038/high.webp
+A1-043,Rapidash,Mewtwo,2D,Fire,https://assets.tcgdex.net/en/tcgp/A1/043/high.webp
+A1-052,Centiskorch,Mewtwo,2D,Fire,https://assets.tcgdex.net/en/tcgp/A1/052/high.webp
+A1-054,Wartortle,Pikachu,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/054/high.webp
+A1-058,Golduck,Mewtwo,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/058/high.webp
+A1-060,Poliwhirl,Charizard,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/060/high.webp
+A1-063,Tentacruel,Mewtwo,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/063/high.webp
+A1-065,Dewgong,Pikachu,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/065/high.webp
+A1-067,Cloyster,Mewtwo,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/067/high.webp
+A1-069,Kingler,Mewtwo,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/069/high.webp
+A1-071,Seadra,Pikachu,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/071/high.webp
+A1-075,Starmie,Charizard,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/075/high.webp
+A1-081,Omanyte,Pikachu,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/081/high.webp
+A1-086,Swanna,Charizard,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/086/high.webp
+A1-088,Frogadier,Charizard,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/088/high.webp
+A1-091,Bruxish,Mewtwo,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/091/high.webp
+A1-093,Frosmoth,Mewtwo,2D,Water,https://assets.tcgdex.net/en/tcgp/A1/093/high.webp
+A1-100,Electrode,Pikachu,2D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/100/high.webp
+A1-106,Zebstrika,Mewtwo,2D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/106/high.webp
+A1-108,Eelektrik,Mewtwo,2D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/108/high.webp
+A1-112,Pincurchin,Mewtwo,2D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/112/high.webp
+A1-114,Clefable,Pikachu,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/114/high.webp
+A1-116,Kadabra,Charizard,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/116/high.webp
+A1-119,Slowbro,Mewtwo,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/119/high.webp
+A1-121,Haunter,Mewtwo,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/121/high.webp
+A1-126,Mr. Mime,Mewtwo,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/126/high.webp
+A1-131,Kirlia,Mewtwo,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/131/high.webp
+A1-136,Golurk,Mewtwo,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/136/high.webp
+A1-138,Sandslash,Mewtwo,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/138/high.webp
+A1-140,Dugtrio,Pikachu,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/140/high.webp
+A1-142,Primeape,Charizard,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/142/high.webp
+A1-144,Machoke,Charizard,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/144/high.webp
+A1-148,Graveler,Pikachu,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/148/high.webp
+A1-150,Onix,Pikachu,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/150/high.webp
+A1-152,Marowak,Mewtwo,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/152/high.webp
+A1-157,Rhydon,Mewtwo,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/157/high.webp
+A1-158,Kabuto,Charizard,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/158/high.webp
+A1-161,Mienshao,Pikachu,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/161/high.webp
+A1-163,Grapploct,Mewtwo,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/163/high.webp
+A1-165,Arbok,Mewtwo,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/165/high.webp
+A1-167,Nidorina,Pikachu,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/167/high.webp
+A1-170,Nidorino,Pikachu,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/170/high.webp
+A1-173,Golbat,Mewtwo,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/173/high.webp
+A1-180,Bisharp,Mewtwo,2D,Metal,https://assets.tcgdex.net/en/tcgp/A1/180/high.webp
+A1-184,Dragonair,Mewtwo,2D,Dragon,https://assets.tcgdex.net/en/tcgp/A1/184/high.webp
+A1-197,Persian,Charizard,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/197/high.webp
+A1-200,Dodrio,Mewtwo,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/200/high.webp
+A1-201,Lickitung,Mewtwo,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/201/high.webp
+A1-202,Chansey,Pikachu,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/202/high.webp
+A1-204,Tauros,Charizard,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/204/high.webp
+A1-209,Porygon,Mewtwo,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/209/high.webp
+A1-213,Cinccino,Mewtwo,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/213/high.webp
+A1-219,Erika,Charizard,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/219/high.webp
+A1-220,Misty,Pikachu,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/220/high.webp
+A1-221,Blaine,Charizard,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/221/high.webp
+A1-222,Koga,Mewtwo,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/222/high.webp
+A1-223,Giovanni,Mewtwo,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/223/high.webp
+A1-224,Brock,Pikachu,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/224/high.webp
+A1-225,Sabrina,Charizard,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/225/high.webp
+A1-226,Lt. Surge,Pikachu,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/226/high.webp
+A2-003,Bellossom,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A2/003/high.webp
+A2-005,Tangrowth,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A2/005/high.webp
+A2-009,Roserade,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A2/009/high.webp
+A2-011,Grotle,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A2/011/high.webp
+A2-018,Vespiquen,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A2/018/high.webp
+A2-019,Carnivine,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A2/019/high.webp
+A2-026,Magcargo,Shared,2D,Fire,https://assets.tcgdex.net/en/tcgp/A2/026/high.webp
+A2-028,Monferno,Shared,2D,Fire,https://assets.tcgdex.net/en/tcgp/A2/028/high.webp
+A2-032,Piloswine,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A2/032/high.webp
+A2-034,Regice,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A2/034/high.webp
+A2-036,Prinplup,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A2/036/high.webp
+A2-039,Floatzel,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A2/039/high.webp
+A2-041,Gastrodon,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A2/041/high.webp
+A2-043,Lumineon,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A2/043/high.webp
+A2-045,Abomasnow,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A2/045/high.webp
+A2-050,Manaphy,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A2/050/high.webp
+A2-052,Magneton,Shared,2D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/052/high.webp
+A2-055,Electrode,Shared,2D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/055/high.webp
+A2-059,Luxio,Shared,2D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/059/high.webp
+A2-064,Togetic,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/064/high.webp
+A2-071,Dusclops,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/071/high.webp
+A2-074,Drifblim,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/074/high.webp
+A2-075,Uxie,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/075/high.webp
+A2-077,Azelf,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/077/high.webp
+A2-081,Rhydon,Shared,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/081/high.webp
+A2-084,Gliscor,Shared,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/084/high.webp
+A2-087,Regirock,Shared,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/087/high.webp
+A2-088,Cranidos,Shared,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/088/high.webp
+A2-094,Hippowdon,Shared,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/094/high.webp
+A2-097,Honchkrow,Shared,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/097/high.webp
+A2-101,Mightyena,Shared,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/101/high.webp
+A2-103,Skuntank,Shared,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/103/high.webp
+A2-104,Spiritomb,Shared,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/104/high.webp
+A2-106,Drapion,Shared,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/106/high.webp
+A2-108,Toxicroak,Shared,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/108/high.webp
+A2-111,Skarmory,Shared,2D,Metal,https://assets.tcgdex.net/en/tcgp/A2/111/high.webp
+A2-112,Registeel,Shared,2D,Metal,https://assets.tcgdex.net/en/tcgp/A2/112/high.webp
+A2-113,Shieldon,Shared,2D,Metal,https://assets.tcgdex.net/en/tcgp/A2/113/high.webp
+A2-117,Bronzong,Shared,2D,Metal,https://assets.tcgdex.net/en/tcgp/A2/117/high.webp
+A2-118,Probopass,Shared,2D,Metal,https://assets.tcgdex.net/en/tcgp/A2/118/high.webp
+A2-122,Gabite,Shared,2D,Dragon,https://assets.tcgdex.net/en/tcgp/A2/122/high.webp
+A2-128,Porygon2,Shared,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/128/high.webp
+A2-134,Staraptor,Shared,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/134/high.webp
+A2-140,Purugly,Shared,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/140/high.webp
+A2-146,Pokémon Communication,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/146/high.webp
+A2-147,Giant Cape,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/147/high.webp
+A2-148,Rocky Helmet,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/148/high.webp
+A2-149,Lum Berry,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/149/high.webp
+A2-150,Cyrus,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/150/high.webp
+A2-151,Team Galactic Grunt,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/151/high.webp
+A2-152,Cynthia,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/152/high.webp
+A2-153,Volkner,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/153/high.webp
+A2-154,Dawn,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/154/high.webp
+A2-155,Mars,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/155/high.webp
+A3-004,Masquerain,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A3/004/high.webp
+A3-008,Trevenant,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A3/008/high.webp
+A3-011,Dartrix,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A3/011/high.webp
+A3-015,Lurantis,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A3/015/high.webp
+A3-017,Shiinotic,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A3/017/high.webp
+A3-019,Steenee,Shared,2D,Grass,https://assets.tcgdex.net/en/tcgp/A3/019/high.webp
+A3-026,Arcanine,Shared,2D,Fire,https://assets.tcgdex.net/en/tcgp/A3/026/high.webp
+A3-027,Alolan Marowak,Shared,2D,Fire,https://assets.tcgdex.net/en/tcgp/A3/027/high.webp
+A3-032,Torracat,Shared,2D,Fire,https://assets.tcgdex.net/en/tcgp/A3/032/high.webp
+A3-034,Oricorio,Shared,2D,Fire,https://assets.tcgdex.net/en/tcgp/A3/034/high.webp
+A3-039,Alolan Sandslash,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A3/039/high.webp
+A3-043,Cloyster,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A3/043/high.webp
+A3-044,Lapras,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A3/044/high.webp
+A3-047,Brionne,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A3/047/high.webp
+A3-053,Araquanid,Shared,2D,Water,https://assets.tcgdex.net/en/tcgp/A3/053/high.webp
+A3-060,Alolan Graveler,Shared,2D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/060/high.webp
+A3-064,Charjabug,Shared,2D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/064/high.webp
+A3-069,Mr. Mime,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/069/high.webp
+A3-070,Sableye,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/070/high.webp
+A3-072,Grumpig,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/072/high.webp
+A3-076,Oricorio,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/076/high.webp
+A3-077,Oricorio,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/077/high.webp
+A3-086,Cosmoem,Shared,2D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/086/high.webp
+A3-091,Hariyama,Shared,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/091/high.webp
+A3-095,Gurdurr,Shared,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/095/high.webp
+A3-103,Mudsdale,Shared,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/103/high.webp
+A3-105,Minior,Shared,2D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/105/high.webp
+A3-107,Alolan Raticate,Shared,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/107/high.webp
+A3-114,Garbodor,Shared,2D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/114/high.webp
+A3-119,Excadrill,Shared,2D,Metal,https://assets.tcgdex.net/en/tcgp/A3/119/high.webp
+A3-120,Escavalier,Shared,2D,Metal,https://assets.tcgdex.net/en/tcgp/A3/120/high.webp
+A3-126,Hakamo-o,Shared,2D,Dragon,https://assets.tcgdex.net/en/tcgp/A3/126/high.webp
+A3-128,Tauros,Shared,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/128/high.webp
+A3-130,Delcatty,Shared,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/130/high.webp
+A3-132,Hawlucha,Shared,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/132/high.webp
+A3-135,Toucannon,Shared,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/135/high.webp
+A3-141,Komala,Shared,2D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/141/high.webp
+A3-142,Big Malasada,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/142/high.webp
+A3-143,Fishing Net,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/143/high.webp
+A3-144,Rare Candy,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/144/high.webp
+A3-145,Rotom Dex,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/145/high.webp
+A3-146,Poison Barb,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/146/high.webp
+A3-147,Leaf Cape,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/147/high.webp
+A3-148,Acerola,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/148/high.webp
+A3-149,Ilima,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/149/high.webp
+A3-150,Kiawe,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/150/high.webp
+A3-151,Guzma,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/151/high.webp
+A3-152,Lana,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/152/high.webp
+A3-153,Sophocles,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/153/high.webp
+A3-154,Mallow,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/154/high.webp
+A3-155,Lillie,Shared,2D,Trainer,https://assets.tcgdex.net/en/tcgp/A3/155/high.webp
+A1-001,Bulbasaur,Mewtwo,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/001/high.webp
+A1-005,Caterpie,Pikachu,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/005/high.webp
+A1-006,Metapod,Pikachu,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/006/high.webp
+A1-008,Weedle,Mewtwo,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/008/high.webp
+A1-009,Kakuna,Mewtwo,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/009/high.webp
+A1-011,Oddish,Charizard,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/011/high.webp
+A1-014,Paras,Pikachu,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/014/high.webp
+A1-016,Venonat,Mewtwo,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/016/high.webp
+A1-018,Bellsprout,Charizard,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/018/high.webp
+A1-021,Exeggcute,Charizard,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/021/high.webp
+A1-024,Tangela,Charizard,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/024/high.webp
+A1-025,Scyther,Mewtwo,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/025/high.webp
+A1-027,Cottonee,Mewtwo,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/027/high.webp
+A1-029,Petilil,Mewtwo,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/029/high.webp
+A1-031,Skiddo,Charizard,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/031/high.webp
+A1-032,Gogoat,Charizard,1D,Grass,https://assets.tcgdex.net/en/tcgp/A1/032/high.webp
+A1-033,Charmander,Charizard,1D,Fire,https://assets.tcgdex.net/en/tcgp/A1/033/high.webp
+A1-037,Vulpix,Charizard,1D,Fire,https://assets.tcgdex.net/en/tcgp/A1/037/high.webp
+A1-039,Growlithe,Pikachu,1D,Fire,https://assets.tcgdex.net/en/tcgp/A1/039/high.webp
+A1-042,Ponyta,Mewtwo,1D,Fire,https://assets.tcgdex.net/en/tcgp/A1/042/high.webp
+A1-044,Magmar,Charizard,1D,Fire,https://assets.tcgdex.net/en/tcgp/A1/044/high.webp
+A1-048,Heatmor,Mewtwo,1D,Fire,https://assets.tcgdex.net/en/tcgp/A1/048/high.webp
+A1-049,Salandit,Mewtwo,1D,Fire,https://assets.tcgdex.net/en/tcgp/A1/049/high.webp
+A1-050,Salazzle,Mewtwo,1D,Fire,https://assets.tcgdex.net/en/tcgp/A1/050/high.webp
+A1-051,Sizzlipede,Mewtwo,1D,Fire,https://assets.tcgdex.net/en/tcgp/A1/051/high.webp
+A1-053,Squirtle,Pikachu,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/053/high.webp
+A1-057,Psyduck,Mewtwo,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/057/high.webp
+A1-059,Poliwag,Charizard,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/059/high.webp
+A1-062,Tentacool,Mewtwo,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/062/high.webp
+A1-064,Seel,Pikachu,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/064/high.webp
+A1-066,Shellder,Mewtwo,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/066/high.webp
+A1-068,Krabby,Mewtwo,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/068/high.webp
+A1-070,Horsea,Pikachu,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/070/high.webp
+A1-072,Goldeen,Pikachu,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/072/high.webp
+A1-073,Seaking,Pikachu,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/073/high.webp
+A1-074,Staryu,Charizard,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/074/high.webp
+A1-077,Magikarp,Pikachu,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/077/high.webp
+A1-085,Ducklett,Charizard,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/085/high.webp
+A1-087,Froakie,Charizard,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/087/high.webp
+A1-090,Pyukumuku,Charizard,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/090/high.webp
+A1-092,Snom,Mewtwo,1D,Water,https://assets.tcgdex.net/en/tcgp/A1/092/high.webp
+A1-094,Pikachu,Pikachu,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/094/high.webp
+A1-097,Magnemite,Pikachu,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/097/high.webp
+A1-099,Voltorb,Pikachu,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/099/high.webp
+A1-101,Electabuzz,Pikachu,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/101/high.webp
+A1-105,Blitzle,Mewtwo,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/105/high.webp
+A1-107,Tynamo,Mewtwo,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/107/high.webp
+A1-110,Helioptile,Mewtwo,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/110/high.webp
+A1-111,Heliolisk,Mewtwo,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A1/111/high.webp
+A1-113,Clefairy,Pikachu,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/113/high.webp
+A1-115,Abra,Charizard,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/115/high.webp
+A1-118,Slowpoke,Mewtwo,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/118/high.webp
+A1-120,Gastly,Mewtwo,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/120/high.webp
+A1-124,Drowzee,Pikachu,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/124/high.webp
+A1-127,Jynx,Mewtwo,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/127/high.webp
+A1-130,Ralts,Mewtwo,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/130/high.webp
+A1-133,Woobat,Mewtwo,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/133/high.webp
+A1-134,Swoobat,Mewtwo,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/134/high.webp
+A1-135,Golett,Mewtwo,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A1/135/high.webp
+A1-137,Sandshrew,Mewtwo,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/137/high.webp
+A1-139,Diglett,Pikachu,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/139/high.webp
+A1-141,Mankey,Charizard,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/141/high.webp
+A1-143,Machop,Charizard,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/143/high.webp
+A1-147,Geodude,Pikachu,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/147/high.webp
+A1-151,Cubone,Mewtwo,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/151/high.webp
+A1-154,Hitmonlee,Mewtwo,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/154/high.webp
+A1-155,Hitmonchan,Charizard,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/155/high.webp
+A1-156,Rhyhorn,Mewtwo,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/156/high.webp
+A1-160,Mienfoo,Pikachu,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/160/high.webp
+A1-162,Clobbopus,Mewtwo,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A1/162/high.webp
+A1-164,Ekans,Mewtwo,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/164/high.webp
+A1-166,Nidoran♀,Pikachu,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/166/high.webp
+A1-169,Nidoran♂,Pikachu,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/169/high.webp
+A1-172,Zubat,Mewtwo,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/172/high.webp
+A1-174,Grimer,Mewtwo,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/174/high.webp
+A1-176,Koffing,Mewtwo,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A1/176/high.webp
+A1-178,Mawile,Charizard,1D,Metal,https://assets.tcgdex.net/en/tcgp/A1/178/high.webp
+A1-179,Pawniard,Mewtwo,1D,Metal,https://assets.tcgdex.net/en/tcgp/A1/179/high.webp
+A1-181,Meltan,Charizard,1D,Metal,https://assets.tcgdex.net/en/tcgp/A1/181/high.webp
+A1-183,Dratini,Mewtwo,1D,Dragon,https://assets.tcgdex.net/en/tcgp/A1/183/high.webp
+A1-186,Pidgey,Mewtwo,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/186/high.webp
+A1-187,Pidgeotto,Mewtwo,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/187/high.webp
+A1-189,Rattata,Mewtwo,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/189/high.webp
+A1-190,Raticate,Mewtwo,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/190/high.webp
+A1-191,Spearow,Charizard,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/191/high.webp
+A1-192,Fearow,Charizard,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/192/high.webp
+A1-193,Jigglypuff,Pikachu,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/193/high.webp
+A1-194,Wigglytuff,Pikachu,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/194/high.webp
+A1-196,Meowth,Charizard,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/196/high.webp
+A1-198,Farfetch'd,Mewtwo,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/198/high.webp
+A1-199,Doduo,Mewtwo,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/199/high.webp
+A1-206,Eevee,Charizard,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/206/high.webp
+A1-207,Eevee,Mewtwo,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/207/high.webp
+A1-208,Eevee,Pikachu,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/208/high.webp
+A1-212,Minccino,Mewtwo,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/212/high.webp
+A1-214,Wooloo,Mewtwo,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/214/high.webp
+A1-215,Dubwool,Mewtwo,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/215/high.webp
+A1-216,Helix Fossil,Pikachu,1D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/216/high.webp
+A1-217,Dome Fossil,Charizard,1D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/217/high.webp
+A1-218,Old Amber,Mewtwo,1D,Trainer,https://assets.tcgdex.net/en/tcgp/A1/218/high.webp
+A1-265,Wigglytuff ex,Pikachu,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/265/high.webp
+A1-279,Wigglytuff ex,Pikachu,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A1/279/high.webp
+A2-001,Oddish,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/001/high.webp
+A2-002,Gloom,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/002/high.webp
+A2-004,Tangela,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/004/high.webp
+A2-006,Yanma,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/006/high.webp
+A2-008,Roselia,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/008/high.webp
+A2-010,Turtwig,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/010/high.webp
+A2-013,Kricketot,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/013/high.webp
+A2-014,Kricketune,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/014/high.webp
+A2-015,Burmy,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/015/high.webp
+A2-016,Wormadam,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/016/high.webp
+A2-017,Combee,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/017/high.webp
+A2-021,Mow Rotom,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A2/021/high.webp
+A2-023,Magmar,Shared,1D,Fire,https://assets.tcgdex.net/en/tcgp/A2/023/high.webp
+A2-025,Slugma,Shared,1D,Fire,https://assets.tcgdex.net/en/tcgp/A2/025/high.webp
+A2-027,Chimchar,Shared,1D,Fire,https://assets.tcgdex.net/en/tcgp/A2/027/high.webp
+A2-030,Heat Rotom,Shared,1D,Fire,https://assets.tcgdex.net/en/tcgp/A2/030/high.webp
+A2-031,Swinub,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A2/031/high.webp
+A2-035,Piplup,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A2/035/high.webp
+A2-038,Buizel,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A2/038/high.webp
+A2-040,Shellos,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A2/040/high.webp
+A2-042,Finneon,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A2/042/high.webp
+A2-044,Snover,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A2/044/high.webp
+A2-047,Wash Rotom,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A2/047/high.webp
+A2-048,Frost Rotom,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A2/048/high.webp
+A2-051,Magnemite,Shared,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/051/high.webp
+A2-054,Voltorb,Shared,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/054/high.webp
+A2-056,Electabuzz,Shared,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/056/high.webp
+A2-058,Shinx,Shared,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/058/high.webp
+A2-062,Rotom,Shared,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A2/062/high.webp
+A2-063,Togepi,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/063/high.webp
+A2-066,Misdreavus,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/066/high.webp
+A2-068,Ralts,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/068/high.webp
+A2-069,Kirlia,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/069/high.webp
+A2-070,Duskull,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/070/high.webp
+A2-073,Drifloon,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A2/073/high.webp
+A2-080,Rhyhorn,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/080/high.webp
+A2-083,Gligar,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/083/high.webp
+A2-085,Hitmontop,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/085/high.webp
+A2-086,Nosepass,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/086/high.webp
+A2-090,Wormadam,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/090/high.webp
+A2-091,Riolu,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/091/high.webp
+A2-093,Hippopotas,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A2/093/high.webp
+A2-096,Murkrow,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/096/high.webp
+A2-098,Sneasel,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/098/high.webp
+A2-100,Poochyena,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/100/high.webp
+A2-102,Stunky,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/102/high.webp
+A2-105,Skorupi,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/105/high.webp
+A2-107,Croagunk,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A2/107/high.webp
+A2-115,Wormadam,Shared,1D,Metal,https://assets.tcgdex.net/en/tcgp/A2/115/high.webp
+A2-116,Bronzor,Shared,1D,Metal,https://assets.tcgdex.net/en/tcgp/A2/116/high.webp
+A2-121,Gible,Shared,1D,Dragon,https://assets.tcgdex.net/en/tcgp/A2/121/high.webp
+A2-124,Lickitung,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/124/high.webp
+A2-126,Eevee,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/126/high.webp
+A2-127,Porygon,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/127/high.webp
+A2-130,Aipom,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/130/high.webp
+A2-131,Ambipom,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/131/high.webp
+A2-132,Starly,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/132/high.webp
+A2-133,Staravia,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/133/high.webp
+A2-135,Bidoof,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/135/high.webp
+A2-136,Bibarel,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/136/high.webp
+A2-137,Buneary,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/137/high.webp
+A2-138,Lopunny,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/138/high.webp
+A2-139,Glameow,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/139/high.webp
+A2-141,Chatot,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/141/high.webp
+A2-142,Fan Rotom,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A2/142/high.webp
+A2-144,Skull Fossil,Shared,1D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/144/high.webp
+A2-145,Armor Fossil,Shared,1D,Trainer,https://assets.tcgdex.net/en/tcgp/A2/145/high.webp
+A3-001,Exeggcute,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/001/high.webp
+A3-003,Surskit,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/003/high.webp
+A3-005,Maractus,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/005/high.webp
+A3-006,Karrablast,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/006/high.webp
+A3-007,Phantump,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/007/high.webp
+A3-009,Rowlet,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/009/high.webp
+A3-010,Rowlet,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/010/high.webp
+A3-013,Grubbin,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/013/high.webp
+A3-014,Fomantis,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/014/high.webp
+A3-016,Morelull,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/016/high.webp
+A3-018,Bounsweet,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/018/high.webp
+A3-021,Wimpod,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/021/high.webp
+A3-025,Growlithe,Shared,1D,Fire,https://assets.tcgdex.net/en/tcgp/A3/025/high.webp
+A3-028,Fletchinder,Shared,1D,Fire,https://assets.tcgdex.net/en/tcgp/A3/028/high.webp
+A3-030,Litten,Shared,1D,Fire,https://assets.tcgdex.net/en/tcgp/A3/030/high.webp
+A3-031,Litten,Shared,1D,Fire,https://assets.tcgdex.net/en/tcgp/A3/031/high.webp
+A3-035,Salandit,Shared,1D,Fire,https://assets.tcgdex.net/en/tcgp/A3/035/high.webp
+A3-036,Salazzle,Shared,1D,Fire,https://assets.tcgdex.net/en/tcgp/A3/036/high.webp
+A3-038,Alolan Sandshrew,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/038/high.webp
+A3-040,Alolan Vulpix,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/040/high.webp
+A3-042,Shellder,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/042/high.webp
+A3-045,Popplio,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/045/high.webp
+A3-046,Popplio,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/046/high.webp
+A3-050,Wishiwashi,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/050/high.webp
+A3-052,Dewpider,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/052/high.webp
+A3-054,Pyukumuku,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/054/high.webp
+A3-055,Bruxish,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/055/high.webp
+A3-057,Pikachu,Shared,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/057/high.webp
+A3-059,Alolan Geodude,Shared,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/059/high.webp
+A3-062,Helioptile,Shared,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/062/high.webp
+A3-063,Heliolisk,Shared,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/063/high.webp
+A3-067,Togedemaru,Shared,1D,Lightning,https://assets.tcgdex.net/en/tcgp/A3/067/high.webp
+A3-071,Spoink,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/071/high.webp
+A3-073,Lunatone,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/073/high.webp
+A3-074,Shuppet,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/074/high.webp
+A3-075,Banette,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/075/high.webp
+A3-078,Cutiefly,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/078/high.webp
+A3-079,Ribombee,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/079/high.webp
+A3-081,Sandygast,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/081/high.webp
+A3-083,Mimikyu,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/083/high.webp
+A3-085,Cosmog,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/085/high.webp
+A3-089,Cubone,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/089/high.webp
+A3-090,Makuhita,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/090/high.webp
+A3-092,Solrock,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/092/high.webp
+A3-093,Drilbur,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/093/high.webp
+A3-094,Timburr,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/094/high.webp
+A3-097,Crabrawler,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/097/high.webp
+A3-098,Rockruff,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/098/high.webp
+A3-099,Rockruff,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/099/high.webp
+A3-102,Mudbray,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/102/high.webp
+A3-106,Alolan Rattata,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/106/high.webp
+A3-108,Alolan Meowth,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/108/high.webp
+A3-110,Alolan Grimer,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/110/high.webp
+A3-113,Trubbish,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/113/high.webp
+A3-115,Mareanie,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/115/high.webp
+A3-116,Toxapex,Shared,1D,Darkness,https://assets.tcgdex.net/en/tcgp/A3/116/high.webp
+A3-117,Alolan Diglett,Shared,1D,Metal,https://assets.tcgdex.net/en/tcgp/A3/117/high.webp
+A3-118,Alolan Dugtrio,Shared,1D,Metal,https://assets.tcgdex.net/en/tcgp/A3/118/high.webp
+A3-125,Jangmo-o,Shared,1D,Dragon,https://assets.tcgdex.net/en/tcgp/A3/125/high.webp
+A3-129,Skitty,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/129/high.webp
+A3-131,Fletchling,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/131/high.webp
+A3-133,Pikipek,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/133/high.webp
+A3-134,Trumbeak,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/134/high.webp
+A3-136,Yungoos,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/136/high.webp
+A3-137,Gumshoos,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/137/high.webp
+A3-138,Stufful,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/138/high.webp
+A3-210,Bulbasaur,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/210/high.webp
+A3-211,Ivysaur,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/211/high.webp
+A3-212,Venusaur,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/212/high.webp
+A3-213,Exeggcute,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/213/high.webp
+A3-214,Exeggutor,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/214/high.webp
+A3-215,Squirtle,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/215/high.webp
+A3-216,Wartortle,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/216/high.webp
+A3-217,Blastoise,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/217/high.webp
+A3-218,Staryu,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/218/high.webp
+A3-219,Starmie,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/219/high.webp
+A3-220,Gastly,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/220/high.webp
+A3-221,Haunter,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/221/high.webp
+A3-222,Gengar,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/222/high.webp
+A3-223,Machop,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/223/high.webp
+A3-224,Machoke,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/224/high.webp
+A3-225,Machamp,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/225/high.webp
+A3-226,Cubone,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/226/high.webp
+A3-227,Marowak,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/227/high.webp
+A3-228,Jigglypuff,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/228/high.webp
+A3-229,Wigglytuff,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/229/high.webp
+A3-230,Venusaur ex,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/230/high.webp
+A3-231,Exeggutor ex,Shared,1D,Grass,https://assets.tcgdex.net/en/tcgp/A3/231/high.webp
+A3-232,Blastoise ex,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/232/high.webp
+A3-233,Starmie ex,Shared,1D,Water,https://assets.tcgdex.net/en/tcgp/A3/233/high.webp
+A3-234,Gengar ex,Shared,1D,Psychic,https://assets.tcgdex.net/en/tcgp/A3/234/high.webp
+A3-235,Machamp ex,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/235/high.webp
+A3-236,Marowak ex,Shared,1D,Fighting,https://assets.tcgdex.net/en/tcgp/A3/236/high.webp
+A3-237,Wigglytuff ex,Shared,1D,Colorless,https://assets.tcgdex.net/en/tcgp/A3/237/high.webp
+A1-280,Charizard ex,Charizard,3S,Fire,https://assets.tcgdex.net/en/tcgp/A1/280/high.webp
+A1-281,Pikachu ex,Pikachu,3S,Lightning,https://assets.tcgdex.net/en/tcgp/A1/281/high.webp
+A1-282,Mewtwo ex,Mewtwo,3S,Psychic,https://assets.tcgdex.net/en/tcgp/A1/282/high.webp
+A1-283,Mew,Shared,3S,Psychic,https://assets.tcgdex.net/en/tcgp/A1/283/high.webp
+A2-204,Palkia ex,Shared,3S,Water,https://assets.tcgdex.net/en/tcgp/A2/204/high.webp
+A2-205,Dialga ex,Shared,3S,Metal,https://assets.tcgdex.net/en/tcgp/A2/205/high.webp
+A3-208,Guzma,Shared,3S,Trainer,https://assets.tcgdex.net/en/tcgp/A3/208/high.webp
+A3-209,Lillie,Shared,3S,Trainer,https://assets.tcgdex.net/en/tcgp/A3/209/high.webp
+A1-251,Venusaur ex,Mewtwo,2S,Grass,https://assets.tcgdex.net/en/tcgp/A1/251/high.webp
+A1-252,Exeggutor ex,Charizard,2S,Grass,https://assets.tcgdex.net/en/tcgp/A1/252/high.webp
+A1-253,Charizard ex,Charizard,2S,Fire,https://assets.tcgdex.net/en/tcgp/A1/253/high.webp
+A1-254,Arcanine ex,Pikachu,2S,Fire,https://assets.tcgdex.net/en/tcgp/A1/254/high.webp
+A1-255,Moltres ex,Charizard,2S,Fire,https://assets.tcgdex.net/en/tcgp/A1/255/high.webp
+A1-256,Blastoise ex,Pikachu,2S,Water,https://assets.tcgdex.net/en/tcgp/A1/256/high.webp
+A1-257,Starmie ex,Charizard,2S,Water,https://assets.tcgdex.net/en/tcgp/A1/257/high.webp
+A1-258,Articuno ex,Mewtwo,2S,Water,https://assets.tcgdex.net/en/tcgp/A1/258/high.webp
+A1-259,Pikachu ex,Pikachu,2S,Lightning,https://assets.tcgdex.net/en/tcgp/A1/259/high.webp
+A1-260,Zapdos ex,Pikachu,2S,Lightning,https://assets.tcgdex.net/en/tcgp/A1/260/high.webp
+A1-261,Gengar ex,Mewtwo,2S,Psychic,https://assets.tcgdex.net/en/tcgp/A1/261/high.webp
+A1-262,Mewtwo ex,Mewtwo,2S,Psychic,https://assets.tcgdex.net/en/tcgp/A1/262/high.webp
+A1-263,Machamp ex,Charizard,2S,Fighting,https://assets.tcgdex.net/en/tcgp/A1/263/high.webp
+A1-264,Marowak ex,Mewtwo,2S,Fighting,https://assets.tcgdex.net/en/tcgp/A1/264/high.webp
+A1-266,Erika,Charizard,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A1/266/high.webp
+A1-267,Misty,Pikachu,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A1/267/high.webp
+A1-268,Blaine,Charizard,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A1/268/high.webp
+A1-269,Koga,Mewtwo,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A1/269/high.webp
+A1-270,Giovanni,Mewtwo,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A1/270/high.webp
+A1-271,Brock,Pikachu,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A1/271/high.webp
+A1-272,Sabrina,Charizard,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A1/272/high.webp
+A1-273,Lt. Surge,Pikachu,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A1/273/high.webp
+A1-274,Moltres ex,Charizard,2S,Fire,https://assets.tcgdex.net/en/tcgp/A1/274/high.webp
+A1-275,Articuno ex,Mewtwo,2S,Water,https://assets.tcgdex.net/en/tcgp/A1/275/high.webp
+A1-276,Zapdos ex,Pikachu,2S,Lightning,https://assets.tcgdex.net/en/tcgp/A1/276/high.webp
+A1-277,Gengar ex,Mewtwo,2S,Psychic,https://assets.tcgdex.net/en/tcgp/A1/277/high.webp
+A1-278,Machamp ex,Charizard,2S,Fighting,https://assets.tcgdex.net/en/tcgp/A1/278/high.webp
+A2-180,Yanmega ex,Shared,2S,Grass,https://assets.tcgdex.net/en/tcgp/A2/180/high.webp
+A2-181,Infernape ex,Shared,2S,Fire,https://assets.tcgdex.net/en/tcgp/A2/181/high.webp
+A2-182,Palkia ex,Shared,2S,Water,https://assets.tcgdex.net/en/tcgp/A2/182/high.webp
+A2-183,Pachirisu ex,Shared,2S,Lightning,https://assets.tcgdex.net/en/tcgp/A2/183/high.webp
+A2-184,Mismagius ex,Shared,2S,Psychic,https://assets.tcgdex.net/en/tcgp/A2/184/high.webp
+A2-185,Gallade ex,Shared,2S,Fighting,https://assets.tcgdex.net/en/tcgp/A2/185/high.webp
+A2-186,Weavile ex,Shared,2S,Darkness,https://assets.tcgdex.net/en/tcgp/A2/186/high.webp
+A2-187,Darkrai ex,Shared,2S,Darkness,https://assets.tcgdex.net/en/tcgp/A2/187/high.webp
+A2-188,Dialga ex,Shared,2S,Metal,https://assets.tcgdex.net/en/tcgp/A2/188/high.webp
+A2-189,Lickilicky ex,Shared,2S,Colorless,https://assets.tcgdex.net/en/tcgp/A2/189/high.webp
+A2-190,Cyrus,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A2/190/high.webp
+A2-191,Team Galactic Grunt,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A2/191/high.webp
+A2-192,Cynthia,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A2/192/high.webp
+A2-193,Volkner,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A2/193/high.webp
+A2-194,Dawn,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A2/194/high.webp
+A2-195,Mars,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A2/195/high.webp
+A2-196,Yanmega ex,Shared,2S,Grass,https://assets.tcgdex.net/en/tcgp/A2/196/high.webp
+A2-197,Infernape ex,Shared,2S,Fire,https://assets.tcgdex.net/en/tcgp/A2/197/high.webp
+A2-198,Pachirisu ex,Shared,2S,Lightning,https://assets.tcgdex.net/en/tcgp/A2/198/high.webp
+A2-199,Mismagius ex,Shared,2S,Psychic,https://assets.tcgdex.net/en/tcgp/A2/199/high.webp
+A2-200,Gallade ex,Shared,2S,Fighting,https://assets.tcgdex.net/en/tcgp/A2/200/high.webp
+A2-201,Weavile ex,Shared,2S,Darkness,https://assets.tcgdex.net/en/tcgp/A2/201/high.webp
+A2-202,Darkrai ex,Shared,2S,Darkness,https://assets.tcgdex.net/en/tcgp/A2/202/high.webp
+A2-203,Lickilicky ex,Shared,2S,Colorless,https://assets.tcgdex.net/en/tcgp/A2/203/high.webp
+A3-180,Decidueye ex,Shared,2S,Grass,https://assets.tcgdex.net/en/tcgp/A3/180/high.webp
+A3-181,Dhelmise ex,Shared,2S,Grass,https://assets.tcgdex.net/en/tcgp/A3/181/high.webp
+A3-182,Incineroar ex,Shared,2S,Fire,https://assets.tcgdex.net/en/tcgp/A3/182/high.webp
+A3-183,Crabominable ex,Shared,2S,Water,https://assets.tcgdex.net/en/tcgp/A3/183/high.webp
+A3-184,Wishiwashi ex,Shared,2S,Water,https://assets.tcgdex.net/en/tcgp/A3/184/high.webp
+A3-185,Alolan Raichu ex,Shared,2S,Lightning,https://assets.tcgdex.net/en/tcgp/A3/185/high.webp
+A3-186,Lunala ex,Shared,2S,Psychic,https://assets.tcgdex.net/en/tcgp/A3/186/high.webp
+A3-187,Passimian ex,Shared,2S,Fighting,https://assets.tcgdex.net/en/tcgp/A3/187/high.webp
+A3-188,Alolan Muk ex,Shared,2S,Darkness,https://assets.tcgdex.net/en/tcgp/A3/188/high.webp
+A3-189,Solgaleo ex,Shared,2S,Metal,https://assets.tcgdex.net/en/tcgp/A3/189/high.webp
+A3-190,Acerola,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A3/190/high.webp
+A3-191,Ilima,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A3/191/high.webp
+A3-192,Kiawe,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A3/192/high.webp
+A3-193,Guzma,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A3/193/high.webp
+A3-194,Lana,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A3/194/high.webp
+A3-195,Sophocles,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A3/195/high.webp
+A3-196,Mallow,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A3/196/high.webp
+A3-197,Lillie,Shared,2S,Trainer,https://assets.tcgdex.net/en/tcgp/A3/197/high.webp
+A3-198,Decidueye ex,Shared,2S,Grass,https://assets.tcgdex.net/en/tcgp/A3/198/high.webp
+A3-199,Dhelmise ex,Shared,2S,Grass,https://assets.tcgdex.net/en/tcgp/A3/199/high.webp
+A3-200,Incineroar ex,Shared,2S,Fire,https://assets.tcgdex.net/en/tcgp/A3/200/high.webp
+A3-201,Crabominable ex,Shared,2S,Water,https://assets.tcgdex.net/en/tcgp/A3/201/high.webp
+A3-202,Wishiwashi ex,Shared,2S,Water,https://assets.tcgdex.net/en/tcgp/A3/202/high.webp
+A3-203,Alolan Raichu ex,Shared,2S,Lightning,https://assets.tcgdex.net/en/tcgp/A3/203/high.webp
+A3-204,Lunala ex,Shared,2S,Psychic,https://assets.tcgdex.net/en/tcgp/A3/204/high.webp
+A3-205,Passimian ex,Shared,2S,Fighting,https://assets.tcgdex.net/en/tcgp/A3/205/high.webp
+A3-206,Alolan Muk ex,Shared,2S,Darkness,https://assets.tcgdex.net/en/tcgp/A3/206/high.webp
+A3-207,Solgaleo ex,Shared,2S,Metal,https://assets.tcgdex.net/en/tcgp/A3/207/high.webp
+A1-227,Bulbasaur,Mewtwo,1S,Grass,https://assets.tcgdex.net/en/tcgp/A1/227/high.webp
+A1-228,Gloom,Charizard,1S,Grass,https://assets.tcgdex.net/en/tcgp/A1/228/high.webp
+A1-229,Pinsir,Charizard,1S,Grass,https://assets.tcgdex.net/en/tcgp/A1/229/high.webp
+A1-230,Charmander,Charizard,1S,Fire,https://assets.tcgdex.net/en/tcgp/A1/230/high.webp
+A1-231,Rapidash,Charizard,1S,Fire,https://assets.tcgdex.net/en/tcgp/A1/231/high.webp
+A1-232,Squirtle,Pikachu,1S,Water,https://assets.tcgdex.net/en/tcgp/A1/232/high.webp
+A1-233,Gyarados,Pikachu,1S,Water,https://assets.tcgdex.net/en/tcgp/A1/233/high.webp
+A1-234,Lapras,Charizard,1S,Water,https://assets.tcgdex.net/en/tcgp/A1/234/high.webp
+A1-235,Electrode,Pikachu,1S,Lightning,https://assets.tcgdex.net/en/tcgp/A1/235/high.webp
+A1-236,Alakazam,Charizard,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A1/236/high.webp
+A1-237,Slowpoke,Charizard,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A1/237/high.webp
+A1-238,Diglett,Pikachu,1S,Fighting,https://assets.tcgdex.net/en/tcgp/A1/238/high.webp
+A1-239,Cubone,Mewtwo,1S,Fighting,https://assets.tcgdex.net/en/tcgp/A1/239/high.webp
+A1-240,Nidoqueen,Pikachu,1S,Darkness,https://assets.tcgdex.net/en/tcgp/A1/240/high.webp
+A1-241,Nidoking,Pikachu,1S,Darkness,https://assets.tcgdex.net/en/tcgp/A1/241/high.webp
+A1-242,Golbat,Mewtwo,1S,Darkness,https://assets.tcgdex.net/en/tcgp/A1/242/high.webp
+A1-243,Weezing,Mewtwo,1S,Darkness,https://assets.tcgdex.net/en/tcgp/A1/243/high.webp
+A1-244,Dragonite,Mewtwo,1S,Dragon,https://assets.tcgdex.net/en/tcgp/A1/244/high.webp
+A1-245,Pidgeot,Mewtwo,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A1/245/high.webp
+A1-246,Meowth,Charizard,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A1/246/high.webp
+A1-247,Ditto,Mewtwo,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A1/247/high.webp
+A1-248,Eevee,Pikachu,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A1/248/high.webp
+A1-249,Porygon,Mewtwo,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A1/249/high.webp
+A1-250,Snorlax,Pikachu,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A1/250/high.webp
+A2-156,Tangrowth,Shared,1S,Grass,https://assets.tcgdex.net/en/tcgp/A2/156/high.webp
+A2-157,Combee,Shared,1S,Grass,https://assets.tcgdex.net/en/tcgp/A2/157/high.webp
+A2-158,Carnivine,Shared,1S,Grass,https://assets.tcgdex.net/en/tcgp/A2/158/high.webp
+A2-159,Shaymin,Shared,1S,Grass,https://assets.tcgdex.net/en/tcgp/A2/159/high.webp
+A2-160,Mamoswine,Shared,1S,Water,https://assets.tcgdex.net/en/tcgp/A2/160/high.webp
+A2-161,Gastrodon,Shared,1S,Water,https://assets.tcgdex.net/en/tcgp/A2/161/high.webp
+A2-162,Manaphy,Shared,1S,Water,https://assets.tcgdex.net/en/tcgp/A2/162/high.webp
+A2-163,Shinx,Shared,1S,Lightning,https://assets.tcgdex.net/en/tcgp/A2/163/high.webp
+A2-164,Rotom,Shared,1S,Lightning,https://assets.tcgdex.net/en/tcgp/A2/164/high.webp
+A2-165,Drifloon,Shared,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A2/165/high.webp
+A2-166,Mesprit,Shared,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A2/166/high.webp
+A2-167,Giratina,Shared,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A2/167/high.webp
+A2-168,Cresselia,Shared,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A2/168/high.webp
+A2-169,Rhyperior,Shared,1S,Fighting,https://assets.tcgdex.net/en/tcgp/A2/169/high.webp
+A2-170,Lucario,Shared,1S,Fighting,https://assets.tcgdex.net/en/tcgp/A2/170/high.webp
+A2-171,Hippopotas,Shared,1S,Fighting,https://assets.tcgdex.net/en/tcgp/A2/171/high.webp
+A2-172,Spiritomb,Shared,1S,Darkness,https://assets.tcgdex.net/en/tcgp/A2/172/high.webp
+A2-173,Croagunk,Shared,1S,Darkness,https://assets.tcgdex.net/en/tcgp/A2/173/high.webp
+A2-174,Heatran,Shared,1S,Metal,https://assets.tcgdex.net/en/tcgp/A2/174/high.webp
+A2-175,Garchomp,Shared,1S,Dragon,https://assets.tcgdex.net/en/tcgp/A2/175/high.webp
+A2-176,Staraptor,Shared,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A2/176/high.webp
+A2-177,Bidoof,Shared,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A2/177/high.webp
+A2-178,Glameow,Shared,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A2/178/high.webp
+A2-179,Regigigas,Shared,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A2/179/high.webp
+A3-156,Alolan Exeggutor,Shared,1S,Grass,https://assets.tcgdex.net/en/tcgp/A3/156/high.webp
+A3-157,Morelull,Shared,1S,Grass,https://assets.tcgdex.net/en/tcgp/A3/157/high.webp
+A3-158,Tsareena,Shared,1S,Grass,https://assets.tcgdex.net/en/tcgp/A3/158/high.webp
+A3-159,Tapu Bulu,Shared,1S,Grass,https://assets.tcgdex.net/en/tcgp/A3/159/high.webp
+A3-160,Alolan Marowak,Shared,1S,Fire,https://assets.tcgdex.net/en/tcgp/A3/160/high.webp
+A3-161,Turtonator,Shared,1S,Fire,https://assets.tcgdex.net/en/tcgp/A3/161/high.webp
+A3-162,Alolan Vulpix,Shared,1S,Water,https://assets.tcgdex.net/en/tcgp/A3/162/high.webp
+A3-163,Pyukumuku,Shared,1S,Water,https://assets.tcgdex.net/en/tcgp/A3/163/high.webp
+A3-164,Tapu Fini,Shared,1S,Water,https://assets.tcgdex.net/en/tcgp/A3/164/high.webp
+A3-165,Oricorio,Shared,1S,Lightning,https://assets.tcgdex.net/en/tcgp/A3/165/high.webp
+A3-166,Tapu Koko,Shared,1S,Lightning,https://assets.tcgdex.net/en/tcgp/A3/166/high.webp
+A3-167,Cutiefly,Shared,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A3/167/high.webp
+A3-168,Comfey,Shared,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A3/168/high.webp
+A3-169,Sandygast,Shared,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A3/169/high.webp
+A3-170,Tapu Lele,Shared,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A3/170/high.webp
+A3-171,Cosmog,Shared,1S,Psychic,https://assets.tcgdex.net/en/tcgp/A3/171/high.webp
+A3-172,Rockruff,Shared,1S,Fighting,https://assets.tcgdex.net/en/tcgp/A3/172/high.webp
+A3-173,Mudsdale,Shared,1S,Fighting,https://assets.tcgdex.net/en/tcgp/A3/173/high.webp
+A3-174,Minior,Shared,1S,Fighting,https://assets.tcgdex.net/en/tcgp/A3/174/high.webp
+A3-175,Magearna,Shared,1S,Metal,https://assets.tcgdex.net/en/tcgp/A3/175/high.webp
+A3-176,Drampa,Shared,1S,Dragon,https://assets.tcgdex.net/en/tcgp/A3/176/high.webp
+A3-177,Pikipek,Shared,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A3/177/high.webp
+A3-178,Bewear,Shared,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A3/178/high.webp
+A3-179,Komala,Shared,1S,Colorless,https://assets.tcgdex.net/en/tcgp/A3/179/high.webp
+A1-284,Charizard ex,Mewtwo,C,Fire,https://assets.tcgdex.net/en/tcgp/A1/284/high.webp
+A1-285,Pikachu ex,Mewtwo,C,Lightning,https://assets.tcgdex.net/en/tcgp/A1/285/high.webp
+A1-286,Mewtwo ex,Mewtwo,C,Psychic,https://assets.tcgdex.net/en/tcgp/A1/286/high.webp
+A2-206,Palkia ex,Shared,C,Water,https://assets.tcgdex.net/en/tcgp/A2/206/high.webp
+A2-207,Dialga ex,Shared,C,Metal,https://assets.tcgdex.net/en/tcgp/A2/207/high.webp
+A3-238,Lunala ex,Shared,C,Psychic,https://assets.tcgdex.net/en/tcgp/A3/238/high.webp
+A3-239,Solgaleo ex,Shared,C,Metal,https://assets.tcgdex.net/en/tcgp/A3/239/high.webp
