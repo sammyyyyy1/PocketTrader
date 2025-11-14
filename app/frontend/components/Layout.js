@@ -22,26 +22,31 @@ const Layout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
-      <header className="bg-[#2c3e50] text-white p-4 shadow-md">
+      <header className="bg-sky-900 text-white p-4 shadow-md">
         <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <div>
+          <div className="flex flex-row gap-8">
             <h1 className="m-0 text-2xl font-bold text-white">PocketTrader</h1>
+            <a
+              href="/cards"
+              className="bg-emerald-600 hover:bg-emerald-700 px-4 rounded transition-colors duration-200 flex items-center justify-center"
+            >
+              <p className="text-white font-semibold">Cards</p>
+            </a>
+            {
+              (
+                user && (
+                  <a
+                    href="/collection"
+                    className="bg-emerald-500 hover:bg-emerald-600 px-4 rounded transition-colors duration-200 flex items-center justify-center"
+                  >
+                    <p className="text-white font-semibold">My Collection</p>
+                  </a>
+                )
+              )
+            }
           </div>
 
           <nav className="mt-4 sm:mt-0 flex gap-4 items-center">
-            <a
-              href="/cards"
-              className="bg-[#16a085] hover:bg-[#1abc9c] text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
-            >
-              Cards
-            </a>
-            <a
-              href="/collection"
-              className="bg-[#2980b9] hover:bg-[#3498db] text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
-            >
-              My Collection
-            </a>
-
             <div className="ml-4 text-sm text-white">
               {user ? (
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
