@@ -1,8 +1,10 @@
 """
-Generate SQL INSERT statements for Pokemon TCG Pocket cards from TCGdex API
-This script fetches cards from the Genetic Apex (A1) set and generates SQL for init.sql
+Generate SQL INSERT statements for Pokemon TCG Pocket cards from TCGdex API.
+When run non-interactively it can overwrite init.sql automatically, which is
+useful for container start-up scripts.
 """
 
+import argparse
 import asyncio
 import sys
 from pathlib import Path
@@ -16,6 +18,10 @@ except ImportError:
 
 
 # Rarity mapping from TCGdex to our database format
+SCRIPT_DIR = Path(__file__).resolve().parent
+MIGRATIONS_DIR = SCRIPT_DIR.parent / "migrations"
+DEFAULT_OUTPUT = MIGRATIONS_DIR / "init_cards.sql"
+
 RARITY_MAP = {
     "Four Diamond": "4D",
     "Three Star": "3S",  # Crown rare (mapped to 3D for consistency)
@@ -136,11 +142,15 @@ def generate_sql_insert(cards, limit: int = None) -> str:
     
     # Group cards by rarity for better organization
     card_groups = {
+        "4D": [],
         "3D": [],
+        "2D": [],
+        "1D": [],
+        "4S": [],
+        "3S": [],
         "2S": [],
         "1S": [],
-        "2D": [],
-        "1D": []
+        "C": []
     }
     
     for card in cards:
@@ -150,7 +160,7 @@ def generate_sql_insert(cards, limit: int = None) -> str:
     all_card_lines = []
     
     # Process each rarity group
-    for rarity_code, rarity_name in [("3D", "3 Diamond"), ("2S", "2 Star"), ("1S", "1 Star"), ("2D", "2 Diamond"), ("1D", "1 Diamond")]:
+    for rarity_code, rarity_name in [("4D", "4 Diamond"), ("3D", "3 Diamond"), ("2D", "2 Diamond"), ("1D", "1 Diamond"), ("4S", "4 Star"), ("3S", "3 Star"), ("2S", "2 Star"), ("1S", "1 Star"), ("C", "Crown")]:
         group_cards = card_groups[rarity_code]
         if not group_cards:
             continue
@@ -167,7 +177,6 @@ def generate_sql_insert(cards, limit: int = None) -> str:
             line = f"('{card_id}', '{name}', '{pack_name}', '{rarity_code}', '{card_type}', '{image_url}')"
             all_card_lines.append(line)
         
-        all_card_lines.append("")  # Empty line between groups
     
     # Join all card lines with commas
     card_values = ",\n".join(all_card_lines[:-1])  # Remove last empty line
@@ -182,9 +191,35 @@ def generate_sql_insert(cards, limit: int = None) -> str:
     return "\n".join(sql_lines)
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Fetch Pocket (A1) cards from TCGdex and emit INSERT statements."
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Maximum number of cards to include (default: all cards fetched).",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_OUTPUT,
+        help=f"Path to write the generated SQL (default: {DEFAULT_OUTPUT}).",
+    )
+    parser.add_argument(
+        "--skip-prompt",
+        action="store_true",
+        help="Run non-interactively (useful for automation).",
+    )
+    return parser.parse_args()
+
+
 async def main():
     """Main function to generate SQL data"""
     print("=== Pokemon TCG Pocket Card Data Generator ===\n")
+
+    args = parse_args()
     
     # Fetch cards
     cards = await fetch_genetic_apex_cards()
@@ -195,22 +230,24 @@ async def main():
     
     print(f"\nSuccessfully fetched {len(cards)} cards")
     
-    # Ask user how many cards to include
-    print("\nHow many cards would you like to include in the database?")
-    print(f"Enter a number (1-{len(cards)}) or press Enter for all cards:")
-    
-    try:
-        user_input = input("> ").strip()
-        limit = int(user_input) if user_input else None
-    except ValueError:
-        limit = None
+    limit = args.limit
+    if limit is None and not args.skip_prompt and sys.stdin.isatty():
+        # Ask user how many cards to include
+        print("\nHow many cards would you like to include in the database?")
+        print(f"Enter a number (1-{len(cards)}) or press Enter for all cards:")
+        
+        try:
+            user_input = input("> ").strip()
+            limit = int(user_input) if user_input else None
+        except ValueError:
+            limit = None
     
     # Generate SQL
     print("\nGenerating SQL INSERT statements...")
     sql = generate_sql_insert(cards, limit)
     
     # Save to file
-    output_file = Path(__file__).parent.parent / "app" / "database" / "migrations" / "init_generated.sql"
+    output_file = args.output
     output_file.parent.mkdir(parents=True, exist_ok=True)
     
     with open(output_file, 'w', encoding='utf-8') as f:
@@ -219,8 +256,8 @@ async def main():
     print(f"\n✅ SQL file generated: {output_file}")
     print(f"   Total cards: {limit if limit else len(cards)}")
     print("\nTo use this file:")
-    print("1. Review the generated init_generated.sql")
-    print("2. Replace the content of init.sql with init_generated.sql")
+    print(f"1. Review the generated {output_file.name}")
+    print(f"2. Replace the content of init_cards.sql with {output_file.name}")
     print("3. Run: docker compose down -v && docker compose up --build")
 
 
