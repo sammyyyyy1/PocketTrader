@@ -1,46 +1,39 @@
--- test-sample.out
--- This file shows sample output after running test-sample.sql on the seeded sample DB.
--- Note: Timestamps will vary; this is a representative snapshot.
 
--- Users
-userID | username | dateJoined
-1 | trainer | 2025-10-20 13:30:00
 
--- Total cards
+--- Query: Users (list) ---
+userID	username	dateJoined
+1	trainer	2025-10-20 13:30:00
+2	Bob	2025-10-21 14:00:00
+3	Chloe	2025-10-22 09:00:00
+4	Alice	2025-10-23 10:00:00
+
+--- Query: total_cards ---
 total_cards
 26
 
--- R6 (rarity = '1D' for userID=1)
-cardID | name | rarity | type | quantity
-A1-001 | Bulbasaur | 1D | Grass | 3
-A1-033 | Charmander | 1D | Fire | 1
-A1-053 | Squirtle | 1D | Water | 1
-A1-094 | Pikachu | 1D | Lightning | 3
+--- Query: R6 - Browse/Filter (sample cards) ---
+cardID	name	rarity	type	quantity
+A1-001	Bulbasaur	1D	Grass	2
+A1-033	Charmander	1D	Fire	1
+A1-094	Pikachu	1D	Lightning	3
+A1-053	Squirtle	1D	Water	1
 
--- R6 (type='Water', name like '%saur%')
-cardID | name | rarity | type | quantity
--- (likely empty on current sample seed)
+--- Query: R7 - Upsert (affected rows then verification) ---
+affected_rows_after_R7_upsert
+2
+userID	cardID	quantity
+1	A1-001	3
 
--- R7 verify upsert on A1-001
-userID | cardID | quantity
-1 | A1-001 | 3
+--- Query: R8 - Wishlist/Collection Owners ---
+ownerID	username	quantity
+2	Bob	2
 
--- R8 (Wishlist availability for userID=1)
-cardID | name | owners | total_copies
-A1-053 | Squirtle | 1 | 2
-A1-001 | Bulbasaur | 1 | 1
-
--- R9 (Find mutual trade matches for userID=1)
-partnerID | partnerName | iWant_cardID | iWant_name | rarity_required | theyWant_cardID | theyWant_name
-2 | Bob | A1-053 | Squirtle | 1D | A1-033 | Charmander
-3 | Chloe | A1-001 | Bulbasaur | 1D | A1-033 | Charmander
-
--- R10 (Signup uniqueness check for username 'a')
+--- Query: R9 - Mutual Matches ---
 1
 1
 
--- R10 (Signup insert for 'newuser') (No output for successful INSERT)
-
--- R10 (Login query expected output for username 'a')
+--- Query: R10 - Signup / Login ---
+affected_rows_after_R10_insert
+1
 passwordHash
-ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb
+pbkdf2:sha256:260000$xcvnkLcfwfqDEjsw$4bbca778f61885d3c8212203920104c58c760ffe59b67d46cc7cd01f28edf81f

@@ -1,8 +1,8 @@
 USE app_db;
 
--- Create a sample user (username: trainer, password: password123 - placeholder)
+-- Create a sample user (username: trainer, password: password123 - hashed for security)
 INSERT INTO User (username, passwordHash, dateJoined) VALUES
-('trainer', 'password123', '2025-10-20 13:30:00');
+('trainer', 'pbkdf2:sha256:260000$hgMWRZpNI0vIInaw$841aec15869e08b2e1cbbf769f5251a47e31608f3694595aa3da749475658b88', '2025-10-20 13:30:00');
 
 
 INSERT INTO Card (cardID, name, packName, rarity, type, imageURL) VALUES
