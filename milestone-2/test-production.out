@@ -2,18 +2,20 @@
 
 --- Query: Users (list) ---
 userID	username	dateJoined
-1	trainer	2025-10-20 13:30:00
-2	Bob	2025-10-21 14:00:00
-3	Chloe	2025-10-22 09:00:00
-4	Alice	2025-10-23 10:00:00
+1	Alice	2025-10-20 13:30:00
+2	Bob	2025-10-21 13:30:00
+3	Charlie	2025-10-22 09:10:00
+4	Diana	2025-10-22 11:45:00
+5	Ethan	2025-10-23 08:05:00
+6	newuser	2025-10-25 15:00:00
 
 --- Query: total_cards ---
 total_cards
-26
+285
 
---- Query: R6 - Browse/Filter (sample cards) ---
+--- Query: R6 - Browse/Filter (sample rows) ---
 cardID	name	rarity	type	quantity
-A1-001	Bulbasaur	1D	Grass	2
+A1-001	Bulbasaur	1D	Grass	3
 A1-033	Charmander	1D	Fire	1
 A1-094	Pikachu	1D	Lightning	3
 A1-053	Squirtle	1D	Water	1
@@ -22,13 +24,16 @@ A1-053	Squirtle	1D	Water	1
 affected_rows_after_R7_upsert
 2
 userID	cardID	quantity
-1	A1-001	3
+1	A1-001	4
 
 --- Query: R8 - Wishlist/Collection Owners ---
 ownerID	username	quantity
 2	Bob	2
 
 --- Query: R9 - Mutual Matches ---
+partnerID	partnerName	iWant_cardID	iWant_name	rarity_required	theyWant_cardID	theyWant_name
+2	Bob	A1-053	Squirtle	1D	A1-001	Bulbasaur
+
 1
 1
 
@@ -36,4 +41,4 @@ ownerID	username	quantity
 affected_rows_after_R10_insert
 1
 passwordHash
-pbkdf2:sha256:260000$xcvnkLcfwfqDEjsw$4bbca778f61885d3c8212203920104c58c760ffe59b67d46cc7cd01f28edf81f
+pbkdf2:sha256:260000$hEA1K1n8f2ZGPUKu$47947a693aa5b690ff4c21981b6a7ece50a7f9d0ee1a8e0e4ce00ffe4e512680
