@@ -2,6 +2,7 @@ import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import CardFilters from "../components/CardFilters";
+import PaginationControls from "../components/PaginationControls";
 
 export default function CollectionPage() {
   const [items, setItems] = useState([]);
@@ -11,11 +12,18 @@ export default function CollectionPage() {
   const [typeFilter, setTypeFilter] = useState("");
   const [packFilter, setPackFilter] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const CARDS_PER_PAGE = 25;
 
   useEffect(() => {
     const u = localStorage.getItem("pt_user");
     if (u) setUser(JSON.parse(u));
   }, []);
+
+  useEffect(() => {
+    // Scroll to top when page changes
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   useEffect(() => {
     if (!user) {
@@ -78,6 +86,14 @@ export default function CollectionPage() {
     setLoading(false);
   };
 
+  const onResetFilters = () => {
+    setRarityFilter("");
+    setTypeFilter("");
+    setPackFilter("");
+    setSearchQuery("");
+    setCurrentPage(1);
+  };
+
   if (!user)
     return (
       <Layout>
@@ -98,16 +114,34 @@ export default function CollectionPage() {
       </Layout>
     );
 
-  // Client-side filtering for search and pack
   let filteredItems = items;
+  if (rarityFilter) {
+    filteredItems = filteredItems.filter((item) => item.rarity === rarityFilter);
+  }
+  if (typeFilter) {
+    filteredItems = filteredItems.filter((item) => item.type === typeFilter);
+  }
+  if (packFilter) {
+    filteredItems = filteredItems.filter((item) => item.packName === packFilter);
+  }
   if (searchQuery) {
     filteredItems = filteredItems.filter((item) =>
       item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }
-  if (packFilter) {
-    filteredItems = filteredItems.filter((item) => item.packName === packFilter);
+
+  // Reset to page 1 when filters change
+  if (currentPage > 1) {
+    const maxPage = Math.ceil(filteredItems.length / CARDS_PER_PAGE);
+    if (currentPage > maxPage) {
+      setCurrentPage(1);
+    }
   }
+
+  const totalPages = Math.ceil(filteredItems.length / CARDS_PER_PAGE);
+  const startIndex = (currentPage - 1) * CARDS_PER_PAGE;
+  const endIndex = startIndex + CARDS_PER_PAGE;
+  const paginatedItems = filteredItems.slice(startIndex, endIndex);
 
   return (
     <Layout>
@@ -122,7 +156,7 @@ export default function CollectionPage() {
           setPackFilter={setPackFilter}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          onResetFilters={() => { }}
+          onResetFilters={onResetFilters}
           showPackFilter={true}
           showSearchQuery={true}
           allCards={items}
@@ -130,24 +164,46 @@ export default function CollectionPage() {
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <div className="grid grid-cols-6 gap-4">
-            {filteredItems.map((i) => (
-              <div key={i.cardID}>
-                <Card
-                  card={{
-                    cardID: i.cardID,
-                    name: i.name,
-                    packName: i.packName,
-                    rarity: i.rarity,
-                    imageURL: i.imageURL,
-                    quantity: i.quantity,
-                  }}
-                  canAdd={false}
-                  onDelete={onDelete}
-                />
+          <>
+            {filteredItems.length > 0 && (
+              <PaginationControls
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+              />
+            )}
+            {filteredItems.length === 0 ? (
+              <div className="text-center text-gray-500">
+                No cards found in your collection.
               </div>
-            ))}
-          </div>
+            ) : (
+              <div className="grid grid-cols-6 gap-4">
+                {paginatedItems.map((i) => (
+                  <div key={i.cardID}>
+                    <Card
+                      card={{
+                        cardID: i.cardID,
+                        name: i.name,
+                        packName: i.packName,
+                        rarity: i.rarity,
+                        imageURL: i.imageURL,
+                        quantity: i.quantity,
+                      }}
+                      canAdd={false}
+                      onDelete={onDelete}
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
+            {filteredItems.length > 0 && (
+              <PaginationControls
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setCurrentPage={setCurrentPage}
+              />
+            )}
+          </>
         )}
       </div>
     </Layout>

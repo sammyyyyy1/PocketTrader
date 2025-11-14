@@ -2,6 +2,7 @@ import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import CardFilters from "../components/CardFilters";
+import PaginationControls from "../components/PaginationControls";
 
 export default function Home() {
   const [cards, setCards] = useState(undefined);
@@ -126,27 +127,11 @@ export default function Home() {
       />
 
       {filteredCards.length > 0 && (
-        <div className="mt-3 mb-3 flex justify-center items-center gap-4">
-          <button
-            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-            disabled={currentPage === 1}
-            className="px-3 py-2 bg-gray-700 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition"
-            title="Previous page"
-          >
-            ←
-          </button>
-          <div className="text-gray-400">
-            Page {currentPage} of {totalPages}
-          </div>
-          <button
-            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-            disabled={currentPage === totalPages}
-            className="px-3 py-2 bg-gray-700 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition"
-            title="Next page"
-          >
-            →
-          </button>
-        </div>
+        <PaginationControls
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setCurrentPage={setCurrentPage}
+        />
       )}
 
       {filteredCards.length === 0 ? (
@@ -163,27 +148,11 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mt-3 mb-3 flex justify-center items-center gap-4">
-            <button
-              onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-              disabled={currentPage === 1}
-              className="px-3 py-2 bg-gray-700 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition"
-              title="Previous page"
-            >
-              ←
-            </button>
-            <div className="text-gray-400">
-              Page {currentPage} of {totalPages}
-            </div>
-            <button
-              onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-              disabled={currentPage === totalPages}
-              className="px-3 py-2 bg-gray-700 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600 transition"
-              title="Next page"
-            >
-              →
-            </button>
-          </div>
+          <PaginationControls
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
         </>
       )}
 
