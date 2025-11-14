@@ -82,13 +82,14 @@ Tips:
 
 ## Run the sample SQL files shipped with the project
 
-The repo includes `app/database/schema.sql` (creates tables) and `app/database/migrations/init.sql` (seed data). The Compose setup already runs these on first startup.
+The repo includes `app/database/schema.sql` (creates tables), `app/database/migrations/init_cards.sql`, and `app/database/migrations/init_accounts.sql` (seed data). The Compose setup already runs these on first startup.
 
 If you prefer to run the sample SQL manually from your host:
 
 ```powershell
 mysql -h 127.0.0.1 -P 3307 -u user -ppassword app_db < PocketTrader/app/database/schema.sql
-mysql -h 127.0.0.1 -P 3307 -u user -ppassword app_db < PocketTrader/app/database/migrations/init.sql
+mysql -h 127.0.0.1 -P 3307 -u user -ppassword app_db < PocketTrader/app/database/migrations/init_cards.sql
+mysql -h 127.0.0.1 -P 3307 -u user -ppassword app_db < PocketTrader/app/database/migrations/init_accounts.sql
 ```
 
 There is also `milestone-1/test-sample.sql` containing example queries used for grading. To run it and capture output:

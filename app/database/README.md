@@ -15,7 +15,8 @@ docker compose up --build
 MySQL automatically executes all `.sql` files in `/docker-entrypoint-initdb.d/` in alphabetical order:
 
 1. **`01-schema.sql`** - Creates all tables (USER, CARD, COLLECTION, WISHLIST, TRADE, TRADECARD)
-2. **`02-init.sql`** - Inserts seed data (20 Pokemon cards)
+2. **`02-init_cards.sql`** - Inserts card seed data (20 Pokemon cards)
+2. **`03-init_accounts.sql`** - Inserts user seed data (5 users)
 
 ### Persistent Data
 
@@ -64,7 +65,7 @@ All cards are from the **Genetic Apex** pack. We took a sample of 26 cards of va
 
 To add more cards:
 
-1. Edit `migrations/init.sql`
+1. Edit `migrations/init_cards.sql`
 2. Add `INSERT INTO CARD` statements
 3. Reset database: `docker compose down -v && docker compose up --build`
 
