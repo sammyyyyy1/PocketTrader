@@ -54,12 +54,20 @@ const Layout = ({ children }) => {
                   </button>
                 </div>
               ) : (
-                <a
-                  href="/login"
-                  className="ml-2 bg-[#27ae60] hover:bg-[#2ecc71] text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
-                >
-                  Sign In
-                </a>
+                <div className="flex gap-2">
+                  <a
+                    href="/login"
+                    className="bg-[#27ae60] hover:bg-[#2ecc71] text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
+                  >
+                    Sign In
+                  </a>
+                  <a
+                    href="/signup"
+                    className="bg-[#8e44ad] hover:bg-[#9b59b6] text-white font-semibold py-2 px-4 rounded transition-colors duration-200"
+                  >
+                    Sign Up
+                  </a>
+                </div>
               )}
             </div>
           </nav>

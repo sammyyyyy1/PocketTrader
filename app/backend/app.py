@@ -5,7 +5,7 @@ from flask_mysqldb import MySQL
 from flask_cors import CORS
 import os
 from pathlib import Path
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend communication
@@ -29,6 +29,7 @@ def _load_queries():
         'get_collection': 'get_collection.sql',
         'add_to_collection': 'add_to_collection.sql',
         'get_users': 'get_users.sql',
+        'signup_insert_user': 'signup_insert_user.sql',
     }
     for name, filename in name_to_file.items():
         path = sql_dir / filename
@@ -125,6 +126,59 @@ def login():
     except Exception as e:
         # Print full traceback to container logs to aid debugging during development
         print('Error in get_collection:')
+        traceback.print_exc()
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@app.route('/api/signup', methods=['POST'])
+def signup():
+    """Register a new user with a hashed password."""
+    data = request.get_json(silent=True) or {}
+    username = (data.get('username') or '').strip()
+    password = data.get('password') or ''
+
+    if not username or not password:
+        return jsonify({'status': 'error', 'message': 'username and password required'}), 400
+
+    if len(username) < 3 or len(username) > 50:
+        return jsonify({'status': 'error', 'message': 'username must be between 3 and 50 characters'}), 400
+
+    if len(password) < 6:
+        return jsonify({'status': 'error', 'message': 'password must be at least 6 characters'}), 400
+
+    # Username may contain letters, numbers, underscore, dash
+    if not re.match(r'^[A-Za-z0-9_\-]+$', username):
+        return jsonify({'status': 'error', 'message': 'username can only contain letters, numbers, underscores, or hyphens'}), 400
+
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute(SQL_QUERIES['login_get_user_by_username'], (username,))
+        if cur.fetchone():
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'username already exists'}), 409
+
+        password_hash = generate_password_hash(password)
+        cur.execute(SQL_QUERIES['signup_insert_user'], (username, password_hash))
+        mysql.connection.commit()
+
+        cur.execute(SQL_QUERIES['login_get_user_by_username'], (username,))
+        row = cur.fetchone()
+        cur.close()
+
+        if not row:
+            return jsonify({'status': 'error', 'message': 'new user could not be retrieved'}), 500
+
+        user_id, uname, _, date_joined = row
+        return jsonify({
+            'status': 'success',
+            'user': {
+                'userID': user_id,
+                'username': uname,
+                'dateJoined': str(date_joined) if date_joined else None
+            }
+        }), 201
+    except Exception as e:
+        print('Error in signup:')
         traceback.print_exc()
         return jsonify({'status': 'error', 'message': str(e)}), 500
 

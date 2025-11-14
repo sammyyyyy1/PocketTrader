@@ -1,16 +1,16 @@
 import Layout from "../components/Layout";
 import { useState } from "react";
 
-export default function LoginPage() {
+export default function SignupPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMsg("Logging in...");
+    setMsg("Creating your account...");
     try {
-      const res = await fetch("http://localhost:5001/api/login", {
+      const res = await fetch("http://localhost:5001/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
@@ -18,10 +18,10 @@ export default function LoginPage() {
       const data = await res.json();
       if (data.status === "success") {
         localStorage.setItem("pt_user", JSON.stringify(data.user));
-        setMsg("Login successful");
+        setMsg("Account created!");
         window.location.href = "/";
       } else {
-        setMsg(data.message || "Login failed");
+        setMsg(data.message || "Failed to create account");
       }
     } catch (err) {
       setMsg("Error: " + err.message);
@@ -31,13 +31,14 @@ export default function LoginPage() {
   return (
     <Layout>
       <div className="max-w-md mx-auto mt-12 p-6 bg-white rounded shadow">
-        <h2 className="text-xl font-semibold mb-4">Sign In</h2>
+        <h2 className="text-xl font-semibold mb-4">Create an Account</h2>
         <form onSubmit={handleSubmit}>
           <label className="block mb-2">Username</label>
           <input
             className="w-full border p-2 mb-4"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            placeholder="e.g. ash_ketchum"
           />
           <label className="block mb-2">Password</label>
           <input
@@ -45,15 +46,16 @@ export default function LoginPage() {
             className="w-full border p-2 mb-4"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="At least 6 characters"
           />
-          <button className="bg-green-500 text-white py-2 px-4 rounded">
-            Sign In
+          <button className="bg-blue-600 text-white py-2 px-4 rounded w-full">
+            Sign Up
           </button>
         </form>
         <p className="mt-4 text-sm">
-          Need an account?{" "}
-          <a href="/signup" className="text-blue-600">
-            Create one
+          Already have an account?{" "}
+          <a href="/login" className="text-blue-600">
+            Sign in
           </a>
           .
         </p>
