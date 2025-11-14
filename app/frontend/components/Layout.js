@@ -24,9 +24,9 @@ const Layout = ({ children }) => {
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <header className="bg-[#2c3e50] text-white p-4 shadow-md">
         <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <div>
+          <a href="/" className="text-white no-underline">
             <h1 className="m-0 text-2xl font-bold text-white">PocketTrader</h1>
-          </div>
+          </a>
 
           <nav className="mt-4 sm:mt-0 flex gap-4 items-center">
             <a
