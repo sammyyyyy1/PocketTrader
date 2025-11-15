@@ -332,10 +332,20 @@ def remove_from_collection():
             return jsonify({'status': 'error', 'message': 'remove_from_collection query missing'}), 500
 
         if ':' in sql:
-            sql_no_comments = re.sub(r"--.*?\n", "\n", sql)
-            sql_no_comments = sql_no_comments.replace(':userId', '%s').replace(':cardId', '%s')
-            # Order follows SQL template: cardID comparison appears before userID filter.
-            cur.execute(sql_no_comments, (card_id, user_id))
+            # Strip single-line SQL comments first so placeholder detection ignores docs.
+            sql_no_comments = re.sub(r"--.*?(?=\n|$)", "", sql)
+
+            ordered_keys = []
+
+            def replace_named(match):
+                key = match.group(1)
+                ordered_keys.append(key)
+                return '%s'
+
+            sql_no_comments = re.sub(r':(cardId|userId)', replace_named, sql_no_comments)
+
+            params = tuple(card_id if key == 'cardId' else user_id for key in ordered_keys)
+            cur.execute(sql_no_comments, params)
         else:
             cur.execute(sql, (card_id, user_id))
 
@@ -469,11 +479,18 @@ def add_to_wishlist():
             return jsonify({'status': 'error', 'message': 'add_to_wishlist query missing'}), 500
 
         if ':' in sql:
-            sql_no_comments = re.sub(r"--.*?\n", "\n", sql)
-            sql_no_comments = sql_no_comments.replace(':userId', '%s').replace(':cardId', '%s')
-            cur.execute(sql_no_comments, (user_id, card_id))
+            sql_no_comments = re.sub(r"--.*?$", "", sql, flags=re.MULTILINE)
+            ordered_keys = []
+
+            def repl(match):
+                ordered_keys.append(match.group(1))
+                return '%s'
+
+            sql_no_comments = re.sub(r':(cardId|userId)', repl, sql_no_comments)
+            params = tuple(card_id if key == 'cardId' else user_id for key in ordered_keys)
+            cur.execute(sql_no_comments, params)
         else:
-            cur.execute(sql, (user_id, card_id))
+            cur.execute(sql, (card_id, user_id))
 
         mysql.connection.commit()
         cur.close()
@@ -502,11 +519,19 @@ def remove_from_wishlist():
             return jsonify({'status': 'error', 'message': 'remove_from_wishlist query missing'}), 500
 
         if ':' in sql:
-            sql_no_comments = re.sub(r"--.*?\n", "\n", sql)
-            sql_no_comments = sql_no_comments.replace(':userId', '%s').replace(':cardId', '%s')
-            cur.execute(sql_no_comments, (user_id, card_id))
+            sql_no_comments = re.sub(r"--.*?$", "", sql, flags=re.MULTILINE)
+            ordered_keys = []
+
+            def repl(match):
+                ordered_keys.append(match.group(1))
+                return '%s'
+
+            sql_no_comments = re.sub(r':(cardId|userId)', repl, sql_no_comments)
+
+            params = tuple(card_id if key == 'cardId' else user_id for key in ordered_keys)
+            cur.execute(sql_no_comments, params)
         else:
-            cur.execute(sql, (user_id, card_id))
+            cur.execute(sql, (card_id, user_id))
 
         mysql.connection.commit()
         cur.close()
@@ -540,11 +565,19 @@ def get_wishlist_owners():
             return jsonify({'status': 'error', 'message': 'get_wishlist_owners query missing'}), 500
 
         if ':' in sql:
-            sql_no_comments = re.sub(r"--.*?\n", "\n", sql)
-            sql_no_comments = sql_no_comments.replace(':userId', '%s').replace(':cardId', '%s')
-            cur.execute(sql_no_comments, (user_id, card_id))
+            sql_no_comments = re.sub(r"--.*?$", "", sql, flags=re.MULTILINE)
+            ordered_keys = []
+
+            def repl(match):
+                ordered_keys.append(match.group(1))
+                return '%s'
+
+            sql_no_comments = re.sub(r':(cardId|userId)', repl, sql_no_comments)
+
+            params = tuple(card_id if key == 'cardId' else user_id for key in ordered_keys)
+            cur.execute(sql_no_comments, params)
         else:
-            cur.execute(sql, (user_id, card_id))
+            cur.execute(sql, (card_id, user_id))
 
         rows = cur.fetchall()
         cur.close()
