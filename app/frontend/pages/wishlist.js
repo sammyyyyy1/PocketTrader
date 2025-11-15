@@ -145,6 +145,7 @@ export default function WishlistPage() {
                         imageURL: i.imageURL,
                       }}
                       canAdd={false}
+                      isWishlist={true}
                     />
                   </div>
                 ))}

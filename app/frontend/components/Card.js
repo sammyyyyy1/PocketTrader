@@ -1,6 +1,7 @@
 import React from "react";
+import Link from 'next/link';
 
-export default function Card({ card, onAdd, canAdd, onDelete, onAddToWishlist }) {
+export default function Card({ card, onAdd, canAdd, onDelete, onAddToWishlist, isWishlist }) {
   const fallback =
     "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='420' viewBox='0 0 300 420'%3E%3Crect width='300' height='420' fill='%23f8fafc'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-family='Arial, sans-serif' font-size='16'%3ENo Image%3C/text%3E%3C/svg%3E";
   return (
@@ -36,20 +37,31 @@ export default function Card({ card, onAdd, canAdd, onDelete, onAddToWishlist })
       {typeof card.quantity === "number" && (
         <div className="text-sm mt-1">Owned: {card.quantity}</div>
       )}
-      {canAdd && (
+      {(canAdd || isWishlist) && (
         <div className="flex items-center justify-center gap-2">
-          <button
-            onClick={() => onAdd(card.cardID, card.name)}
-            className={`mt-2 bg-orange-500 hover:bg-orange-600 text-white py-1 px-2 rounded text-sm`}
-          >
-            + Add
-          </button>
-          <button
-            onClick={() => onAddToWishlist(card.cardID, card.name)}
-            className={`mt-2 bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded text-sm`}
-          >
-            + Wish
-          </button>
+          {canAdd && (
+            <>
+              <button
+                onClick={() => onAdd(card.cardID, card.name)}
+                className={`mt-2 bg-orange-500 hover:bg-orange-600 text-white py-1 px-2 rounded text-sm`}
+              >
+                + Add
+              </button>
+              <button
+                onClick={() => onAddToWishlist(card.cardID, card.name)}
+                className={`mt-2 bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded text-sm`}
+              >
+                + Wish
+              </button>
+            </>
+          )}
+          {isWishlist && (
+            <Link href={`/owners?cardID=${card.cardID}`} legacyBehavior>
+              <a className={`mt-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded text-sm`}>
+                Show Owners
+              </a>
+            </Link>
+          )}
         </div>
       )}
       {typeof card.quantity === "number" && (
