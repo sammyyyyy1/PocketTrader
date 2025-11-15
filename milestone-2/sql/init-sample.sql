@@ -5,7 +5,7 @@ INSERT INTO User (username, passwordHash, dateJoined) VALUES
 ('trainer', 'pbkdf2:sha256:260000$hgMWRZpNI0vIInaw$841aec15869e08b2e1cbbf769f5251a47e31608f3694595aa3da749475658b88', '2025-10-20 13:30:00'),
 ('Bob', 'pbkdf2:sha256:260000$hgMWRZpNI0vIInaw$841aec15869e08b2e1cbbf769f5251a47e31608f3694595aa3da749475658b88', '2025-10-21 14:00:00'),
 ('Chloe', 'pbkdf2:sha256:260000$hgMWRZpNI0vIInaw$841aec15869e08b2e1cbbf769f5251a47e31608f3694595aa3da749475658b88', '2025-10-22 09:00:00'),
-('a', 'pbkdf2:sha256:260000$xcvnkLcfwfqDEjsw$4bbca778f61885d3c8212203920104c58c760ffe59b67d46cc7cd01f28edf81f', '2025-10-23 10:00:00');
+('Alice', 'pbkdf2:sha256:260000$xcvnkLcfwfqDEjsw$4bbca778f61885d3c8212203920104c58c760ffe59b67d46cc7cd01f28edf81f', '2025-10-23 10:00:00');
 
 
 INSERT INTO Card (cardID, name, packName, rarity, type, imageURL) VALUES
@@ -36,8 +36,8 @@ INSERT INTO Card (cardID, name, packName, rarity, type, imageURL) VALUES
 ('A1-053', 'Squirtle', 'Pikachu', '1D', 'Water', 'https://assets.tcgdex.net/en/tcgp/A1/053/high.webp'),
 ('A1-094', 'Pikachu', 'Pikachu', '1D', 'Lightning', 'https://assets.tcgdex.net/en/tcgp/A1/094/high.webp');
 
+-- Seed a sample collection for the sample user (userID = 1)
 INSERT INTO Collection (userID, cardID, quantity) VALUES
--- User 1 (trainer) collection
 (1, 'A1-001', 2),
 (1, 'A1-033', 1),
 (1, 'A1-053', 1),
@@ -47,10 +47,17 @@ INSERT INTO Collection (userID, cardID, quantity) VALUES
 (1, 'A1-096', 1),
 (1, 'A1-094', 3),
 (2, 'A1-053', 2),
-(3, 'A1-001', 1);
+(2, 'A1-285', 4);
 
+-- Give trainers wishlists so they can track desired cards
 INSERT INTO Wishlist (userID, cardID, dateAdded) VALUES
-(1, 'A1-053', '2025-10-24 10:00:00'),
-(1, 'A1-001', '2025-10-24 10:05:00'),
-(2, 'A1-033', '2025-10-24 11:00:00'),
-(3, 'A1-033', '2025-10-24 12:00:00');
+(1, 'A1-285', '2025-10-24 10:00:00'),
+(1, 'A1-280', '2025-10-24 10:02:00'),
+(2, 'A1-096', '2025-10-24 11:15:00'),
+(2, 'A1-129', '2025-10-24 11:17:00'),
+(3, 'A1-036', '2025-10-25 09:00:00'),
+(3, 'A1-232', '2025-10-25 09:05:00'),
+(4, 'A1-004', '2025-10-25 14:30:00'),
+(4, 'A1-033', '2025-10-25 14:35:00'),
+(5, 'A1-056', '2025-10-26 08:10:00'),
+(5, 'A1-268', '2025-10-26 08:12:00');
