@@ -47,6 +47,12 @@ const Layout = ({ children }) => {
               >
                 Wishlist
               </a>
+              <a
+                href="/trade-suggestions"
+                className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-1 px-4 rounded transition-colors duration-200"
+              >
+                Trade Suggestions
+              </a>
             </div>
           </div>
 
