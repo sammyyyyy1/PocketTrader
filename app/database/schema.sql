@@ -66,8 +66,8 @@ CREATE TABLE Tradecard (
 );
 
 -- Create indexes for better query performance
-CREATE INDEX idx_collection_userid ON Collection(userID);
-CREATE INDEX idx_wishlist_userid ON Wishlist(userID);
+CREATE INDEX idx_collection_card_qty_user ON Collection (cardID, quantity, userID); -- R8
+CREATE INDEX idx_wishlist_card_user ON Wishlist(cardID, userID); -- R9
 CREATE INDEX idx_trade_initiator ON Trade(initiatorID);
 CREATE INDEX idx_trade_recipient ON Trade(recipientID);
 CREATE INDEX idx_trade_status ON Trade(status);

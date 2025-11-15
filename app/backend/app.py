@@ -334,9 +334,10 @@ def remove_from_collection():
         if ':' in sql:
             sql_no_comments = re.sub(r"--.*?\n", "\n", sql)
             sql_no_comments = sql_no_comments.replace(':userId', '%s').replace(':cardId', '%s')
-            cur.execute(sql_no_comments, (user_id, card_id))
+            # Order follows SQL template: cardID comparison appears before userID filter.
+            cur.execute(sql_no_comments, (card_id, user_id))
         else:
-            cur.execute(sql, (user_id, card_id))
+            cur.execute(sql, (card_id, user_id))
 
         mysql.connection.commit()
         cur.close()

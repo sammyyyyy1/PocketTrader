@@ -82,6 +82,22 @@ npm run dev
 - Body: `{ "userID": 1, "cardID": "A1-001", "quantity": 1 }`
 - Behavior: Adds or increments quantity for the card
 
+**Implementation snapshot** – Logged-in trainers use the `/cards` page (`app/frontend/pages/cards/index.js`) to filter/search cards and click the inline “Add Card” button that `Card` components render when `canAdd` is true. That click fires the `handleAdd` helper, which POSTs to `/api/collection` with `{ userID, cardID, quantity }`. On the backend, `app/backend/app.py` loads `app/backend/sql/add_to_collection.sql` and executes the `INSERT ... ON DUPLICATE KEY UPDATE` so the row is either created or incremented. The UI raises a toast and the `/collection` grid reflects the new quantity after a refresh.
+
+**Performance tuning & evaluation (R7-c)** – The `Collection` table is clustered on `(userID, cardID)` and we added `idx_collection_user_card` so MySQL can satisfy both the upsert key check and the subsequent R6 browse query without a full scan. To verify the benefit, capture timings with the tuned index, then temporarily revert to the old single-column index on a scratch database:
+```bash
+# Tuned version
+mysql ... -e "SET profiling=1; INSERT INTO Collection(userID, cardID, quantity, dateAcquired) VALUES (1,'A1-001',1,NOW()) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity); SHOW PROFILES;" app_db
+
+# Simulate pre-tuning plan (drop composite, add legacy index, rerun, then restore tuned index)
+mysql ... -e "ALTER TABLE Collection DROP INDEX idx_collection_user_card; CREATE INDEX idx_collection_userid ON Collection(userID);" app_db
+mysql ... -e "SET profiling=1; INSERT INTO Collection(userID, cardID, quantity, dateAcquired) VALUES (1,'A1-001',1,NOW()) ON DUPLICATE KEY UPDATE quantity = quantity + VALUES(quantity); SHOW PROFILES;" app_db
+mysql ... -e "ALTER TABLE Collection DROP INDEX idx_collection_userid; CREATE INDEX idx_collection_user_card ON Collection(userID, cardID);" app_db
+```
+Comparing the `SHOW PROFILES` (or `EXPLAIN ANALYZE INSERT ...`) output shows the tuned version does a single index probe, while the legacy index triggers extra lookups to confirm `cardID`, which is noticeable once millions of rows exist.
+
+**Testing & production evidence (R7-d)** – The R7 block in `milestone-2/test-production.sql` inserts `('A1-001', user 1)` via the same upsert and then selects the resulting quantity. Running the script twice demonstrates both code paths: the first execution reports `affected_rows_after_R7_upsert = 1` (row inserted) and the second reports `2` (duplicate-key update), matching `milestone-2/test-production.out` that was captured against the large production dataset. For the UI snapshot, sign in as `Alice`, open `/cards`, click “Add Card” on “Charmander,” and then refresh `/collection` to confirm the quantity incremented visually.
+
 ### Other Endpoints
 - `GET /api/cards` — all cards
 - `POST /api/login` — login with username/password

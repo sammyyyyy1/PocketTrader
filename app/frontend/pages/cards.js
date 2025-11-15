@@ -101,6 +101,28 @@ export default function Home() {
     }
   };
 
+  const handleAddToWishlist = async (cardID, cardName) => {
+    if (!user) {
+      alert("Please sign in first");
+      return;
+    }
+    try {
+      const res = await fetch("http://localhost:5001/api/wishlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userID: user.userID, cardID }),
+      });
+      const data = await res.json();
+      if (data.status === "success") {
+        setToast(`Added ${cardName} to wishlist`);
+      } else {
+        console.error("Failed to add to wishlist", data.message || data);
+      }
+    } catch (e) {
+      console.error("Error adding to wishlist", e);
+    }
+  };
+
   const handleResetFilters = () => {
     setRarityFilter("");
     setTypeFilter("");
@@ -143,7 +165,13 @@ export default function Home() {
           <div className="grid grid-cols-6 gap-4">
             {paginatedCards.map((card) => (
               <div key={card.cardID}>
-                <Card card={card} onAdd={handleAdd} canAdd={!!user} />
+                <Card
+                  card={card}
+                  onAdd={handleAdd}
+                  canAdd={!!user}
+                  canWishlist={!!user}
+                  onAddToWishlist={handleAddToWishlist}
+                />
               </div>
             ))}
           </div>

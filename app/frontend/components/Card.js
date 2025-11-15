@@ -1,6 +1,14 @@
 import React from "react";
 
-export default function Card({ card, onAdd, canAdd, onDelete }) {
+export default function Card({
+  card,
+  onAdd,
+  canAdd,
+  canWishlist = false,
+  onAddToWishlist,
+  onDelete,
+  extraActions = null,
+}) {
   const fallback =
     "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='420' viewBox='0 0 300 420'%3E%3Crect width='300' height='420' fill='%23f8fafc'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-family='Arial, sans-serif' font-size='16'%3ENo Image%3C/text%3E%3C/svg%3E";
   return (
@@ -44,7 +52,18 @@ export default function Card({ card, onAdd, canAdd, onDelete }) {
           + Add
         </button>
       )}
-      {typeof card.quantity === "number" && (
+      {canWishlist && onAddToWishlist && (
+        <button
+          onClick={() => onAddToWishlist(card.cardID, card.name)}
+          className="mt-2 bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded text-sm w-full"
+        >
+          Add to Wishlist
+        </button>
+      )}
+      {extraActions && (
+        <div className="mt-2 flex flex-col gap-2 text-sm">{extraActions}</div>
+      )}
+      {typeof onDelete === "function" && (
         <button
           onClick={() => onDelete(card.cardID, card.name)}
           className={`absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-md font-extrabold shadow-lg`}

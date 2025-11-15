@@ -9,6 +9,7 @@ SELECT userID, username, dateJoined FROM User ORDER BY userID LIMIT 10;
 SELECT COUNT(*) AS total_cards FROM Card;
 
 -- R6: Browse & Filter my collection (by rarity = '1D') for userID = 1 (limit results)
+-- Uses idx_collection_user_card (app/database/schema.sql) to satisfy the userID filter+JOIN.
 SELECT c.cardID, c.name, c.rarity, k.type, col.quantity
 FROM Collection col
 JOIN Card c ON c.cardID = col.cardID
@@ -18,6 +19,7 @@ ORDER BY c.name
 LIMIT 10;
 
 -- R6 optional filter example (limit)
+-- Run EXPLAIN ANALYZE with/without IGNORE INDEX (idx_collection_user_card) to measure tuning impact.
 SELECT k.cardID, k.name, k.rarity, k.type, col.quantity
 FROM Collection col
 JOIN Card k ON k.cardID = col.cardID

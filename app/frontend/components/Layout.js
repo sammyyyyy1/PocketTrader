@@ -41,6 +41,12 @@ const Layout = ({ children }) => {
               >
                 Collection
               </a>
+              <a
+                href="/wishlist"
+                className="bg-purple-500 hover:bg-purple-600 text-white font-semibold py-1 px-4 rounded transition-colors duration-200"
+              >
+                Wishlist
+              </a>
             </div>
           </div>
 
