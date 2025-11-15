@@ -1,4 +1,5 @@
 import React from "react";
+import Link from 'next/link';
 
 export default function Card({
   card,
@@ -44,13 +45,32 @@ export default function Card({
       {typeof card.quantity === "number" && (
         <div className="text-sm mt-1">Owned: {card.quantity}</div>
       )}
-      {canAdd && (
-        <button
-          onClick={() => onAdd(card.cardID, card.name)}
-          className={`mt-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded text-sm`}
-        >
-          + Add
-        </button>
+      {(canAdd || isWishlist) && (
+        <div className="flex items-center justify-center gap-2">
+          {canAdd && (
+            <>
+              <button
+                onClick={() => onAdd(card.cardID, card.name)}
+                className={`mt-2 bg-orange-500 hover:bg-orange-600 text-white py-1 px-2 rounded text-sm`}
+              >
+                + Add
+              </button>
+              <button
+                onClick={() => onAddToWishlist(card.cardID, card.name)}
+                className={`mt-2 bg-purple-500 hover:bg-purple-600 text-white py-1 px-2 rounded text-sm`}
+              >
+                + Wish
+              </button>
+            </>
+          )}
+          {isWishlist && (
+            <Link href={`/owners?cardID=${card.cardID}`} legacyBehavior>
+              <a className={`mt-2 bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded text-sm`}>
+                Show Owners
+              </a>
+            </Link>
+          )}
+        </div>
       )}
       {canWishlist && onAddToWishlist && (
         <button
