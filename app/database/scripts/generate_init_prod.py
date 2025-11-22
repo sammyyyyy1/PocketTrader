@@ -91,6 +91,14 @@ def get_pack_name(card) -> str:
             return "Pikachu"
         if "Mewtwo" in booster_name:
             return "Mewtwo"
+        if "Dialga" in booster_name:
+            return "Dialga"
+        if "Palkia" in booster_name:
+            return "Palkia"
+        if "Lunala" in booster_name:
+            return "Lunala"
+        if "Solgaleo" in booster_name:
+            return "Solgaleo"
     return "Shared"
 
 
