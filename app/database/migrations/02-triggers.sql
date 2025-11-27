@@ -27,12 +27,7 @@ BEGIN
         WHERE w.cardID = NEW.cardID
             AND w.userID <> NEW.userID;
     END IF;
-END$$
 
-CREATE TRIGGER trg_collection_after_update_cleanup
-AFTER UPDATE ON Collection
-FOR EACH ROW
-BEGIN
     IF NEW.quantity < 2 THEN
         DELETE FROM TradeOpportunity
         WHERE ownerID = NEW.userID AND cardID = NEW.cardID;
