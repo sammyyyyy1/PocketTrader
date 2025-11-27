@@ -30,6 +30,7 @@ services:
       - ./database/migrations/init-prod.sql:/docker-entrypoint-initdb.d/02-init-prod.sql
       # Ensure any additional one-time migrations are executed on first init
       - ./database/migrations/03-populate-trade-opportunities.sql:/docker-entrypoint-initdb.d/03-populate-trade-opportunities.sql
+      - ./database/migrations/02-triggers.sql:/docker-entrypoint-initdb.d/04-triggers.sql
     environment:
       MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: app_db
