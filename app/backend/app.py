@@ -37,6 +37,7 @@ def _load_queries():
            'remove_from_wishlist': 'remove_from_wishlist.sql',
         'get_wishlist_owners': 'get_wishlist_owners.sql',
         'get_mutual_matches': 'get_mutual_matches.sql',
+        'get_trade_opportunities': 'get_trade_opportunities.sql',
     }
     for name, filename in name_to_file.items():
         path = sql_dir / filename
@@ -642,6 +643,53 @@ def get_mutual_matches():
         return jsonify({'status': 'success', 'items': items, 'count': len(items)})
     except Exception as e:
         print('Exception in get_mutual_matches:')
+        traceback.print_exc()
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@app.route('/api/trade-opportunities', methods=['GET'])
+def get_trade_opportunities():
+    """Return trade opportunities targeting the given user (userID or username)."""
+    user_id = request.args.get('userID', type=int)
+    username = request.args.get('username')
+
+    if not user_id and not username:
+        return jsonify({'status': 'error', 'message': 'userID or username required'}), 400
+
+    try:
+        cur = mysql.connection.cursor()
+
+        # Resolve user_id from username if needed
+        if not user_id and username:
+            cur.execute("SELECT userID FROM User WHERE username = %s", (username,))
+            row = cur.fetchone()
+            if not row:
+                cur.close()
+                return jsonify({'status': 'error', 'message': 'user not found'}), 404
+            user_id = row[0]
+
+        sql = SQL_QUERIES.get('get_trade_opportunities')
+        if not sql:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'get_trade_opportunities query missing'}), 500
+
+        if ':' in sql:
+            sql_no_comments = re.sub(r"--.*?\n", "\n", sql)
+            sql_no_comments = sql_no_comments.replace(':targetId', '%s')
+            cur.execute(sql_no_comments, (user_id,))
+        else:
+            cur.execute(sql, (user_id,))
+
+        rows = cur.fetchall()
+        cur.close()
+
+        items = [{
+            'ownerID': r[0], 'ownerName': r[1], 'cardID': r[2], 'cardName': r[3], 'createdAt': str(r[4]) if r[4] else None
+        } for r in rows]
+
+        return jsonify({'status': 'success', 'items': items, 'count': len(items)})
+    except Exception as e:
+        print('Exception in get_trade_opportunities:')
         traceback.print_exc()
         return jsonify({'status': 'error', 'message': str(e)}), 500
 

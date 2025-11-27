@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import { useState } from "react";
+import { setStoredUser } from "../utils/auth";
 
 export default function SignupPage() {
   const [username, setUsername] = useState("");
@@ -17,7 +18,7 @@ export default function SignupPage() {
       });
       const data = await res.json();
       if (data.status === "success") {
-        localStorage.setItem("pt_user", JSON.stringify(data.user));
+        setStoredUser(data.user);
         setMsg("Account created!");
         window.location.href = "/";
       } else {

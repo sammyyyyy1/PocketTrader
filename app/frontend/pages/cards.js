@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
+import { getStoredUser } from "../utils/auth";
 import Card from "../components/Card";
 import CardFilters from "../components/CardFilters";
 import PaginationControls from "../components/PaginationControls";
@@ -52,7 +53,9 @@ export default function Home() {
     filteredCards = filteredCards.filter((card) => card.type === typeFilter);
   }
   if (packFilter) {
-    filteredCards = filteredCards.filter((card) => card.packName === packFilter);
+    filteredCards = filteredCards.filter(
+      (card) => card.packName === packFilter
+    );
   }
   if (searchQuery) {
     filteredCards = filteredCards.filter((card) =>
@@ -74,10 +77,7 @@ export default function Home() {
   const endIndex = startIndex + CARDS_PER_PAGE;
   const paginatedCards = filteredCards.slice(startIndex, endIndex);
 
-  const user =
-    typeof window !== "undefined"
-      ? JSON.parse(localStorage.getItem("pt_user") || "null")
-      : null;
+  const user = typeof window !== "undefined" ? getStoredUser() : null;
   const handleAdd = async (cardID, cardName) => {
     if (!user) {
       alert("Please sign in first");
@@ -157,9 +157,7 @@ export default function Home() {
       )}
 
       {filteredCards.length === 0 ? (
-        <div className="text-center text-gray-500">
-          No cards found.
-        </div>
+        <div className="text-center text-gray-500">No cards found.</div>
       ) : (
         <>
           <div className="grid grid-cols-6 gap-4">

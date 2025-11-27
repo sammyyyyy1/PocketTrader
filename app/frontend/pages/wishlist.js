@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import Layout from "../components/Layout";
+import { getStoredUser } from "../utils/auth";
 import Card from "../components/Card";
 import CardFilters from "../components/CardFilters";
 import PaginationControls from "../components/PaginationControls";
@@ -25,19 +26,10 @@ export default function WishlistPage() {
   });
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("pt_user");
-      if (raw) {
-        setUser(JSON.parse(raw));
-      } else {
-        setLoading(false);
-      }
-    } catch (e) {
-      console.error("Unable to read user", e);
-      setLoading(false);
-    } finally {
-      setAuthChecked(true);
-    }
+    const u = getStoredUser();
+    if (u) setUser(u);
+    else setLoading(false);
+    setAuthChecked(true);
   }, []);
 
   useEffect(() => {
@@ -163,7 +155,12 @@ export default function WishlistPage() {
       );
       const data = await res.json();
       if (data.status === "success") {
-        setOwnersModal({ card, owners: data.items, loading: false, error: null });
+        setOwnersModal({
+          card,
+          owners: data.items,
+          loading: false,
+          error: null,
+        });
       } else {
         setOwnersModal({
           card,
