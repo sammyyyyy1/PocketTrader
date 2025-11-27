@@ -28,7 +28,9 @@ CREATE TABLE IF NOT EXISTS `Collection` (
   cardID VARCHAR(50) NOT NULL,
   quantity INT NOT NULL DEFAULT 0,
   dateAcquired DATETIME DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (userID, cardID)
+  PRIMARY KEY (userID, cardID),
+  FOREIGN KEY (userID) REFERENCES User(userID) ON DELETE CASCADE,
+  FOREIGN KEY (cardID) REFERENCES Card(cardID) ON DELETE CASCADE
 );
 
 -- Wishlist entries
@@ -36,7 +38,9 @@ CREATE TABLE IF NOT EXISTS `Wishlist` (
   userID INT NOT NULL,
   cardID VARCHAR(50) NOT NULL,
   dateAdded DATETIME DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (userID, cardID)
+  PRIMARY KEY (userID, cardID),
+  FOREIGN KEY (userID) REFERENCES User(userID) ON DELETE CASCADE,
+  FOREIGN KEY (cardID) REFERENCES Card(cardID) ON DELETE CASCADE
 );
 
 -- Canonical trade model
@@ -48,7 +52,11 @@ CREATE TABLE IF NOT EXISTS `Trade` (
   createdBy INT NOT NULL,
   confirmedBy INT NULL,
   dateStarted DATETIME DEFAULT CURRENT_TIMESTAMP,
-  dateCompleted DATETIME NULL
+  dateCompleted DATETIME NULL,
+  FOREIGN KEY (initiatorID) REFERENCES User(userID) ON DELETE CASCADE,
+  FOREIGN KEY (recipientID) REFERENCES User(userID) ON DELETE CASCADE,
+  FOREIGN KEY (createdBy) REFERENCES User(userID) ON DELETE CASCADE,
+  FOREIGN KEY (confirmedBy) REFERENCES User(userID) ON DELETE CASCADE
 );
 
 -- Tradecard: cards attached to a trade
@@ -57,7 +65,10 @@ CREATE TABLE IF NOT EXISTS `Tradecard` (
   tradeID INT NOT NULL,
   fromUserID INT NOT NULL,
   cardID VARCHAR(50) NOT NULL,
-  toUserID INT NULL
+  toUserID INT NULL,
+  FOREIGN KEY (tradeID) REFERENCES Trade(tradeID) ON DELETE CASCADE,
+  FOREIGN KEY (fromUserID) REFERENCES User(userID) ON DELETE CASCADE,
+  FOREIGN KEY (cardID) REFERENCES Card(cardID) ON DELETE CASCADE
 );
 
 -- TradeOpportunity read-model
@@ -66,7 +77,10 @@ CREATE TABLE IF NOT EXISTS `TradeOpportunity` (
   ownerID INT NOT NULL,
   targetID INT NOT NULL,
   cardID VARCHAR(50) NOT NULL,
-  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+  createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (ownerID) REFERENCES User(userID) ON DELETE CASCADE,
+  FOREIGN KEY (targetID) REFERENCES User(userID) ON DELETE CASCADE,
+  FOREIGN KEY (cardID) REFERENCES Card(cardID) ON DELETE CASCADE
 );
 
 -- Active trades view derived from canonical Trade + Tradecard (single-card-per-side)
@@ -88,5 +102,22 @@ SELECT
   t.dateCompleted,
   t.dateStarted
 FROM Trade t;
+
+-- Market Trends View
+DROP VIEW IF EXISTS market_trends_view;
+CREATE VIEW market_trends_view AS
+SELECT
+    c.cardID,
+    c.name,
+    c.rarity,
+    c.packName,
+    c.imageURL,
+    COUNT(DISTINCT w.userID) AS demand,
+    COUNT(DISTINCT col.userID) AS supply,
+    (COUNT(DISTINCT w.userID) - COUNT(DISTINCT col.userID)) AS trend
+FROM Card c
+LEFT JOIN Wishlist w ON c.cardID = w.cardID
+LEFT JOIN Collection col ON c.cardID = col.cardID
+GROUP BY c.cardID, c.name, c.rarity, c.packName, c.imageURL;
 
 -- End of schema

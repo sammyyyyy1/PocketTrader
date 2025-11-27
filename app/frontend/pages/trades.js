@@ -210,7 +210,9 @@ const TradesPage = () => {
   );
 
   // Consolidated pending trades list (both sent and received)
-  const pendingTrades = activeTrades || [];
+  const pendingTrades = (activeTrades || []).filter(
+    (t) => t.status === "pending"
+  );
 
   // Filtered collection based on CardFilters state
   const filteredCollection = myCollection.filter((c) => {
