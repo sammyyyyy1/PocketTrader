@@ -73,6 +73,46 @@ CREATE INDEX idx_trade_recipient ON Trade(recipientID);
 CREATE INDEX idx_trade_status ON Trade(status);
 CREATE INDEX idx_tradecard_tradeid ON Tradecard(tradeID);
 
+-- TradeOpportunity table: records potential trade matches when a user has 2+ copies
+CREATE TABLE IF NOT EXISTS TradeOpportunity (
+        ownerID INT NOT NULL,
+        targetID INT NOT NULL,
+        cardID VARCHAR(50) NOT NULL,
+        createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (ownerID, targetID, cardID),
+        FOREIGN KEY (ownerID) REFERENCES User(userID) ON DELETE CASCADE,
+        FOREIGN KEY (targetID) REFERENCES User(userID) ON DELETE CASCADE,
+        FOREIGN KEY (cardID) REFERENCES Card(cardID) ON DELETE RESTRICT
+);
+
+DELIMITER $$
+CREATE TRIGGER trg_collection_after_insert
+AFTER INSERT ON Collection
+FOR EACH ROW
+BEGIN
+    IF NEW.quantity >= 2 THEN
+        INSERT IGNORE INTO TradeOpportunity (ownerID, targetID, cardID)
+        SELECT NEW.userID, w.userID, NEW.cardID
+        FROM Wishlist w
+        WHERE w.cardID = NEW.cardID
+            AND w.userID <> NEW.userID;
+    END IF;
+END$$
+
+CREATE TRIGGER trg_collection_after_update
+AFTER UPDATE ON Collection
+FOR EACH ROW
+BEGIN
+    IF OLD.quantity < 2 AND NEW.quantity >= 2 THEN
+        INSERT IGNORE INTO TradeOpportunity (ownerID, targetID, cardID)
+        SELECT NEW.userID, w.userID, NEW.cardID
+        FROM Wishlist w
+        WHERE w.cardID = NEW.cardID
+            AND w.userID <> NEW.userID;
+    END IF;
+END$$
+DELIMITER ;
+
 -- Market Trends View
 CREATE VIEW market_trends_view AS
 SELECT

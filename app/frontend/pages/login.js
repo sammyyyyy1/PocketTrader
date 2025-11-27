@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import { useState } from "react";
+import { setStoredUser } from "../utils/auth";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -17,7 +18,7 @@ export default function LoginPage() {
       });
       const data = await res.json();
       if (data.status === "success") {
-        localStorage.setItem("pt_user", JSON.stringify(data.user));
+        setStoredUser(data.user);
         setMsg("Login successful");
         window.location.href = "/";
       } else {

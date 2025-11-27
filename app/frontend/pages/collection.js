@@ -1,5 +1,6 @@
 import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
+import { getStoredUser } from "../utils/auth";
 import Card from "../components/Card";
 import CardFilters from "../components/CardFilters";
 import PaginationControls from "../components/PaginationControls";
@@ -16,8 +17,8 @@ export default function CollectionPage() {
   const CARDS_PER_PAGE = 25;
 
   useEffect(() => {
-    const u = localStorage.getItem("pt_user");
-    if (u) setUser(JSON.parse(u));
+    const u = getStoredUser();
+    setUser(u);
   }, []);
 
   useEffect(() => {
@@ -130,13 +131,17 @@ export default function CollectionPage() {
 
   let filteredItems = items;
   if (rarityFilter) {
-    filteredItems = filteredItems.filter((item) => item.rarity === rarityFilter);
+    filteredItems = filteredItems.filter(
+      (item) => item.rarity === rarityFilter
+    );
   }
   if (typeFilter) {
     filteredItems = filteredItems.filter((item) => item.type === typeFilter);
   }
   if (packFilter) {
-    filteredItems = filteredItems.filter((item) => item.packName === packFilter);
+    filteredItems = filteredItems.filter(
+      (item) => item.packName === packFilter
+    );
   }
   if (searchQuery) {
     filteredItems = filteredItems.filter((item) =>

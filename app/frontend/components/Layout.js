@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
+import NewOpportunities from "./NewOpportunities";
+import { getStoredUser, clearStoredUser } from "../utils/auth";
 
 const Layout = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // read auth on client only
     try {
-      const raw = localStorage.getItem("pt_user");
-      if (raw) setUser(JSON.parse(raw));
+      const u = getStoredUser();
+      setUser(u);
     } catch (e) {
-      console.error("Failed to read user from localStorage", e);
+      console.error("Layout: failed to load stored user", e);
     }
   }, []);
 
   const handleSignOut = () => {
-    localStorage.removeItem("pt_user");
+    clearStoredUser();
     setUser(null);
     // reload to refresh client-side data
     window.location.href = "/";
@@ -26,7 +27,9 @@ const Layout = ({ children }) => {
         <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <a href="/" className="text-white no-underline">
-              <h1 className="m-0 text-2xl font-bold text-white">PocketTrader</h1>
+              <h1 className="m-0 text-2xl font-bold text-white">
+                PocketTrader
+              </h1>
             </a>
             <div className="flex gap-2">
               <a
@@ -60,6 +63,7 @@ const Layout = ({ children }) => {
             <div className="ml-4 text-sm text-white">
               {user ? (
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <NewOpportunities user={user} />
                   <span>Hi, {user.username}</span>
                   <button
                     onClick={handleSignOut}
