@@ -50,6 +50,12 @@ const Layout = ({ children }) => {
               >
                 Wishlist
               </a>
+              <a
+                href="/trades"
+                className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-1 px-4 rounded transition-colors duration-200"
+              >
+                Trades
+              </a>
             </div>
           </div>
 

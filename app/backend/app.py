@@ -38,6 +38,10 @@ def _load_queries():
         'get_wishlist_owners': 'get_wishlist_owners.sql',
         'get_mutual_matches': 'get_mutual_matches.sql',
         'get_trade_opportunities': 'get_trade_opportunities.sql',
+        'create_active_trade': 'create_active_trade.sql',
+        'get_active_trades': 'get_active_trades.sql',
+        'confirm_active_trade': 'confirm_active_trade.sql',
+        'decline_active_trade': 'decline_active_trade.sql',
     }
     for name, filename in name_to_file.items():
         path = sql_dir / filename
@@ -698,6 +702,162 @@ def get_trade_opportunities():
         return jsonify({'status': 'success', 'items': items, 'count': len(items)})
     except Exception as e:
         print('Exception in get_trade_opportunities:')
+        traceback.print_exc()
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@app.route('/api/active-trades', methods=['POST'])
+def create_active_trade():
+    """Create a new pending active trade. Expects JSON: { user1, user2, cardSent1, cardSent2, createdBy }"""
+    data = request.get_json(silent=True) or {}
+    user1 = data.get('user1')
+    user2 = data.get('user2')
+    cardSent1 = data.get('cardSent1')
+    cardSent2 = data.get('cardSent2')
+    createdBy = data.get('createdBy')
+
+    if not user1 or not user2 or not cardSent1 or not cardSent2 or not createdBy:
+        return jsonify({'status': 'error', 'message': 'user1,user2,cardSent1,cardSent2,createdBy required'}), 400
+
+    try:
+        cur = mysql.connection.cursor()
+        sql = SQL_QUERIES.get('create_active_trade')
+        if not sql:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'create_active_trade query missing'}), 500
+
+        # simple positional params
+        cur.execute(sql, (user1, user2, cardSent1, cardSent2, createdBy))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify({'status': 'success'}), 201
+    except Exception as e:
+        mysql.connection.rollback()
+        traceback.print_exc()
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@app.route('/api/active-trades', methods=['GET'])
+def list_active_trades():
+    """List active trades for a user. Accepts query param userID or username."""
+    user_id = request.args.get('userID', type=int)
+    username = request.args.get('username')
+
+    if not user_id and not username:
+        return jsonify({'status': 'error', 'message': 'userID or username required'}), 400
+
+    try:
+        cur = mysql.connection.cursor()
+        if not user_id and username:
+            cur.execute("SELECT userID FROM User WHERE username = %s", (username,))
+            row = cur.fetchone()
+            if not row:
+                cur.close()
+                return jsonify({'status': 'error', 'message': 'user not found'}), 404
+            user_id = row[0]
+
+        sql = SQL_QUERIES.get('get_active_trades')
+        if not sql:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'get_active_trades query missing'}), 500
+
+        cur.execute(sql, (user_id, user_id))
+        rows = cur.fetchall()
+        cur.close()
+
+        items = []
+        for r in rows:
+            items.append({
+                'initiatorID': r[0], 'responderID': r[1],
+                'cardOfferedByUser1': r[2], 'cardOfferedByUser1Name': r[3], 'cardOfferedByUser1Image': r[4],
+                'cardOfferedByUser2': r[5], 'cardOfferedByUser2Name': r[6], 'cardOfferedByUser2Image': r[7],
+                'confirmed': bool(r[8]), 'createdBy': r[9], 'confirmedBy': r[10], 'createdAt': str(r[11]) if r[11] else None
+            })
+
+        return jsonify({'status': 'success', 'items': items, 'count': len(items)})
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@app.route('/api/active-trades/confirm', methods=['POST'])
+def confirm_active_trade():
+    """Confirm (accept) an active trade. Expects JSON: { confirmedBy, user1, user2, cardSent1, cardSent2 }"""
+    data = request.get_json(silent=True) or {}
+    confirmedBy = data.get('confirmedBy')
+    user1 = data.get('user1')
+    user2 = data.get('user2')
+    cardSent1 = data.get('cardSent1')
+    cardSent2 = data.get('cardSent2')
+
+    if not confirmedBy or not user1 or not user2 or not cardSent1 or not cardSent2:
+        return jsonify({'status': 'error', 'message': 'confirmedBy,user1,user2,cardSent1,cardSent2 required'}), 400
+
+    try:
+        cur = mysql.connection.cursor()
+        sql = SQL_QUERIES.get('confirm_active_trade')
+        if not sql:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'confirm_active_trade query missing'}), 500
+
+        cur.execute(sql, (confirmedBy, user1, user2, cardSent1, cardSent2))
+        if cur.rowcount == 0:
+            # nothing updated (either not found or already confirmed)
+            mysql.connection.rollback()
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'no pending trade updated'}), 404
+
+        mysql.connection.commit()
+
+        # After successful confirmation and trigger processing, clean up the processed ActiveTrades row
+        try:
+            cur.execute(
+                "DELETE FROM ActiveTrades WHERE user1 = %s AND user2 = %s AND cardSent1 = %s AND cardSent2 = %s AND confirmed = TRUE",
+                (user1, user2, cardSent1, cardSent2)
+            )
+            mysql.connection.commit()
+        except Exception:
+            # log but don't fail the whole request; trigger has already processed the trade
+            traceback.print_exc()
+
+        cur.close()
+        return jsonify({'status': 'success'})
+    except Exception as e:
+        mysql.connection.rollback()
+        traceback.print_exc()
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+
+@app.route('/api/active-trades', methods=['DELETE'])
+def decline_active_trade():
+    """Decline a pending active trade. Expects JSON: { user1, user2, cardSent1, cardSent2 }"""
+    data = request.get_json(silent=True) or {}
+    user1 = data.get('user1')
+    user2 = data.get('user2')
+    cardSent1 = data.get('cardSent1')
+    cardSent2 = data.get('cardSent2')
+
+    if not user1 or not user2 or not cardSent1 or not cardSent2:
+        return jsonify({'status': 'error', 'message': 'user1,user2,cardSent1,cardSent2 required'}), 400
+
+    try:
+        cur = mysql.connection.cursor()
+        sql = SQL_QUERIES.get('decline_active_trade')
+        if not sql:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'decline_active_trade query missing'}), 500
+
+        cur.execute(sql, (user1, user2, cardSent1, cardSent2))
+        if cur.rowcount == 0:
+            mysql.connection.rollback()
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'no pending trade deleted'}), 404
+
+        mysql.connection.commit()
+        cur.close()
+        return jsonify({'status': 'success'})
+    except Exception as e:
+        mysql.connection.rollback()
         traceback.print_exc()
         return jsonify({'status': 'error', 'message': str(e)}), 500
 

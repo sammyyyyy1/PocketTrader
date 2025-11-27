@@ -80,32 +80,8 @@ const NewOpportunities = ({ user }) => {
                       </div>
                     </div>
                     <div className="mt-2 text-sm text-gray-700">
-                      You can now trade {g.cardName} to:{" "}
+                      You can trade for {g.cardName} with:{" "}
                       {g.owners.map((o) => o.ownerName).join(", ")}
-                    </div>
-                    <div className="mt-2 flex gap-2">
-                      {g.owners.slice(0, 3).map((o) => (
-                        <a
-                          key={o.ownerID}
-                          href={`/collection?username=${encodeURIComponent(
-                            o.ownerName
-                          )}`}
-                          className="text-xs text-blue-600 hover:underline"
-                        >
-                          {o.ownerName}
-                        </a>
-                      ))}
-                      {g.owners.length > 3 && (
-                        <span className="text-xs text-gray-500">
-                          +{g.owners.length - 3} more
-                        </span>
-                      )}
-                      <a
-                        href={`/wishlist?cardID=${encodeURIComponent(cardID)}`}
-                        className="ml-auto text-xs text-gray-600 hover:underline"
-                      >
-                        View
-                      </a>
                     </div>
                   </div>
                 );
