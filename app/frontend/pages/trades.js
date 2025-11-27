@@ -20,6 +20,7 @@ const TradesPage = () => {
   const [activeTrades, setActiveTrades] = useState([]);
   const [opportunities, setOpportunities] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refreshCounter, setRefreshCounter] = useState(0);
 
   const [allCards, setAllCards] = useState([]);
   const [cardsMap, setCardsMap] = useState({});
@@ -38,6 +39,15 @@ const TradesPage = () => {
   });
   const [myCollection, setMyCollection] = useState([]);
   const [matches, setMatches] = useState([]);
+  const [actionError, setActionError] = useState(null);
+  const errorTimerRef = React.useRef();
+
+  const showActionError = (msg) => {
+    console.error(msg);
+    setActionError(msg);
+    if (errorTimerRef.current) clearTimeout(errorTimerRef.current);
+    errorTimerRef.current = setTimeout(() => setActionError(null), 5000);
+  };
 
   useEffect(() => {
     if (!mounted || !userID) return;
@@ -83,12 +93,15 @@ const TradesPage = () => {
       })
       .catch((e) => console.error("Failed to load trades data", e))
       .finally(() => setLoading(false));
-  }, [userID]);
+  }, [userID, refreshCounter]);
+
+  // reload helper to re-fetch data after actions (create/accept/decline)
+  const reload = () => setRefreshCounter((c) => c + 1);
 
   const openView = (trade) => setViewModal({ open: true, trade });
 
   const handleAccept = async (trade) => {
-    if (!userID) return alert("Not signed in");
+    if (!userID) return showActionError("Not signed in");
     try {
       const res = await fetch(
         "http://localhost:5001/api/active-trades/confirm",
@@ -108,16 +121,16 @@ const TradesPage = () => {
       if (res.ok && j.status === "success") {
         reload();
       } else {
-        alert("Accept failed: " + (j.message || JSON.stringify(j)));
+        showActionError("Accept failed: " + (j.message || JSON.stringify(j)));
       }
     } catch (e) {
       console.error(e);
-      alert("Accept failed");
+      showActionError("Accept failed");
     }
   };
 
   const handleDecline = async (trade) => {
-    if (!userID) return alert("Not signed in");
+    if (!userID) return showActionError("Not signed in");
     try {
       const res = await fetch("http://localhost:5001/api/active-trades", {
         method: "DELETE",
@@ -131,10 +144,11 @@ const TradesPage = () => {
       });
       const j = await res.json();
       if (res.ok && j.status === "success") reload();
-      else alert("Decline failed: " + (j.message || JSON.stringify(j)));
+      else
+        showActionError("Decline failed: " + (j.message || JSON.stringify(j)));
     } catch (e) {
       console.error(e);
-      alert("Decline failed");
+      showActionError("Decline failed");
     }
   };
 
@@ -144,7 +158,7 @@ const TradesPage = () => {
   };
 
   const createTrade = async (opp, myCardId, requestedCardId) => {
-    if (!userID) return alert("Not signed in");
+    if (!userID) return showActionError("Not signed in");
     try {
       const payload = {
         user1: userID,
@@ -171,11 +185,11 @@ const TradesPage = () => {
         setCreateModal({ open: false, opportunity: null });
         reload();
       } else {
-        alert("Create failed: " + (j.message || JSON.stringify(j)));
+        showActionError("Create failed: " + (j.message || JSON.stringify(j)));
       }
     } catch (e) {
       console.error(e);
-      alert("Create failed");
+      showActionError("Create failed");
     }
   };
 
@@ -188,8 +202,12 @@ const TradesPage = () => {
   }
 
   // split active trades into sentToMe (responder==me) and sentByMe (initiator==me)
-  const sentToMe = activeTrades.filter((t) => t.responderID === userID);
-  const sentByMe = activeTrades.filter((t) => t.initiatorID === userID);
+  const sentToMe = activeTrades.filter(
+    (t) => String(t.responderID) === String(userID)
+  );
+  const sentByMe = activeTrades.filter(
+    (t) => String(t.initiatorID) === String(userID)
+  );
 
   // Consolidated pending trades list (both sent and received)
   const pendingTrades = activeTrades || [];
@@ -211,6 +229,17 @@ const TradesPage = () => {
     <Layout>
       <div className="p-6">
         <h2 className="text-2xl font-bold mb-4">Trades</h2>
+        {actionError && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-200 text-red-800 rounded flex items-center justify-between">
+            <div>{actionError}</div>
+            <button
+              onClick={() => setActionError(null)}
+              className="ml-4 text-sm underline"
+            >
+              Dismiss
+            </button>
+          </div>
+        )}
 
         <section className="mb-8">
           <h3 className="text-xl font-semibold mb-2">Pending Trades</h3>
@@ -239,19 +268,19 @@ const TradesPage = () => {
                     <div className="flex items-center gap-4">
                       <div className="w-40">
                         <div className="font-medium truncate">
-                        {card1.name || card1.cardID}
+                          {card1.name || card1.cardID}
                         </div>
                         <div className="text-sm text-gray-500">
-                        {card1.cardID}
+                          {card1.cardID}
                         </div>
                       </div>
                       <div className="text-sm text-center">⇄</div>
                       <div className="w-40">
                         <div className="font-medium truncate">
-                        {card2.name || card2.cardID}
+                          {card2.name || card2.cardID}
                         </div>
                         <div className="text-sm text-gray-500">
-                        {card2.cardID}
+                          {card2.cardID}
                         </div>
                       </div>
                       <div>
@@ -278,22 +307,23 @@ const TradesPage = () => {
                       >
                         Details
                       </button>
-                      {!t.confirmed && t.responderID === userID && (
-                        <>
-                          <button
-                            onClick={() => handleAccept(t)}
-                            className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded"
-                          >
-                            Accept
-                          </button>
-                          <button
-                            onClick={() => handleDecline(t)}
-                            className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
-                          >
-                            Decline
-                          </button>
-                        </>
-                      )}
+                      {!t.confirmed &&
+                        String(t.responderID) === String(userID) && (
+                          <>
+                            <button
+                              onClick={() => handleAccept(t)}
+                              className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded"
+                            >
+                              Accept
+                            </button>
+                            <button
+                              onClick={() => handleDecline(t)}
+                              className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded"
+                            >
+                              Decline
+                            </button>
+                          </>
+                        )}
                     </div>
                   </div>
                 );
