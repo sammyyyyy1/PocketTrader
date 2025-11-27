@@ -214,6 +214,11 @@ const TradesPage = () => {
     (t) => t.status === "pending"
   );
 
+  // Filtered list for past trades (accepted or declined)
+  const pastTrades = (activeTrades || []).filter(
+    (t) => t.status === "accepted" || t.status === "declined"
+  );
+
   // Filtered collection based on CardFilters state
   const filteredCollection = myCollection.filter((c) => {
     if (rarityFilter && c.rarity !== rarityFilter) return false;
@@ -264,7 +269,7 @@ const TradesPage = () => {
                 };
                 return (
                   <div
-                    key={idx}
+                    key={`${t.initiatorID}-${t.responderID}-${t.cardOfferedByUser1}-${t.cardOfferedByUser2}`}
                     className="flex items-center justify-between bg-white p-3 rounded shadow-sm"
                   >
                     <div className="flex items-center gap-4">
@@ -326,6 +331,82 @@ const TradesPage = () => {
                             </button>
                           </>
                         )}
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h3 className="text-xl font-semibold mb-2">Past Trades</h3>
+          <div className="space-y-3">
+            {loading ? (
+              <div>Loading...</div>
+            ) : pastTrades.length === 0 ? (
+              <div className="text-sm text-gray-500">No past trades.</div>
+            ) : (
+              pastTrades.map((t, idx) => {
+                const card1 = cardsMap[t.cardOfferedByUser1] || {
+                  cardID: t.cardOfferedByUser1,
+                  name: t.cardOfferedByUser1Name,
+                  imageURL: t.cardOfferedByUser1Image,
+                };
+                const card2 = cardsMap[t.cardOfferedByUser2] || {
+                  cardID: t.cardOfferedByUser2,
+                  name: t.cardOfferedByUser2Name,
+                  imageURL: t.cardOfferedByUser2Image,
+                };
+                return (
+                  <div
+                    key={`${t.initiatorID}-${t.responderID}-${t.cardOfferedByUser1}-${t.cardOfferedByUser2}`}
+                    className="flex items-center justify-between bg-gray-50 p-3 rounded shadow-sm border border-gray-200"
+                  >
+                    <div className="flex items-center gap-4 opacity-80">
+                      <div className="w-40">
+                        <div className="font-medium truncate">
+                          {card1.name || card1.cardID}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {card1.cardID}
+                        </div>
+                      </div>
+                      <div className="text-sm text-center">⇄</div>
+                      <div className="w-40">
+                        <div className="font-medium truncate">
+                          {card2.name || card2.cardID}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {card2.cardID}
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-sm text-gray-600">
+                          {usersMap[t.initiatorID] || `User ${t.initiatorID}`} vs{" "}
+                          {usersMap[t.responderID] || `User ${t.responderID}`}
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          {t.dateCompleted || t.createdAt}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`px-3 py-1 rounded text-sm font-medium ${
+                          t.status === "accepted"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        {t.status === "accepted" ? "Accepted" : "Declined"}
+                      </span>
+                      <button
+                        onClick={() => openView(t)}
+                        className="bg-gray-200 px-3 py-1 rounded text-sm"
+                      >
+                        Details
+                      </button>
                     </div>
                   </div>
                 );
