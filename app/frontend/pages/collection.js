@@ -64,7 +64,7 @@ export default function CollectionPage() {
     setLoading(false);
   };
 
-  const onDelete = async (cardID) => {
+  const onDelete = async (cardID, cardName) => {
     if (!user) return;
     setLoading(true);
     try {
@@ -76,7 +76,21 @@ export default function CollectionPage() {
       );
       const data = await res.json();
       if (data.status === "success") {
-        setItems(items.filter((item) => item.cardID !== cardID));
+        setItems((prevItems) => {
+          let updatedQty = null;
+          const updatedList = prevItems.map((item) => {
+            if (item.cardID !== cardID) return item;
+            const qty =
+              typeof data.quantity === "number"
+                ? data.quantity
+                : Math.max((item.quantity || 1) - 1, 0);
+            updatedQty = qty;
+            return { ...item, quantity: qty };
+          });
+          return updatedList.filter(
+            (item) => item.cardID !== cardID || item.quantity > 0
+          );
+        });
       } else {
         console.error("Failed to delete card", data);
       }

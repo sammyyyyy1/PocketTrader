@@ -67,6 +67,8 @@ export default function Card({
         <button
           onClick={() => onDelete(card.cardID, card.name)}
           className={`absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-md font-extrabold shadow-lg`}
+          title="Remove one from collection"
+          aria-label={`Remove one ${card.name} from your collection`}
         >
           -
         </button>

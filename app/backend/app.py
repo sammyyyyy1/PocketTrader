@@ -331,27 +331,35 @@ def remove_from_collection():
             cur.close()
             return jsonify({'status': 'error', 'message': 'remove_from_collection query missing'}), 500
 
-        if ':' in sql:
-            # Strip single-line SQL comments first so placeholder detection ignores docs.
-            sql_no_comments = re.sub(r"--.*?(?=\n|$)", "", sql)
+        # Check current quantity first so we can decrement instead of deleting all copies.
+        cur.execute(
+            "SELECT quantity FROM Collection WHERE userID = %s AND cardID = %s",
+            (user_id, card_id)
+        )
+        row = cur.fetchone()
+        if not row:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'card not found in collection'}), 404
 
-            ordered_keys = []
+        current_qty = row[0]
 
-            def replace_named(match):
-                key = match.group(1)
-                ordered_keys.append(key)
-                return '%s'
-
-            sql_no_comments = re.sub(r':(cardId|userId)', replace_named, sql_no_comments)
-
-            params = tuple(card_id if key == 'cardId' else user_id for key in ordered_keys)
-            cur.execute(sql_no_comments, params)
+        if current_qty <= 1:
+            # Delete outright to avoid violating the quantity > 0 check constraint
+            cur.execute(
+                "DELETE FROM Collection WHERE userID = %s AND cardID = %s",
+                (user_id, card_id)
+            )
+            new_quantity = 0
         else:
-            cur.execute(sql, (card_id, user_id))
+            cur.execute(
+                "UPDATE Collection SET quantity = quantity - 1 WHERE userID = %s AND cardID = %s",
+                (user_id, card_id)
+            )
+            new_quantity = current_qty - 1
 
         mysql.connection.commit()
         cur.close()
-        return jsonify({'status': 'success'})
+        return jsonify({'status': 'success', 'quantity': new_quantity})
     except Exception as e:
         mysql.connection.rollback()
         traceback.print_exc()

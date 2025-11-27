@@ -72,3 +72,16 @@ CREATE INDEX idx_trade_initiator ON Trade(initiatorID);
 CREATE INDEX idx_trade_recipient ON Trade(recipientID);
 CREATE INDEX idx_trade_status ON Trade(status);
 CREATE INDEX idx_tradecard_tradeid ON Tradecard(tradeID);
+
+-- Trigger: remove a collection row when quantity drops to zero or below
+DROP TRIGGER IF EXISTS trg_collection_delete_empty;
+DELIMITER //
+CREATE TRIGGER trg_collection_delete_empty
+AFTER UPDATE ON Collection
+FOR EACH ROW
+BEGIN
+    IF NEW.quantity <= 0 THEN
+        DELETE FROM Collection WHERE userID = NEW.userID AND cardID = NEW.cardID;
+    END IF;
+END//
+DELIMITER ;
