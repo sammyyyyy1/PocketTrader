@@ -28,6 +28,8 @@ services:
       - db_data:/var/lib/mysql
       - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
       - ./database/migrations/init-prod.sql:/docker-entrypoint-initdb.d/02-init-prod.sql
+      # Ensure any additional one-time migrations are executed on first init
+      - ./database/migrations/03-populate-trade-opportunities.sql:/docker-entrypoint-initdb.d/03-populate-trade-opportunities.sql
     environment:
       MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: app_db

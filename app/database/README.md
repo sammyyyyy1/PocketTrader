@@ -106,3 +106,17 @@ with app.app_context():
     print(f'Cards in database: {cur.fetchone()[0]}')
 "
 ```
+
+## One-time population: TradeOpportunity
+
+If you imported or bulk-loaded `Collection` and `Wishlist` rows (for example from CSVs), the
+`TradeOpportunity` table may be empty because the triggers that populate it only run on
+INSERT/UPDATE events. To populate `TradeOpportunity` from existing data run the following command
+from your project root (it is idempotent):
+
+```powershell
+docker-compose -f "PocketTrader/app/docker-compose.yml" exec db sh -c \
+  'mysql -u user -ppassword app_db -e "INSERT IGNORE INTO TradeOpportunity (ownerID, targetID, cardID) SELECT col.userID, w.userID, col.cardID FROM Collection col JOIN Wishlist w ON w.cardID = col.cardID WHERE col.quantity >= 2 AND w.userID <> col.userID;"'
+```
+
+This inserts any missing opportunities and is safe to run multiple times.
