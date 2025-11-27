@@ -112,3 +112,16 @@ BEGIN
     END IF;
 END$$
 DELIMITER ;
+
+-- Trigger: remove a collection row when quantity drops to zero or below
+DROP TRIGGER IF EXISTS trg_collection_delete_empty;
+DELIMITER //
+CREATE TRIGGER trg_collection_delete_empty
+AFTER UPDATE ON Collection
+FOR EACH ROW
+BEGIN
+    IF NEW.quantity <= 0 THEN
+        DELETE FROM Collection WHERE userID = NEW.userID AND cardID = NEW.cardID;
+    END IF;
+END//
+DELIMITER ;
