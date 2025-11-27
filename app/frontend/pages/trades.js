@@ -269,7 +269,7 @@ const TradesPage = () => {
                 };
                 return (
                   <div
-                    key={idx}
+                    key={`${t.initiatorID}-${t.responderID}-${t.cardOfferedByUser1}-${t.cardOfferedByUser2}`}
                     className="flex items-center justify-between bg-white p-3 rounded shadow-sm"
                   >
                     <div className="flex items-center gap-4">
@@ -360,7 +360,7 @@ const TradesPage = () => {
                 };
                 return (
                   <div
-                    key={idx}
+                    key={`${t.initiatorID}-${t.responderID}-${t.cardOfferedByUser1}-${t.cardOfferedByUser2}`}
                     className="flex items-center justify-between bg-gray-50 p-3 rounded shadow-sm border border-gray-200"
                   >
                     <div className="flex items-center gap-4 opacity-80">
@@ -368,11 +368,17 @@ const TradesPage = () => {
                         <div className="font-medium truncate">
                           {card1.name || card1.cardID}
                         </div>
+                        <div className="text-sm text-gray-500">
+                          {card1.cardID}
+                        </div>
                       </div>
                       <div className="text-sm text-center">⇄</div>
                       <div className="w-40">
                         <div className="font-medium truncate">
                           {card2.name || card2.cardID}
+                        </div>
+                        <div className="text-sm text-gray-500">
+                          {card2.cardID}
                         </div>
                       </div>
                       <div>
