@@ -1,0 +1,122 @@
+# Database Setup & Initialization
+
+## How Database Initialization Works
+
+This project uses **MySQL's automatic initialization feature** to set up the database when Docker containers are first created.
+
+### First-Time Setup (New Team Member)
+
+When someone clones the repo and runs:
+
+```bash
+docker compose up --build
+```
+
+MySQL automatically executes all `.sql` files in `/docker-entrypoint-initdb.d/` in alphabetical order:
+
+1. **`01-schema.sql`** - Creates all tables (USER, CARD, COLLECTION, WISHLIST, TRADE, TRADECARD)
+2. **`02-init-prod.sql`** - Inserts card and user seed data
+
+### Persistent Data
+
+- Database data is stored in a **Docker volume** (`db_data`)
+- Data persists across `docker compose down` and `docker compose up`
+- Initialization scripts **only run once** when the volume is empty
+
+## Resetting the Database
+
+To start fresh (e.g., after schema changes):
+
+```bash
+# Stop containers and remove volumes
+docker compose down -v
+
+# Rebuild and start fresh
+docker compose up --build
+```
+
+The `-v` flag removes volumes, triggering re-initialization.
+
+## Schema Overview
+
+```
+USER (userID, username, passwordHash, dateJoined)
+  ↓
+COLLECTION (userID, cardID, quantity, dateAcquired) ← references CARD
+  ↓
+WISHLIST (userID, cardID, dateAdded) ← references CARD
+  ↓
+TRADE (tradeID, initiatorID, recipientID, status, dateStarted, dateCompleted)
+  ↓
+TRADECARD (tradeCardID, tradeID, cardID, fromUserID, toUserID)
+```
+
+## Sample Data
+
+All cards are from the **Genetic Apex** pack. We took a sample of 26 cards of varying rarities.
+
+User passwords referenced in `migrations/init_accounts.sql` are hashed with Werkzeug's PBKDF2-SHA256 helper. When adding new accounts, run `python - <<'PY'; from werkzeug.security import generate_password_hash; print(generate_password_hash("YourPassword")); PY` and paste the output into the SQL file.
+
+### Empty Tables
+
+- USER, COLLECTION, WISHLIST, TRADE, TRADECARD start empty
+- These will be populated during normal app usage
+
+## Adding More Seed Data
+
+To add more cards:
+
+1. Edit `migrations/init-prod.sql`
+2. Add `INSERT INTO CARD` statements
+3. Reset database: `docker compose down -v && docker compose up --build`
+
+## Production Considerations
+
+For production environments:
+
+- Use proper database migrations (Alembic, Flyway, etc.)
+- Don't rely on `/docker-entrypoint-initdb.d/` for schema changes
+- Consider using separate seed data files for dev vs prod
+- Store sensitive data (passwords) securely with proper hashing
+
+## Querying the Database
+
+From the host machine:
+
+```bash
+mysql -h 127.0.0.1 -P 3307 -u user -p app_db
+# Password: password
+```
+
+From inside the backend container:
+
+```bash
+docker compose exec backend python -c "
+from flask import Flask
+from flask_mysqldb import MySQL
+app = Flask(__name__)
+app.config['MYSQL_HOST'] = 'db'
+app.config['MYSQL_USER'] = 'user'
+app.config['MYSQL_PASSWORD'] = 'password'
+app.config['MYSQL_DB'] = 'app_db'
+mysql = MySQL(app)
+with app.app_context():
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT COUNT(*) FROM CARD')
+    print(f'Cards in database: {cur.fetchone()[0]}')
+"
+```
+
+## One-time population: TradeOpportunity
+
+If you imported or bulk-loaded `Collection` and `Wishlist` rows (for example from CSVs), the
+`TradeOpportunity` table may be empty because the triggers that populate it only run on
+INSERT/UPDATE events. To populate `TradeOpportunity` from existing data run the following command
+from your project root (it is idempotent):
+
+```powershell
+docker-compose -f "PocketTrader/app/docker-compose.yml" exec db sh -c \
+  'mysql -u user -ppassword app_db -e "INSERT IGNORE INTO TradeOpportunity (ownerID, targetID, cardID) SELECT col.userID, w.userID, col.cardID FROM Collection col JOIN Wishlist w ON w.cardID = col.cardID WHERE col.quantity >= 2 AND w.userID <> col.userID;"'
+```
+
+This inserts any missing opportunities and is safe to run multiple times.
