@@ -1,8 +1,10 @@
 -- Collection: find owners by card quickly
 CREATE INDEX idx_collection_cardID ON Collection(cardID);
+CREATE INDEX idx_collection_card_qty_user ON Collection(cardID, quantity, userID);
 
 -- Wishlist: find wishlist owners quickly
 CREATE INDEX idx_wishlist_cardID ON Wishlist(cardID);
+CREATE INDEX idx_wishlist_card_user ON Wishlist(cardID, userID);
 
 -- Trade: filter by status and lookup trades for a user
 CREATE INDEX idx_trade_status ON Trade(status);
