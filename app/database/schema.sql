@@ -282,6 +282,33 @@ BEGIN
 END$$
 DELIMITER ;
 
+-- Market Trends View
+CREATE VIEW market_trends_view AS
+SELECT
+    c.cardID,
+    c.name,
+    c.rarity,
+    c.packName,
+    c.imageURL,
+    COALESCE(demand.demandCount, 0) AS demand,
+    COALESCE(supply.supplyCount, 0) AS supply,
+    COALESCE(demand.demandCount, 0) - COALESCE(supply.supplyCount, 0) AS trend
+FROM Card c
+LEFT JOIN (
+    SELECT
+        cardID,
+        COUNT(DISTINCT userID) AS demandCount
+    FROM Wishlist
+    GROUP BY cardID
+) AS demand ON c.cardID = demand.cardID
+LEFT JOIN (
+    SELECT
+        cardID,
+        SUM(quantity) AS supplyCount
+    FROM Collection
+    GROUP BY cardID
+) AS supply ON c.cardID = supply.cardID;
+
 -- Trigger: remove a collection row when quantity drops to zero or below
 DROP TRIGGER IF EXISTS trg_collection_delete_empty;
 DELIMITER //
