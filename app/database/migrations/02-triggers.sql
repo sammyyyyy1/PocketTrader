@@ -98,6 +98,14 @@ BEGIN
     END IF;
 END$$
 
+DROP TRIGGER IF EXISTS trg_trade_before_insert$$
+CREATE TRIGGER trg_trade_before_insert
+BEFORE INSERT ON Trade
+FOR EACH ROW
+BEGIN
+    SET NEW.status = 'pending';
+END$$
+
 DROP TRIGGER IF EXISTS trg_collection_delete_empty$$
 CREATE TRIGGER trg_collection_delete_empty
 AFTER UPDATE ON Collection
