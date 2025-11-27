@@ -27,6 +27,19 @@ BEGIN
         WHERE w.cardID = NEW.cardID
             AND w.userID <> NEW.userID;
     END IF;
+
+    IF NEW.quantity < 2 THEN
+        DELETE FROM TradeOpportunity
+        WHERE ownerID = NEW.userID AND cardID = NEW.cardID;
+    END IF;
+END$$
+
+CREATE TRIGGER trg_wishlist_after_delete
+AFTER DELETE ON Wishlist
+FOR EACH ROW
+BEGIN
+    DELETE FROM TradeOpportunity
+    WHERE targetID = OLD.userID AND cardID = OLD.cardID;
 END$$
 
 DROP TRIGGER IF EXISTS trg_trade_before_update$$
@@ -94,6 +107,10 @@ BEGIN
         -- increment/add to initiator
         INSERT INTO Collection (userID, cardID, quantity) VALUES (NEW.initiatorID, v_card2, 1)
             ON DUPLICATE KEY UPDATE quantity = quantity + 1;
+
+        -- Remove received cards from wishlists
+        DELETE FROM Wishlist WHERE userID = NEW.recipientID AND cardID = v_card1;
+        DELETE FROM Wishlist WHERE userID = NEW.initiatorID AND cardID = v_card2;
 
     END IF;
 END$$

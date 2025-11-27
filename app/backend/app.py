@@ -343,8 +343,9 @@ def remove_from_collection():
             return jsonify({'status': 'error', 'message': 'remove_from_collection query missing'}), 500
 
         # Check current quantity first so we can decrement instead of deleting all copies.
+        # Lock the row to prevent race conditions
         cur.execute(
-            "SELECT quantity FROM Collection WHERE userID = %s AND cardID = %s",
+            "SELECT quantity FROM Collection WHERE userID = %s AND cardID = %s FOR UPDATE",
             (user_id, card_id)
         )
         row = cur.fetchone()
@@ -352,7 +353,7 @@ def remove_from_collection():
             cur.close()
             return jsonify({'status': 'error', 'message': 'card not found in collection'}), 404
 
-        current_qty = row[0]
+        current_qty = int(row[0])
 
         if current_qty <= 1:
             # Delete outright to avoid violating the quantity > 0 check constraint
@@ -362,11 +363,12 @@ def remove_from_collection():
             )
             new_quantity = 0
         else:
-            cur.execute(
-                "UPDATE Collection SET quantity = quantity - 1 WHERE userID = %s AND cardID = %s",
-                (user_id, card_id)
-            )
+            # Explicitly set the new quantity
             new_quantity = current_qty - 1
+            cur.execute(
+                "UPDATE Collection SET quantity = %s WHERE userID = %s AND cardID = %s",
+                (new_quantity, user_id, card_id)
+            )
 
         mysql.connection.commit()
         cur.close()
@@ -757,12 +759,12 @@ def create_active_trade():
         q2r = cur.fetchone()
         q1 = q1r[0] if q1r else None
         q2 = q2r[0] if q2r else None
-        if q1 is None or q1 <= 2:
+        if q1 is None or q1 < 2:
             cur.close()
-            return jsonify({'status': 'error', 'message': 'user1 does not have >2 copies of cardSent1'}), 400
-        if q2 is None or q2 <= 2:
+            return jsonify({'status': 'error', 'message': 'user1 does not have >= 2 copies of cardSent1'}), 400
+        if q2 is None or q2 < 2:
             cur.close()
-            return jsonify({'status': 'error', 'message': 'user2 does not have >2 copies of cardSent2'}), 400
+            return jsonify({'status': 'error', 'message': 'user2 does not have >= 2 copies of cardSent2'}), 400
 
         # 3) Check neither card is already in a pending trade
         sql_chk = SQL_QUERIES.get('check_card_pending')
