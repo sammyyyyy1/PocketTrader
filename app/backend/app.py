@@ -37,6 +37,7 @@ def _load_queries():
            'remove_from_wishlist': 'remove_from_wishlist.sql',
         'get_wishlist_owners': 'get_wishlist_owners.sql',
         'get_mutual_matches': 'get_mutual_matches.sql',
+        'get_market_trends': 'get_market_trends.sql',
     }
     for name, filename in name_to_file.items():
         path = sql_dir / filename
@@ -650,6 +651,38 @@ def get_mutual_matches():
         return jsonify({'status': 'success', 'items': items, 'count': len(items)})
     except Exception as e:
         print('Exception in get_mutual_matches:')
+        traceback.print_exc()
+        return jsonify({'status': 'error', 'message': str(e)}), 500
+
+@app.route('/api/market-trends', methods=['GET'])
+def get_market_trends():
+    """Return market trends data from the market_trends_view."""
+    try:
+        cur = mysql.connection.cursor()
+        # The view is already ordered by valueScore DESC
+        sql = SQL_QUERIES.get('get_market_trends')
+        if not sql:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'get_market_trends query missing'}), 500
+
+        cur.execute(sql)
+        rows = cur.fetchall()
+        cur.close()
+
+        items = [{
+            'cardID': r[0],
+            'name': r[1],
+            'rarity': r[2],
+            'packName': r[3],
+            'imageURL': r[4],
+            'demand': r[5],
+            'supply': r[6],
+            'trend': r[7]
+        } for r in rows]
+
+        return jsonify({'status': 'success', 'items': items, 'count': len(items)})
+    except Exception as e:
+        print('Exception in get_market_trends:')
         traceback.print_exc()
         return jsonify({'status': 'error', 'message': str(e)}), 500
 

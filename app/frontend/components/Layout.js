@@ -47,6 +47,12 @@ const Layout = ({ children }) => {
               >
                 Wishlist
               </a>
+              <a
+                href="/trending"
+                className="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-1 px-4 rounded transition-colors duration-200"
+              >
+                Trending
+              </a>
             </div>
           </div>
 
