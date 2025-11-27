@@ -47,8 +47,12 @@ CREATE TABLE Trade (
     status ENUM('pending', 'accepted', 'rejected', 'cancelled', 'completed') NOT NULL DEFAULT 'pending',
     dateStarted DATETIME DEFAULT CURRENT_TIMESTAMP,
     dateCompleted DATETIME,
+    createdBy INT NOT NULL,
+    confirmedBy INT NULL,
     FOREIGN KEY (initiatorID) REFERENCES User(userID) ON DELETE RESTRICT,
     FOREIGN KEY (recipientID) REFERENCES User(userID) ON DELETE RESTRICT,
+    FOREIGN KEY (createdBy) REFERENCES User(userID) ON DELETE RESTRICT,
+    FOREIGN KEY (confirmedBy) REFERENCES User(userID) ON DELETE RESTRICT,
     CHECK (initiatorID != recipientID)
 );
 
@@ -65,174 +69,6 @@ CREATE TABLE Tradecard (
     FOREIGN KEY (toUserID) REFERENCES User(userID) ON DELETE RESTRICT
 );
 
--- ActiveTrades table: tracks confirmed/active trades between two users
-CREATE TABLE IF NOT EXISTS ActiveTrades (
-    user1 INT NOT NULL,
-    user2 INT NOT NULL,
-    cardSent1 VARCHAR(50) NOT NULL,
-    cardSent2 VARCHAR(50) NOT NULL,
-    confirmed BOOLEAN NOT NULL DEFAULT FALSE,
-    createdBy INT NOT NULL,
-    confirmedBy INT NULL,
-    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (user1, user2, cardSent1, cardSent2),
-    FOREIGN KEY (user1) REFERENCES User(userID) ON DELETE RESTRICT,
-    FOREIGN KEY (user2) REFERENCES User(userID) ON DELETE RESTRICT,
-    FOREIGN KEY (cardSent1) REFERENCES Card(cardID) ON DELETE RESTRICT,
-    FOREIGN KEY (cardSent2) REFERENCES Card(cardID) ON DELETE RESTRICT,
-    FOREIGN KEY (createdBy) REFERENCES User(userID) ON DELETE RESTRICT,
-    FOREIGN KEY (confirmedBy) REFERENCES User(userID) ON DELETE RESTRICT
-);
-
--- CompletedTrades table: archival record of completed trades (inserted by trigger)
-CREATE TABLE IF NOT EXISTS CompletedTrades (
-    completedID INT AUTO_INCREMENT PRIMARY KEY,
-    user1 INT NOT NULL,
-    user2 INT NOT NULL,
-    cardFrom1 VARCHAR(50) NOT NULL,
-    cardFrom2 VARCHAR(50) NOT NULL,
-    completedAt DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user1) REFERENCES User(userID) ON DELETE RESTRICT,
-    FOREIGN KEY (user2) REFERENCES User(userID) ON DELETE RESTRICT,
-    FOREIGN KEY (cardFrom1) REFERENCES Card(cardID) ON DELETE RESTRICT,
-    FOREIGN KEY (cardFrom2) REFERENCES Card(cardID) ON DELETE RESTRICT
-);
-
--- Ensure inserts cannot set confirmed=true directly: force FALSE on insert
--- Make trigger creation idempotent: drop if exists first
-DROP TRIGGER IF EXISTS trg_activetrades_before_insert;
-DELIMITER $$
-CREATE TRIGGER trg_activetrades_before_insert
-BEFORE INSERT ON ActiveTrades
-FOR EACH ROW
-BEGIN
-    -- Force confirmed to false regardless of what the client provided
-    SET NEW.confirmed = FALSE;
-
-    -- Basic sanity: users must be distinct and cards must be distinct
-    IF NEW.user1 = NEW.user2 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ActiveTrades: user1 and user2 must differ';
-    END IF;
-
-    IF NEW.cardSent1 = NEW.cardSent2 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ActiveTrades: cardSent1 and cardSent2 must differ';
-    END IF;
-
-    -- createdBy must be one of the participants
-    IF NOT (NEW.createdBy = NEW.user1 OR NEW.createdBy = NEW.user2) THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ActiveTrades: createdBy must be one of the participants';
-    END IF;
-
-    -- verify user1 actually owns cardSent1 at create time
-    IF (SELECT COUNT(*) FROM Collection WHERE userID = NEW.user1 AND cardID = NEW.cardSent1 AND quantity >= 1) = 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ActiveTrades: user1 does not own cardSent1 at create time';
-    END IF;
-
-    -- verify user2 actually owns cardSent2 at create time
-    IF (SELECT COUNT(*) FROM Collection WHERE userID = NEW.user2 AND cardID = NEW.cardSent2 AND quantity >= 1) = 0 THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ActiveTrades: user2 does not own cardSent2 at create time';
-    END IF;
-END$$
-DELIMITER ;
-
--- BEFORE UPDATE validator: when confirming a trade, ensure the confirmer is the counterparty
--- and that both senders actually own the cards to be sent.
-DROP TRIGGER IF EXISTS trg_activetrades_before_update;
-DELIMITER $$
-CREATE TRIGGER trg_activetrades_before_update
-BEFORE UPDATE ON ActiveTrades
-FOR EACH ROW
-BEGIN
-    DECLARE cnt1 INT DEFAULT 0;
-    DECLARE cnt2 INT DEFAULT 0;
-
-    -- Only validate transitions to confirmed = TRUE
-    IF OLD.confirmed = FALSE AND NEW.confirmed = TRUE THEN
-        -- confirmedBy must be provided and must be one of the participants
-        IF NEW.confirmedBy IS NULL THEN
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ActiveTrades: confirmedBy must be provided when confirming';
-        END IF;
-
-        IF NOT (NEW.confirmedBy = NEW.user1 OR NEW.confirmedBy = NEW.user2) THEN
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ActiveTrades: confirmedBy must be one of the participants';
-        END IF;
-
-        -- The confirmer cannot be the same as the creator who created the trade
-        IF NEW.confirmedBy = OLD.createdBy THEN
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ActiveTrades: creator cannot confirm their own trade';
-        END IF;
-
-        -- Check user1 has at least one of cardSent1
-        SELECT COUNT(*) INTO cnt1 FROM Collection WHERE userID = NEW.user1 AND cardID = NEW.cardSent1 AND quantity >= 1;
-        IF cnt1 = 0 THEN
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ActiveTrades: user1 does not have required cardSent1';
-        END IF;
-
-        -- Check user2 has at least one of cardSent2
-        SELECT COUNT(*) INTO cnt2 FROM Collection WHERE userID = NEW.user2 AND cardID = NEW.cardSent2 AND quantity >= 1;
-        IF cnt2 = 0 THEN
-            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'ActiveTrades: user2 does not have required cardSent2';
-        END IF;
-    END IF;
-END$$
-DELIMITER ;
-
--- When a row is updated to confirmed = TRUE (transition from FALSE -> TRUE),
--- atomically move cards between collections, update quantities, clear wishlists,
--- and insert an archival row into CompletedTrades. Note: some environments
--- do not allow modifying the triggering table from within its own trigger;
--- to avoid mutating ActiveTrades inside this trigger we record completion in
--- `CompletedTrades` and leave removal of the ActiveTrades row to application
--- logic or a cleanup job.
-DROP TRIGGER IF EXISTS trg_activetrades_after_update;
-DELIMITER $$
-CREATE TRIGGER trg_activetrades_after_update
-AFTER UPDATE ON ActiveTrades
-FOR EACH ROW
-BEGIN
-    -- only act on transitions to confirmed = TRUE
-    IF OLD.confirmed = FALSE AND NEW.confirmed = TRUE THEN
-        -- decrement user1's sent card (cardSent1)
-        UPDATE Collection
-        SET quantity = quantity - 1
-        WHERE userID = NEW.user1 AND cardID = NEW.cardSent1;
-
-        -- increment/add cardSent1 to user2's collection
-        INSERT INTO Collection (userID, cardID, quantity)
-        VALUES (NEW.user2, NEW.cardSent1, 1)
-        ON DUPLICATE KEY UPDATE quantity = quantity + 1;
-
-        -- decrement user2's sent card (cardSent2)
-        UPDATE Collection
-        SET quantity = quantity - 1
-        WHERE userID = NEW.user2 AND cardID = NEW.cardSent2;
-
-        -- increment/add cardSent2 to user1's collection
-        INSERT INTO Collection (userID, cardID, quantity)
-        VALUES (NEW.user1, NEW.cardSent2, 1)
-        ON DUPLICATE KEY UPDATE quantity = quantity + 1;
-
-        -- remove these cards from wishlists for the respective receivers (if present)
-        DELETE FROM Wishlist
-        WHERE (userID = NEW.user1 AND cardID = NEW.cardSent2)
-           OR (userID = NEW.user2 AND cardID = NEW.cardSent1);
-
-        -- record completed trade for audit/history
-        INSERT INTO CompletedTrades (user1, user2, cardFrom1, cardFrom2)
-        VALUES (NEW.user1, NEW.user2, NEW.cardSent1, NEW.cardSent2);
-
-        -- Note: We do not DELETE the ActiveTrades row here due to trigger
-        -- limitations around mutating the same table in a row trigger. The
-        -- application or a scheduled cleanup job should remove rows where
-        -- confirmed = TRUE after they have been processed by this trigger.
-    END IF;
-END$$
-DELIMITER ;
-
--- Add indexes to speed lookups on ActiveTrades and CompletedTrades
-CREATE INDEX idx_activetrades_user1 ON ActiveTrades (user1);
-CREATE INDEX idx_activetrades_user2 ON ActiveTrades (user2);
-CREATE INDEX idx_completedtrades_users ON CompletedTrades (user1, user2);
 
 -- Create indexes for better query performance
 CREATE INDEX idx_collection_card_qty_user ON Collection (cardID, quantity, userID); -- R8
@@ -308,6 +144,102 @@ LEFT JOIN (
     FROM Collection
     GROUP BY cardID
 ) AS supply ON c.cardID = supply.cardID;
+
+-- Active trades view derived from canonical Trade + Tradecard
+DROP VIEW IF EXISTS active_trades_view;
+DELIMITER $$
+CREATE VIEW active_trades_view AS
+SELECT
+    t.tradeID,
+    t.initiatorID AS user1,
+    t.recipientID AS user2,
+    -- pick a representative card offered by initiator (single-card-per-side view)
+    (SELECT tc.cardID FROM Tradecard tc WHERE tc.tradeID = t.tradeID AND tc.fromUserID = t.initiatorID LIMIT 1) AS cardSent1,
+    (SELECT c1.name FROM Card c1 WHERE c1.cardID = (SELECT tc.cardID FROM Tradecard tc WHERE tc.tradeID = t.tradeID AND tc.fromUserID = t.initiatorID LIMIT 1)) AS cardSent1Name,
+    (SELECT c1.imageURL FROM Card c1 WHERE c1.cardID = (SELECT tc.cardID FROM Tradecard tc WHERE tc.tradeID = t.tradeID AND tc.fromUserID = t.initiatorID LIMIT 1)) AS cardSent1Image,
+    (SELECT tc.cardID FROM Tradecard tc WHERE tc.tradeID = t.tradeID AND tc.fromUserID = t.recipientID LIMIT 1) AS cardSent2,
+    (SELECT c2.name FROM Card c2 WHERE c2.cardID = (SELECT tc.cardID FROM Tradecard tc WHERE tc.tradeID = t.tradeID AND tc.fromUserID = t.recipientID LIMIT 1)) AS cardSent2Name,
+    (SELECT c2.imageURL FROM Card c2 WHERE c2.cardID = (SELECT tc.cardID FROM Tradecard tc WHERE tc.tradeID = t.tradeID AND tc.fromUserID = t.recipientID LIMIT 1)) AS cardSent2Image,
+    t.status,
+    t.createdBy,
+    t.confirmedBy,
+    t.dateStarted
+FROM Trade t;
+DELIMITER ;
+
+-- Triggers on Trade to validate and perform confirmation swaps
+DROP TRIGGER IF EXISTS trg_trade_before_update;
+DELIMITER $$
+CREATE TRIGGER trg_trade_before_update
+BEFORE UPDATE ON Trade
+FOR EACH ROW
+BEGIN
+    DECLARE cnt1 INT DEFAULT 0;
+    DECLARE cnt2 INT DEFAULT 0;
+    DECLARE v_card1 VARCHAR(50);
+    DECLARE v_card2 VARCHAR(50);
+
+    -- Only validate transitions to accepted
+    IF OLD.status = 'pending' AND NEW.status = 'accepted' THEN
+        -- confirmedBy must be provided and must be one of the participants
+        IF NEW.confirmedBy IS NULL THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Trade: confirmedBy must be provided when confirming';
+        END IF;
+        IF NOT (NEW.confirmedBy = OLD.initiatorID OR NEW.confirmedBy = OLD.recipientID) THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Trade: confirmedBy must be one of the participants';
+        END IF;
+
+        -- The confirmer cannot be the same as the creator
+        IF NEW.confirmedBy = OLD.createdBy THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Trade: creator cannot confirm their own trade';
+        END IF;
+
+        -- Get representative cards (single-card-per-side assumption)
+        SELECT tc.cardID INTO v_card1 FROM Tradecard tc WHERE tc.tradeID = OLD.tradeID AND tc.fromUserID = OLD.initiatorID LIMIT 1;
+        SELECT tc.cardID INTO v_card2 FROM Tradecard tc WHERE tc.tradeID = OLD.tradeID AND tc.fromUserID = OLD.recipientID LIMIT 1;
+
+        -- Check user ownership
+        SELECT COUNT(*) INTO cnt1 FROM Collection WHERE userID = OLD.initiatorID AND cardID = v_card1 AND quantity >= 1;
+        SELECT COUNT(*) INTO cnt2 FROM Collection WHERE userID = OLD.recipientID AND cardID = v_card2 AND quantity >= 1;
+        IF cnt1 = 0 THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Trade: initiator does not have required card at confirmation time';
+        END IF;
+        IF cnt2 = 0 THEN
+            SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Trade: recipient does not have required card at confirmation time';
+        END IF;
+    END IF;
+END$$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS trg_trade_after_update;
+DELIMITER $$
+CREATE TRIGGER trg_trade_after_update
+AFTER UPDATE ON Trade
+FOR EACH ROW
+BEGIN
+    DECLARE v_card1 VARCHAR(50);
+    DECLARE v_card2 VARCHAR(50);
+
+    IF OLD.status = 'pending' AND NEW.status = 'accepted' THEN
+        -- fetch the one card IDs per participant
+        SELECT tc.cardID INTO v_card1 FROM Tradecard tc WHERE tc.tradeID = NEW.tradeID AND tc.fromUserID = NEW.initiatorID LIMIT 1;
+        SELECT tc.cardID INTO v_card2 FROM Tradecard tc WHERE tc.tradeID = NEW.tradeID AND tc.fromUserID = NEW.recipientID LIMIT 1;
+
+        -- decrement initiator's card
+        UPDATE Collection SET quantity = quantity - 1 WHERE userID = NEW.initiatorID AND cardID = v_card1;
+        -- increment/add to recipient
+        INSERT INTO Collection (userID, cardID, quantity) VALUES (NEW.recipientID, v_card1, 1)
+            ON DUPLICATE KEY UPDATE quantity = quantity + 1;
+
+        -- decrement recipient's card
+        UPDATE Collection SET quantity = quantity - 1 WHERE userID = NEW.recipientID AND cardID = v_card2;
+        -- increment/add to initiator
+        INSERT INTO Collection (userID, cardID, quantity) VALUES (NEW.initiatorID, v_card2, 1)
+            ON DUPLICATE KEY UPDATE quantity = quantity + 1;
+
+    END IF;
+END$$
+DELIMITER ;
 
 -- Trigger: remove a collection row when quantity drops to zero or below
 DROP TRIGGER IF EXISTS trg_collection_delete_empty;

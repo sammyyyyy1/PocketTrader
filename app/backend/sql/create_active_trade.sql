@@ -1,4 +1,5 @@
--- Insert a new pending active trade
+-- Create a new Trade + Tradecard entries (canonical model)
 -- Params: user1, user2, cardSent1, cardSent2, createdBy
-INSERT INTO ActiveTrades (user1, user2, cardSent1, cardSent2, createdBy)
-VALUES (%s, %s, %s, %s, %s);
+-- Insert a new Trade row. Validation should be performed by the caller.
+INSERT INTO Trade (initiatorID, recipientID, status, dateStarted, createdBy)
+VALUES (%s, %s, 'pending', NOW(), %s);

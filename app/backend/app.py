@@ -39,6 +39,11 @@ def _load_queries():
         'get_mutual_matches': 'get_mutual_matches.sql',
         'get_trade_opportunities': 'get_trade_opportunities.sql',
         'create_active_trade': 'create_active_trade.sql',
+        'insert_tradecard': 'insert_tradecard.sql',
+        'get_card_rarity': 'get_card_rarity.sql',
+        'get_collection_quantity': 'get_collection_quantity.sql',
+        'check_card_pending': 'check_card_pending.sql',
+        'find_pending_trade': 'find_pending_trade.sql',
         'get_active_trades': 'get_active_trades.sql',
         'confirm_active_trade': 'confirm_active_trade.sql',
         'decline_active_trade': 'decline_active_trade.sql',
@@ -719,16 +724,74 @@ def create_active_trade():
 
     if not user1 or not user2 or not cardSent1 or not cardSent2 or not createdBy:
         return jsonify({'status': 'error', 'message': 'user1,user2,cardSent1,cardSent2,createdBy required'}), 400
-
+    # Perform validations and multi-statement creation in the app using SQL files (no procedures)
     try:
         cur = mysql.connection.cursor()
-        sql = SQL_QUERIES.get('create_active_trade')
-        if not sql:
-            cur.close()
-            return jsonify({'status': 'error', 'message': 'create_active_trade query missing'}), 500
 
-        # simple positional params
-        cur.execute(sql, (user1, user2, cardSent1, cardSent2, createdBy))
+        # createdBy must be one of the participants
+        if createdBy not in (user1, user2):
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'createdBy must be one of the participants'}), 400
+
+        # 1) Check rarities
+        sql_r = SQL_QUERIES.get('get_card_rarity')
+        if not sql_r:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'get_card_rarity query missing'}), 500
+        cur.execute(sql_r, (cardSent1,))
+        r1 = cur.fetchone()
+        cur.execute(sql_r, (cardSent2,))
+        r2 = cur.fetchone()
+        if not r1 or not r2 or r1[0] != r2[0]:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'cards must exist and have matching rarity'}), 400
+
+        # 2) Check quantities (>2 required by business rule)
+        sql_q = SQL_QUERIES.get('get_collection_quantity')
+        if not sql_q:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'get_collection_quantity query missing'}), 500
+        cur.execute(sql_q, (user1, cardSent1))
+        q1r = cur.fetchone()
+        cur.execute(sql_q, (user2, cardSent2))
+        q2r = cur.fetchone()
+        q1 = q1r[0] if q1r else None
+        q2 = q2r[0] if q2r else None
+        if q1 is None or q1 <= 2:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'user1 does not have >2 copies of cardSent1'}), 400
+        if q2 is None or q2 <= 2:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'user2 does not have >2 copies of cardSent2'}), 400
+
+        # 3) Check neither card is already in a pending trade
+        sql_chk = SQL_QUERIES.get('check_card_pending')
+        if not sql_chk:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'check_card_pending query missing'}), 500
+        cur.execute(sql_chk, (cardSent1,))
+        if cur.fetchone():
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'cardSent1 is already part of a pending trade'}), 400
+        cur.execute(sql_chk, (cardSent2,))
+        if cur.fetchone():
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'cardSent2 is already part of a pending trade'}), 400
+
+        # 4) Insert Trade and Tradecard rows within a transaction
+        sql_insert_trade = SQL_QUERIES.get('create_active_trade')
+        sql_insert_tradecard = SQL_QUERIES.get('insert_tradecard')
+        if not sql_insert_trade or not sql_insert_tradecard:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'insert queries missing'}), 500
+
+        cur.execute(sql_insert_trade, (user1, user2, createdBy))
+        new_trade_id = cur.lastrowid
+
+        # insert two tradecard rows
+        cur.execute(sql_insert_tradecard, (new_trade_id, cardSent1, user1, user2))
+        cur.execute(sql_insert_tradecard, (new_trade_id, cardSent2, user2, user1))
+
         mysql.connection.commit()
         cur.close()
         return jsonify({'status': 'success'}), 201
@@ -757,6 +820,7 @@ def list_active_trades():
                 return jsonify({'status': 'error', 'message': 'user not found'}), 404
             user_id = row[0]
 
+        # Use the SQL query loaded from backend/sql (selects from active_trades_view)
         sql = SQL_QUERIES.get('get_active_trades')
         if not sql:
             cur.close()
@@ -794,33 +858,29 @@ def confirm_active_trade():
     if not confirmedBy or not user1 or not user2 or not cardSent1 or not cardSent2:
         return jsonify({'status': 'error', 'message': 'confirmedBy,user1,user2,cardSent1,cardSent2 required'}), 400
 
+    # Locate the matching pending trade, then mark accepted. Triggers will handle swap.
     try:
         cur = mysql.connection.cursor()
-        sql = SQL_QUERIES.get('confirm_active_trade')
-        if not sql:
+        sql_find = SQL_QUERIES.get('find_pending_trade')
+        if not sql_find:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'find_pending_trade query missing'}), 500
+
+        # pass params: card1, card2, (user1,user2) and (user2,user1) to match orientation
+        cur.execute(sql_find, (cardSent1, cardSent2, user1, user2, user2, user1))
+        row = cur.fetchone()
+        if not row:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'no matching pending trade found'}), 404
+        trade_id = row[0]
+
+        sql_confirm = SQL_QUERIES.get('confirm_active_trade')
+        if not sql_confirm:
             cur.close()
             return jsonify({'status': 'error', 'message': 'confirm_active_trade query missing'}), 500
 
-        cur.execute(sql, (confirmedBy, user1, user2, cardSent1, cardSent2))
-        if cur.rowcount == 0:
-            # nothing updated (either not found or already confirmed)
-            mysql.connection.rollback()
-            cur.close()
-            return jsonify({'status': 'error', 'message': 'no pending trade updated'}), 404
-
+        cur.execute(sql_confirm, (confirmedBy, trade_id))
         mysql.connection.commit()
-
-        # After successful confirmation and trigger processing, clean up the processed ActiveTrades row
-        try:
-            cur.execute(
-                "DELETE FROM ActiveTrades WHERE user1 = %s AND user2 = %s AND cardSent1 = %s AND cardSent2 = %s AND confirmed = TRUE",
-                (user1, user2, cardSent1, cardSent2)
-            )
-            mysql.connection.commit()
-        except Exception:
-            # log but don't fail the whole request; trigger has already processed the trade
-            traceback.print_exc()
-
         cur.close()
         return jsonify({'status': 'success'})
     except Exception as e:
@@ -843,17 +903,24 @@ def decline_active_trade():
 
     try:
         cur = mysql.connection.cursor()
-        sql = SQL_QUERIES.get('decline_active_trade')
-        if not sql:
+        sql_find = SQL_QUERIES.get('find_pending_trade')
+        if not sql_find:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'find_pending_trade query missing'}), 500
+
+        cur.execute(sql_find, (cardSent1, cardSent2, user1, user2, user2, user1))
+        row = cur.fetchone()
+        if not row:
+            cur.close()
+            return jsonify({'status': 'error', 'message': 'no matching pending trade found'}), 404
+        trade_id = row[0]
+
+        sql_decline = SQL_QUERIES.get('decline_active_trade')
+        if not sql_decline:
             cur.close()
             return jsonify({'status': 'error', 'message': 'decline_active_trade query missing'}), 500
 
-        cur.execute(sql, (user1, user2, cardSent1, cardSent2))
-        if cur.rowcount == 0:
-            mysql.connection.rollback()
-            cur.close()
-            return jsonify({'status': 'error', 'message': 'no pending trade deleted'}), 404
-
+        cur.execute(sql_decline, (trade_id,))
         mysql.connection.commit()
         cur.close()
         return jsonify({'status': 'success'})

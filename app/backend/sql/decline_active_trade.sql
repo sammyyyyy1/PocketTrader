@@ -1,8 +1,6 @@
--- Decline (remove) a pending active trade
+-- Decline (mark rejected) a pending trade via stored procedure
 -- Params: user1, user2, cardSent1, cardSent2
-DELETE FROM ActiveTrades
-WHERE user1 = %s
-  AND user2 = %s
-  AND cardSent1 = %s
-  AND cardSent2 = %s
-  AND confirmed = FALSE;
+-- Decline a trade by tradeID (the caller should locate the matching tradeID)
+UPDATE Trade
+SET status = 'rejected', dateCompleted = NOW()
+WHERE tradeID = %s AND status = 'pending';
