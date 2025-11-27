@@ -1,6 +1,7 @@
 -- Get active trades (built from canonical Trade + Tradecard via view)
 -- Params: userID, userID
 SELECT
+    at.tradeID,
     at.initiatorID AS initiatorID,
     at.responderID AS responderID,
     at.cardOfferedByUser1 AS cardOfferedByUser1,
@@ -9,9 +10,10 @@ SELECT
     at.cardOfferedByUser2 AS cardOfferedByUser2,
     at.cardOfferedByUser2Name AS cardOfferedByUser2Name,
     at.cardOfferedByUser2Image AS cardOfferedByUser2Image,
-    (at.status = 'accepted') AS confirmed,
+    at.status,
     at.createdBy,
     at.confirmedBy,
+    at.dateCompleted,
     at.dateStarted AS createdAt
 FROM active_trades_view at
 WHERE at.initiatorID = %s OR at.responderID = %s

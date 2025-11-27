@@ -47,7 +47,8 @@ CREATE TABLE IF NOT EXISTS `Trade` (
   status ENUM('pending','accepted','declined') NOT NULL DEFAULT 'pending',
   createdBy INT NOT NULL,
   confirmedBy INT NULL,
-  dateStarted DATETIME DEFAULT CURRENT_TIMESTAMP
+  dateStarted DATETIME DEFAULT CURRENT_TIMESTAMP,
+  dateCompleted DATETIME NULL
 );
 
 -- Tradecard: cards attached to a trade
@@ -55,7 +56,8 @@ CREATE TABLE IF NOT EXISTS `Tradecard` (
   id INT AUTO_INCREMENT PRIMARY KEY,
   tradeID INT NOT NULL,
   fromUserID INT NOT NULL,
-  cardID VARCHAR(50) NOT NULL
+  cardID VARCHAR(50) NOT NULL,
+  toUserID INT NULL
 );
 
 -- TradeOpportunity read-model
@@ -83,6 +85,7 @@ SELECT
   t.status,
   t.createdBy,
   t.confirmedBy,
+  t.dateCompleted,
   t.dateStarted
 FROM Trade t;
 

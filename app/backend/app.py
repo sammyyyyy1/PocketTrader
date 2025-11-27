@@ -832,11 +832,21 @@ def list_active_trades():
 
         items = []
         for r in rows:
+            # active_trades_view columns (after schema change):
+            # 0: tradeID, 1: initiatorID, 2: responderID,
+            # 3: cardOfferedByUser1, 4: cardOfferedByUser1Name, 5: cardOfferedByUser1Image,
+            # 6: cardOfferedByUser2, 7: cardOfferedByUser2Name, 8: cardOfferedByUser2Image,
+            # 9: status, 10: createdBy, 11: confirmedBy, 12: dateCompleted, 13: dateStarted
+            status = r[9]
             items.append({
-                'initiatorID': r[0], 'responderID': r[1],
-                'cardOfferedByUser1': r[2], 'cardOfferedByUser1Name': r[3], 'cardOfferedByUser1Image': r[4],
-                'cardOfferedByUser2': r[5], 'cardOfferedByUser2Name': r[6], 'cardOfferedByUser2Image': r[7],
-                'confirmed': bool(r[8]), 'createdBy': r[9], 'confirmedBy': r[10], 'createdAt': str(r[11]) if r[11] else None
+                'initiatorID': r[1], 'responderID': r[2],
+                'cardOfferedByUser1': r[3], 'cardOfferedByUser1Name': r[4], 'cardOfferedByUser1Image': r[5],
+                'cardOfferedByUser2': r[6], 'cardOfferedByUser2Name': r[7], 'cardOfferedByUser2Image': r[8],
+                'status': status,
+                'confirmed': True if status == 'accepted' else False,
+                'createdBy': r[10], 'confirmedBy': r[11],
+                'dateCompleted': str(r[12]) if r[12] else None,
+                'createdAt': str(r[13]) if r[13] else None
             })
 
         return jsonify({'status': 'success', 'items': items, 'count': len(items)})
